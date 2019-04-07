@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.msg.dao.RadarDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insert" parameterType="Radar">
+        <!-- 获取自增id -->
+        <selectKey keyProperty="seq" resultType="Long" order="AFTER">
+            SELECT RADAR_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+        INSERT INTO
+        RADAR_INFO(GDRFILEPATH,GRDFILEPATH)
+        VALUES
+            (#{gdrFilePath},#{grdFilePath})
+    </insert>
+
+</mapper>

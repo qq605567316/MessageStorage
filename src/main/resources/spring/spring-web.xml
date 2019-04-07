@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+    <!-- 配置Handler -->
+    <!--<bean id="goodsController1" name="/queryGoods.action" class="com.tt.ssm.controller.GoodsController1"/>-->
+
+    <!-- 对于注解的Handler可以单个配置(多了就不方便,故采用下面方法一起配置) -->
+    <!--<bean class="com.tt.ssm.controller.GoodsController1"/>-->
+
+    <!-- 实际开发用组件扫描,可以扫描Controller,Service....这里扫描Controller -->
+    <context:component-scan base-package="com.tt.msg.controller"/>
+
+    <!-- ====================================非注解的映射器和适配器=========================================== -->
+    <!-- 所有的映射器都实现了HandlerMapping接口 -->
+    <!-- 处理器映射器(将bean的name作为url进行查找，需要在配置Handler时指定beanname(就是url)) -->
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+    <!-- 该映射器是注解的，还有非注解的(org.springframework.web.servlet.handler.SimpleUrlHandlerMapping) -->
+    <!-- 多个映射器可以并存，前端控制器判断能让那些映射器映射，就让正确的映射器处理 -->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+    <!--<property name="mappings">-->
+    <!--<props>-->
+    <!--&lt;!&ndash; 对goodsController1进行Url映射，url是/queryGoods1.action，/queryGoods2.action &ndash;&gt;-->
+    <!--<prop key="/queryGoods1.action">goodsController1</prop>-->
+    <!--<prop key="/queryGoods2.action">goodsController1</prop>-->
+    <!--</props>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!-- 处理器适配器(非注解的是处理器适配器，所有处理器适配器都实现HandlerAdapter接口) -->
+    <!--<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
+
+    <!-- ====================================注解的映射器和适配器=========================================== -->
+    <!--注解映射器-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+    <!--注解适配器-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
+
+    <!-- 使用mvc:annotation-driven代替上边注解映射器和注解适配器的配置(实际开发使用这种)
+         mvc:annotation-driven还默认加载了很多的参数绑定方法,比如json转换解析器 -->
+    <mvc:annotation-driven/>
+
+
+    <!-- 静态资源默认servlet配置
+        (1)加入对静态资源的处理：js,gif,png
+        (2)允许使用"/"做整体映射
+     -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 视图解析器(解析Jsp视图，默认使用jstl标签，classpath下的得有jstl的包) -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 由于实现了job无法注入service，故让其直接获取容器让后取出需要的service -->
+    <bean id="SpringApplicationContext" class="com.tt.msg.utils.ApplicationContextHelper"></bean>
+
+</beans>

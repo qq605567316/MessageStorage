@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.msg.dao.SurfaceObservationDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insert" parameterType="SurfaceObservation">
+        <!-- 获取自增id -->
+        <selectKey keyProperty="seq" resultType="Long" order="AFTER">
+            SELECT SOI_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+        INSERT INTO
+        SURFACE_OBS_INFO(SI,PP,TH,RE,WI,DT,VV,CW,SP,MR,MW,QC,Q1,Q2,Q3)
+        VALUES
+            (#{Si},#{Pp},#{Th},#{Re},#{Wi},#{Dt},#{Vv},#{Cw},#{Sp},#{Mr},#{Mw},#{Qc},#{Q1},#{Q2},#{Q3})
+    </insert>
+
+</mapper>

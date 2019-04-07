@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.msg.dao.RecordDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insert" parameterType="Record">
+        INSERT INTO
+        RECORD(TYPE,DELDATE,RESULT,FAILMSG,SUCSEQ,FILENAME)
+        VALUES
+            (#{type,jdbcType=VARCHAR},
+            #{delDate,jdbcType=TIMESTAMP},
+            #{result,jdbcType=VARCHAR},
+            #{failMsg,jdbcType=VARCHAR},
+            #{sucSeq,jdbcType=NUMERIC},
+            #{fileName,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getPage" resultType="Record">
+        SELECT *
+
+        FROM (SELECT ROWNUM AS rowno, r.*
+
+        FROM (SELECT *
+
+        FROM RECORD d WHERE 1=1
+
+        <if test='record.fileName != null'> AND d.FILENAME LIKE  '%' || #{record.fileName,jdbcType=VARCHAR} || '%'  </if>
+        <if test='record.type != null'> AND d.TYPE = #{record.type,jdbcType=VARCHAR} </if>
+        <if test='record.result != null'> AND d.RESULT = #{record.result,jdbcType=VARCHAR} </if>
+        <if test='record.startDate != null'> AND d.DELDATE &gt;= #{record.startDate,jdbcType=TIMESTAMP} </if>
+        <if test='record.endDate != null'> AND d.DELDATE &lt; #{record.endDate,jdbcType=TIMESTAMP} </if>
+
+        ) r
+
+        WHERE ROWNUM &lt;= #{endRow,jdbcType=INTEGER}) t
+
+        WHERE t.rowno &gt;= #{startRow,jdbcType=INTEGER}
+    </select>
+
+    <select id="getTotal" resultType="Integer" parameterType="RecordForm">
+        SELECT count(seq)
+
+        FROM RECORD WHERE 1=1
+
+        <if test='fileName != null'> AND FILENAME LIKE  '%' || #{fileName,jdbcType=VARCHAR} || '%'  </if>
+        <if test='type != null'> AND TYPE = #{type,jdbcType=VARCHAR} </if>
+        <if test='result != null'> AND RESULT = #{result,jdbcType=VARCHAR} </if>
+        <if test='startDate != null'> AND DELDATE &gt;= #{startDate,jdbcType=TIMESTAMP} </if>
+        <if test='endDate != null'> AND DELDATE &lt; #{endDate,jdbcType=TIMESTAMP} </if>
+    </select>
+
+</mapper>

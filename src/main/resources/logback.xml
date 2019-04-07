@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss}\t[%thread]\t%-5level\t%logger\t[%file:%line]\t[%X{logid}]\t%msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/MessageStorage.err.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- drone rollover -->
+            <fileNamePattern>
+                logs/MessageStorage.err.log.%d{yyyy-MM-dd}.gz
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss}\t[%thread]\t%-5level\t%logger\t[%file:%line]\t[%X{logid}]\t%msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/MessageStorage.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- drone rollover -->
+            <fileNamePattern>
+                logs/MessageStorage.log.%d{yyyy-MM-dd}.gz
+            </fileNamePattern>
+            <maxHistory>120</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss}\t[%thread]\t%-5level\t%logger\t[%file:%line]\t[%X{logid}]\t%msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.apache.mybatis">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="java.sql">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="com.tt.msg">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="java.sql.Connection">
+        <level value="WARN"/>
+    </logger>
+
+    <root>
+        <level value="DEBUG"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERR"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
