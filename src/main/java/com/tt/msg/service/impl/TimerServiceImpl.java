@@ -101,18 +101,19 @@ public class TimerServiceImpl implements TimerService {
      * @return
      */
     private boolean startUp(Timer timer) {
+        Long seq = timer.getSeq();
         String name = timer.getName();
         String type = timer.getType();
         String filePath = timer.getFilePath();
         String cronExpression = timer.getCronExpression();
         if (TIMER_TYPE_ONE.equals(type)) {
-            QuartzManager.addJob(name, FirstJob.class, cronExpression, filePath);
+            QuartzManager.addJob(seq, name, FirstJob.class, cronExpression, filePath);
             return true;
         } else if (TIMER_TYPE_TWO.equals(type)) {
-            QuartzManager.addJob(name, SecondJob.class, cronExpression, filePath);
+            QuartzManager.addJob(seq, name, SecondJob.class, cronExpression, filePath);
             return true;
         } else if(TIMER_TYPE_THREE.equals(type)){
-            QuartzManager.addJob(name, ThirdJob.class, cronExpression, filePath);
+            QuartzManager.addJob(seq, name, ThirdJob.class, cronExpression, filePath);
             return true;
         }else {
             //todo 抛异常

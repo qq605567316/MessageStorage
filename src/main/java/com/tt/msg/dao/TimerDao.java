@@ -66,6 +66,12 @@ public interface TimerDao {
     Integer queryTotal(@Param("name")String name,@Param("type")String type);
 
     /**
+     * 返回各定时器类型的失败与所有定时器数量
+     * @return
+     */
+    List<Integer> queryAllStatus();
+
+    /**
      * 查询所有
      * @return 返回所有定时器
      */
@@ -75,4 +81,6 @@ public interface TimerDao {
      * 用于初始化所有定时器状态为停止
      */
     void initTimers();
+
+
 }

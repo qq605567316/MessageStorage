@@ -17,24 +17,24 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>主页面</title>
-    <meta name="description" content="主页面">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="icon" type="image/png" href="${path}/resources/i/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="${path}/resources/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="${path}/resources/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <script src="${path}/resources/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="${path}/resources/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="${path}/resources/css/amazeui.datatables.min.css"/>
+    <link rel="stylesheet" href="${path}/resources/css/amazeui.min.css" />
+    <link rel="stylesheet" href="${path}/resources/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="${path}/resources/css/app.css">
     <script src="${path}/resources/js/jquery.min.js"></script>
 
 </head>
 
-<body data-type="index">
+<body data-type="chart">
 <script src="${path}/resources/js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
@@ -112,7 +112,6 @@
         </ul>
     </div>
 
-
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
 
@@ -122,15 +121,16 @@
                     <div class="page-header-heading">
                         <span class="am-icon-home sidebar-nav-link-logo"></span> 主页面
                     </div>
-                    <p class="page-header-description">此页面为定时器情况的展示及公告安排</p>
+                    <p class="page-header-description">此页面为定时器情况的展示</p>
                 </div>
             </div>
 
         </div>
 
         <div class="row-content am-cf">
+
             <div class="row  am-cf">
-                <div class="am-u-sm-12 am-u-md-6">
+                <div class="am-u-sm-12 am-u-md-6 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
                             <div class="widget-title am-fl">定时器</div>
@@ -140,17 +140,20 @@
                         </div>
                         <div class="widget-body widget-body-md am-fr">
 
-                            <div class="am-progress-title">类型一 <span class="am-fr am-progress-title-more">28% / 100%</span>
+                            <div class="am-progress-title">类型一 <span
+                                    class="am-fr am-progress-title-more">28% / 100%</span>
                             </div>
                             <div class="am-progress">
                                 <div class="am-progress-bar" style="width: 15%"></div>
                             </div>
-                            <div class="am-progress-title">类型二 <span class="am-fr am-progress-title-more">28% / 100%</span>
+                            <div class="am-progress-title">类型二 <span
+                                    class="am-fr am-progress-title-more">28% / 100%</span>
                             </div>
                             <div class="am-progress">
                                 <div class="am-progress-bar  am-progress-bar-warning" style="width: 75%"></div>
                             </div>
-                            <div class="am-progress-title">类型三  <span class="am-fr am-progress-title-more">28% / 100%</span>
+                            <div class="am-progress-title">类型三 <span
+                                    class="am-fr am-progress-title-more">28% / 100%</span>
                             </div>
                             <div class="am-progress">
                                 <div class="am-progress-bar am-progress-bar-danger" style="width: 35%"></div>
@@ -158,76 +161,49 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="am-u-sm-12 am-u-md-6">
-                    <div class="widget am-cf">
-                        <div class="widget-head am-cf">
-                            <div class="widget-title am-fl">记录</div>
-                            <div class="widget-function am-fr">
-                                <span class="am-fr am-progress-title-more">成功 / 全部</span>
-                            </div>
-                        </div>
-                        <div class="widget-body widget-body-md am-fr">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl">最近7天类型一定时器处理数据情况</div>
+                </div>
+                <div class="widget-body am-fr">
+                    <div style="height: 400px" id="tpl-echarts-A">
 
-                            <div class="am-progress-title">类型一 <span class="am-fr am-progress-title-more">28% / 100%</span>
-                            </div>
-                            <div class="am-progress">
-                                <div class="am-progress-bar" style="width: 15%"></div>
-                            </div>
-                            <div class="am-progress-title">类型二 <span class="am-fr am-progress-title-more">28% / 100%</span>
-                            </div>
-                            <div class="am-progress">
-                                <div class="am-progress-bar  am-progress-bar-warning" style="width: 75%"></div>
-                            </div>
-                            <div class="am-progress-title">类型三  <span class="am-fr am-progress-title-more">28% / 100%</span>
-                            </div>
-                            <div class="am-progress">
-
-                                <div class="am-progress-bar am-progress-bar-danger" style="width: 35%"></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
             </div>
 
-            <div class="row am-cf">
-
-                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12 widget-margin-bottom-lg">
-
-                    <div class="widget am-cf widget-body-lg">
-
-                        <div class="widget-body  am-fr">
-                            <div class="am-scrollable-horizontal ">
-
-
-
-                            </div>
-                        </div>
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl">最近7天类型二定时器处理数据情况</div>
+                </div>
+                <div class="widget-body am-fr">
+                    <div style="height: 400px" id="tpl-echarts-B">
 
                     </div>
-
-
                 </div>
             </div>
-        </div>
 
-        <div class="row-content am-cf" id="tpl-echarts">
-            <div class="row  am-cf">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl">最近7天类型三定时器处理数据情况</div>
+                </div>
+                <div class="widget-body am-fr">
+                    <div style="height: 400px" id="tpl-echarts-C">
 
+                    </div>
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
-
-
-    <script src="${path}/resources/js/amazeui.min.js"></script>
-    <script src="${path}/resources/js/amazeui.datatables.min.js"></script>
-    <script src="${path}/resources/js/dataTables.responsive.min.js"></script>
-    <script src="${path}/resources/js/app.js"></script>
-    <script src="${path}/resources/js/main/main.js"></script>
-    <script src="${path}/resources/js/main/add.js"></script>
+</div>
+<script src="${path}/resources/js/amazeui.min.js"></script>
+<script src="${path}/resources/js/amazeui.datatables.min.js"></script>
+<script src="${path}/resources/js/dataTables.responsive.min.js"></script>
+<script src="${path}/resources/js/app.js"></script>
 
 </body>
 

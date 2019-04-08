@@ -36,12 +36,13 @@ public class QuartzManager {
      *
      * @Title: QuartzManager.java
      */
-    public static void addJob(String jobName, @SuppressWarnings("rawtypes") Class jobClass, String time, String filePath) {
+    public static void addJob(Long timerSeq, String jobName, @SuppressWarnings("rawtypes") Class jobClass, String time, String filePath) {
         try {
             Scheduler sched = schedulerFactory.getScheduler();
             JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName,JOB_GROUP_NAME).build();
             JobDataMap jobDataMap = jobDetail.getJobDataMap();
             jobDataMap.put("filePath",filePath);
+            jobDataMap.put("timerSeq",timerSeq);
             // 触发器
             CronTrigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(TriggerKey.triggerKey(jobName, TRIGGER_GROUP_NAME))
@@ -75,13 +76,14 @@ public class QuartzManager {
      *
      * @Title: QuartzManager.java
      */
-    public static void addJob(String jobName, String jobGroupName,
+    public static void addJob(Long timerSeq, String jobName, String jobGroupName,
             String triggerName, String triggerGroupName, @SuppressWarnings("rawtypes") Class jobClass, String time,String filePath) {
         try {
             Scheduler sched = schedulerFactory.getScheduler();
             JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName,jobGroupName).build();
             JobDataMap jobDataMap = jobDetail.getJobDataMap();
             jobDataMap.put("filePath",filePath);
+            jobDataMap.put("timerSeq",timerSeq);
             // 触发器
             CronTrigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(TriggerKey.triggerKey(triggerName, triggerGroupName))
@@ -118,25 +120,25 @@ public class QuartzManager {
             if (!oldTime.equalsIgnoreCase(time)) {
                 /** 方式一 ：调用 rescheduleJob 开始 */
                 // 触发器
-                //TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
+                TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
                 // 触发器名,触发器组
-                //triggerBuilder.withIdentity(TRIGGER_NAME, TRIGGER_GROUP_NAME);
+                triggerBuilder.withIdentity(TRIGGER_NAME, TRIGGER_GROUP_NAME);
                 //triggerBuilder.startNow();
                 // 触发器时间设定
-                //triggerBuilder.withSchedule(CronScheduleBuilder.cronSchedule(time));
+                triggerBuilder.withSchedule(CronScheduleBuilder.cronSchedule(time));
                 // 创建Trigger对象
-                //trigger = (CronTrigger) triggerBuilder.build();
+                trigger = (CronTrigger) triggerBuilder.build();
                 // 方式一 ：修改一个任务的触发时间
-                //sched.rescheduleJob(triggerKey, trigger);
+                sched.rescheduleJob(triggerKey, trigger);
                 /** 方式一 ：调用 rescheduleJob 结束 */
 
                 /** 方式二：先删除，然后在创建一个新的Job 开始 */
-                JobDetail jobDetail = sched.getJobDetail(JobKey.jobKey(jobName, JOB_GROUP_NAME));
-                JobDataMap jobDataMap = jobDetail.getJobDataMap();
-                String filePath = (String) jobDataMap.get("filePath");
-                Class<? extends Job> jobClass = jobDetail.getJobClass();
-                removeJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME);
-                addJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME, jobClass, time, filePath);
+//                JobDetail jobDetail = sched.getJobDetail(JobKey.jobKey(jobName, JOB_GROUP_NAME));
+//                JobDataMap jobDataMap = jobDetail.getJobDataMap();
+//                String filePath = (String) jobDataMap.get("filePath");
+//                Class<? extends Job> jobClass = jobDetail.getJobClass();
+//                removeJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME);
+//                addJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME, jobClass, time, filePath);
                 /** 方式二 ：先删除，然后在创建一个新的Job 结束 */
             }
         } catch (Exception e) {

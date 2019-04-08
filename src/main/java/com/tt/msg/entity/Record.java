@@ -18,6 +18,10 @@ public class Record {
      */
     private Long seq;
     /**
+     * 处理的定时器的序列号
+     */
+    private Long timerSeq;
+    /**
      * 处理的文件名
      */
     private String fileName;
@@ -51,7 +55,8 @@ public class Record {
      * @param fileName
      * @param failMsg
      */
-    public Record(String fileName, String type, String failMsg) {
+    public Record(Long timerSeq, String fileName, String type, String failMsg) {
+        this.timerSeq = timerSeq;
         this.delDate = new Timestamp(System.currentTimeMillis());
         this.fileName = fileName;
         this.type = type;
@@ -65,7 +70,8 @@ public class Record {
      * @param fileName
      * @param sucSeq
      */
-    public Record(String fileName, String type, Long sucSeq) {
+    public Record(Long timerSeq, String fileName, String type, Long sucSeq) {
+        this.timerSeq = timerSeq;
         this.delDate = new Timestamp(System.currentTimeMillis());
         this.fileName = fileName;
         this.type = type;
@@ -79,6 +85,14 @@ public class Record {
 
     public void setSeq(Long seq) {
         this.seq = seq;
+    }
+
+    public Long getTimerSeq() {
+        return timerSeq;
+    }
+
+    public void setTimerSeq(Long timerSeq) {
+        this.timerSeq = timerSeq;
     }
 
     public String getFileName() {

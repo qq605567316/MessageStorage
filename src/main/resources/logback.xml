@@ -53,11 +53,19 @@
     </logger>
 
     <logger name="com.tt.msg">
-        <level value="ERROR"/>
+        <level value="DEBUG"/>
     </logger>
 
     <logger name="java.sql.Connection">
         <level value="WARN"/>
+    </logger>
+
+    <logger name="org.quartz.core.QuartzSchedulerThread">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="org.apache.ibatis">
+        <level value="DEBUG"/>
     </logger>
 
     <root>

@@ -6,14 +6,15 @@
     <!-- 目的：为dao接口方法提供sql语句配置 -->
     <insert id="insert" parameterType="Record">
         INSERT INTO
-        RECORD(TYPE,DELDATE,RESULT,FAILMSG,SUCSEQ,FILENAME)
+        RECORD(TYPE,DELDATE,RESULT,FAILMSG,SUCSEQ,FILENAME,TIMERSEQ)
         VALUES
             (#{type,jdbcType=VARCHAR},
             #{delDate,jdbcType=TIMESTAMP},
             #{result,jdbcType=VARCHAR},
             #{failMsg,jdbcType=VARCHAR},
             #{sucSeq,jdbcType=NUMERIC},
-            #{fileName,jdbcType=VARCHAR})
+            #{fileName,jdbcType=VARCHAR},
+            #{timerSeq,jdbcType=NUMERIC})
     </insert>
 
     <select id="getPage" resultType="Record">

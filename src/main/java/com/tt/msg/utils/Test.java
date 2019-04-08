@@ -1,6 +1,7 @@
 package com.tt.msg.utils;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -114,10 +115,14 @@ public class Test {
 //            System.out.println("哈哈哈哈哈哈哈哈哈哈哈哈哈");
 //        }
 
-        File f = new File("G:\\哈哈\\test\\20140729_185240\\20140729_185240.gdr.png");
-        System.out.println(f.getName());
-        System.out.println(f.getAbsolutePath());
-        System.out.println(new Date());
+//        File f = new File("G:\\哈哈\\test\\20140729_185240\\20140729_185240.gdr.png");
+//        System.out.println(f.getName());
+//        System.out.println(f.getAbsolutePath());
+//        System.out.println(new Date());
+
+        ArrayList<Timestamp> s = new ArrayList<Timestamp>();
+        s = DateString.getPastDays(7);
+        System.out.println(s);
 
     }
 

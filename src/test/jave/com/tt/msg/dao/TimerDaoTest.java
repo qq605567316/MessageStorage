@@ -47,4 +47,10 @@ public class TimerDaoTest extends BaseTest {
         List<Timer> timers = timerDao.queryPage("","",1,6);
         System.out.println(timers.size());
     }
+
+    @Test
+    public void queryAllStatus(){
+        List<Integer> list = timerDao.queryAllStatus();
+        System.out.println(list);
+    }
 }

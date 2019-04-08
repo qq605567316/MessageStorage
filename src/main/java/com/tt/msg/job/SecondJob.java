@@ -51,6 +51,7 @@ public class SecondJob implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Long timerSeq = (Long) jobExecutionContext.getJobDetail().getJobDataMap().get("timerSeq");
         String filePath = (String) jobExecutionContext.getJobDetail().getJobDataMap().get("filePath");
         File dir = new File(filePath);
         FileFilter fileFilter = new FileFilter() {
@@ -64,7 +65,7 @@ public class SecondJob implements Job {
         File[] files = dir.listFiles(fileFilter);
         //每个文件单独处理
         for (File file : files) {
-            this.dealFile(file);
+            this.dealFile(file,timerSeq);
         }
     }
 
@@ -72,7 +73,7 @@ public class SecondJob implements Job {
      * 具体的处理方法
      * @param file
      */
-    private void dealFile(File file) {
+    private void dealFile(File file, Long timerSeq) {
         //正在处理的源文件路径
         String filePath = file.getParent();
         //成功文件夹
@@ -95,7 +96,7 @@ public class SecondJob implements Job {
                 //放入失败文件夹
                 FileUtils.moveFile(file,failFile);
                 //保存解压失败记录
-                Record record = new Record(filePath,"1","文件解压失败");
+                Record record = new Record(timerSeq, filePath,"1","文件解压失败");
                 recordService.insert(record);
                 return;
             }
@@ -138,13 +139,13 @@ public class SecondJob implements Job {
                 radarService.insert(radar);
                 Long sucSeq = radar.getSeq();
                 //放入记录表
-                Record record = new Record(sucPath,"1",sucSeq);
+                Record record = new Record(timerSeq, sucPath,"1",sucSeq);
                 recordService.insert(record);
                 //放入历史文件夹
                 FileUtils.moveFile(file,successFile);
             }else{
                 dealAll(dealPath);
-                Record record = new Record(failPath,"1","处理成png图片时失败！");
+                Record record = new Record(timerSeq, failPath,"1","处理成png图片时失败！");
                 recordService.insert(record);
                 //放入失败文件夹
                 FileUtils.moveFile(file,failFile);

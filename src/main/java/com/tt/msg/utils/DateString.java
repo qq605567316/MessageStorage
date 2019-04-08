@@ -357,4 +357,63 @@ public class DateString {
         }
         return list;
     }
+
+    /**
+     * 获取未来 第 past 天的日期
+     * @param past
+     * @return
+     */
+    public static Timestamp getFetureDate(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String strTime = format.format(today);
+        strTime += " 00:00:00";
+        Timestamp result = Timestamp.valueOf(strTime);
+        return result;
+    }
+
+    /**
+     * 获取过去第几天的日期
+     *
+     * @param past
+     * @return
+     */
+    public static Timestamp getPastDate(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat(simpPatn);
+        String strTime = format.format(today);
+        strTime += " 00:00:00";
+        Timestamp result = Timestamp.valueOf(strTime);
+        return result;
+    }
+
+    /**
+     * 获取过去 任意天内的日期数组
+     * @param intervals      intervals天内
+     * @return              日期数组
+     */
+    public static ArrayList<Timestamp> getPastDays(int intervals) {
+        ArrayList<Timestamp> pastDaysList = new ArrayList<>();
+        for (int i = 0; i <intervals; i++) {
+            pastDaysList.add(getPastDate(i));
+        }
+        return pastDaysList;
+    }
+
+    /**
+     * 获取未来 任意天内的日期数组
+     * @param intervals      intervals天内
+     * @return              日期数组
+     */
+    public static ArrayList<Timestamp> getFetureDays(int intervals) {
+        ArrayList<Timestamp> feturetDaysList = new ArrayList<>();
+        for (int i = 0; i <intervals; i++) {
+            feturetDaysList.add(getFetureDate(i));
+        }
+        return feturetDaysList;
+    }
 }

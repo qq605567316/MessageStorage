@@ -58,6 +58,7 @@ public class FirstJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         String filePath = (String) jobExecutionContext.getJobDetail().getJobDataMap().get("filePath");
+        Long timerSeq = (Long) jobExecutionContext.getJobDetail().getJobDataMap().get("timerSeq");
         File dir = new File(filePath);
         FileFilter fileFilter = new FileFilter() {
             @Override
@@ -70,7 +71,7 @@ public class FirstJob implements Job {
         File[] files = dir.listFiles(fileFilter);
         //每个文件单独处理
         for (File file : files) {
-            this.dealFile(file, filePath);
+            this.dealFile(file, filePath, timerSeq);
         }
     }
 
@@ -78,7 +79,7 @@ public class FirstJob implements Job {
      * 具体的处理方法
      * @param file
      */
-    private void dealFile(File file, String filePath){
+    private void dealFile(File file, String filePath, Long timerSeq){
         //成功文件夹
         File successFile = new File(filePath + successPath + DateString.getFileDefaultString(new Date()) + "_" + file.getName());
         //获取处理成功时文件的路径
@@ -115,10 +116,10 @@ public class FirstJob implements Job {
                 String result = surfaceObservationService.insert(surfaceObservation);
                 if("s".equals(result)){
                     Long sucSeq = surfaceObservation.getSeq();
-                    Record record = new Record(sucPath, "0", sucSeq);
+                    Record record = new Record(timerSeq, sucPath, "0", sucSeq);
                     recordService.insert(record);
                 }else {
-                    Record record = new Record(failPath,"0", result);
+                    Record record = new Record(timerSeq, failPath,"0", result);
                     recordService.insert(record);
                 }
             }
@@ -126,7 +127,7 @@ public class FirstJob implements Job {
             FileUtils.moveFile(file,successFile);
         } catch (IOException e) {
             try {
-                Record record = new Record(failPath,"0",e.getMessage());
+                Record record = new Record(timerSeq, failPath,"0",e.getMessage());
                 recordService.insert(record);
                 //放入类型一解析失败文件夹
                 FileUtils.moveFile(file,failFile);
