@@ -63,6 +63,9 @@ public class SecondJob implements Job {
         };
         //获取所有同类文件
         File[] files = dir.listFiles(fileFilter);
+        if(files == null){
+            return;
+        }
         //每个文件单独处理
         for (File file : files) {
             this.dealFile(file,timerSeq);
@@ -87,10 +90,11 @@ public class SecondJob implements Job {
         //获取处理文件失败时的路径
         String failPath = failFile.getAbsolutePath();
 
+        String dealPath = "";
 
         try {
             //解压并返回解压后的路径
-            String dealPath = this.unZipFiles(file);
+            dealPath = this.unZipFiles(file);
             //若解压失败
             if("-1".equals(dealPath)){
                 //放入失败文件夹
@@ -152,6 +156,16 @@ public class SecondJob implements Job {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            dealAll(file.getAbsolutePath());
+            Record record = new Record(timerSeq, failPath,"1",e.getMessage());
+            recordService.insert(record);
+            //放入失败文件夹
+            try {
+                FileUtils.moveFile(file,failFile);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                LOGGER.debug(e.getMessage());
+            }
         }
 
     }
@@ -283,6 +297,7 @@ public class SecondJob implements Job {
 
         } catch (Exception e) {
             e.printStackTrace();
+            LOGGER.debug(e.getMessage());
         }
     }
 }

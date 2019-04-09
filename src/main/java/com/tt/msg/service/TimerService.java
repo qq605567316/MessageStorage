@@ -79,4 +79,10 @@ public interface TimerService {
      * 用于初始化定时器状态
      */
     public void initTimers();
+
+    /**
+     * 返回各定时器类型的失败与所有定时器数量
+     * @return
+     */
+    List<Integer> queryAllStatus();
 }

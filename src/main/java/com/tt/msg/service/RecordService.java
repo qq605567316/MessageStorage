@@ -4,6 +4,7 @@ import com.tt.msg.entity.Record;
 import com.tt.msg.entity.RecordForm;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @InterfaceName Record
@@ -33,4 +34,10 @@ public interface RecordService {
      * @return
      */
     int getTotal(RecordForm recordForm);
+
+    /**
+     * 获取作图信息
+     * @return
+     */
+    Map<String, Object> getTableInfo();
 }

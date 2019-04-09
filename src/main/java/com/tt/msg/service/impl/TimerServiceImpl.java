@@ -84,6 +84,11 @@ public class TimerServiceImpl implements TimerService {
     }
 
     @Override
+    public List<Integer> queryAllStatus() {
+        return timerDao.queryAllStatus();
+    }
+
+    @Override
     public void changeStatus(Long seq, String status) {
         Timer timer = timerDao.queryBySeq(seq);
         if (STATUS_TO_RUN.equals(status)) {

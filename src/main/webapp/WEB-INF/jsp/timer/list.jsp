@@ -252,6 +252,38 @@
     </div>
 </div>
 
+<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt3">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">定时器信息:</div>
+        <form enctype="multipart/form-data">
+            <div class="am-modal-bd">
+                <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">报文类型</label>
+                <select data-am-selected name="type" id="viewtype" disabled="disabled">
+                    <%--<select name="type" id="edittype">--%>
+                    <option value="0">类型一</option>
+                    <option value="1">类型二</option>
+                    <option value="2">类型三</option>
+                </select>
+            </div>
+            <div class="am-modal-bd">
+                <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">名称</label>
+                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="定时器名称" name="name" id="viewname" maxlength="6">
+            </div>
+            <div class="am-modal-bd">
+                <a href="http://cron.qqe2.com/" target="_blank" for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析频次</a>
+                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="cron表达式" name="cronExpression" id="viewExpression">
+            </div>
+            <div class="am-modal-bd">
+                <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析路径</label>
+                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="解析路径" name="filePath" id="viewfilePath">
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>退出</span>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
     <div class="am-modal-dialog">
         <div class="am-modal-hd">删除定时器</div>

@@ -5,6 +5,7 @@ import com.tt.msg.entity.RecordForm;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @InterfaceName RecordDao
@@ -37,4 +38,11 @@ public interface RecordDao {
      * @return
      */
     int getTotal(RecordForm recordForm);
+
+    /**
+     * 获取作图需要的信息
+     * @param list
+     * @return
+     */
+    List<Integer> getTableInfo(List<Map<String,Object>> list);
 }

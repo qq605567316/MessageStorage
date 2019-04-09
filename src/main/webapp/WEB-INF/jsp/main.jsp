@@ -121,7 +121,7 @@
                     <div class="page-header-heading">
                         <span class="am-icon-home sidebar-nav-link-logo"></span> 主页面
                     </div>
-                    <p class="page-header-description">此页面为定时器情况的展示</p>
+                    <p class="page-header-description">此页面展示定时器情况及最近7天各定时器处理的记录情况</p>
                 </div>
             </div>
 
@@ -141,22 +141,22 @@
                         <div class="widget-body widget-body-md am-fr">
 
                             <div class="am-progress-title">类型一 <span
-                                    class="am-fr am-progress-title-more">28% / 100%</span>
+                                    class="am-fr am-progress-title-more"><label id="s1">14</label> / <label id="a1">20</label></span>
                             </div>
                             <div class="am-progress">
-                                <div class="am-progress-bar" style="width: 15%"></div>
+                                <div class="am-progress-bar" id="d1"></div>
                             </div>
                             <div class="am-progress-title">类型二 <span
-                                    class="am-fr am-progress-title-more">28% / 100%</span>
+                                    class="am-fr am-progress-title-more"><label id="s2"></label> / <label id="a2"></label></span>
                             </div>
                             <div class="am-progress">
-                                <div class="am-progress-bar  am-progress-bar-warning" style="width: 75%"></div>
+                                <div class="am-progress-bar  am-progress-bar-warning" id="d2"></div>
                             </div>
                             <div class="am-progress-title">类型三 <span
-                                    class="am-fr am-progress-title-more">28% / 100%</span>
+                                    class="am-fr am-progress-title-more"><label id="s3"></label> / <label id="a3"></label></span>
                             </div>
                             <div class="am-progress">
-                                <div class="am-progress-bar am-progress-bar-danger" style="width: 35%"></div>
+                                <div class="am-progress-bar am-progress-bar-danger" id="d3"></div>
                             </div>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
 <script src="${path}/resources/js/amazeui.min.js"></script>
 <script src="${path}/resources/js/amazeui.datatables.min.js"></script>
 <script src="${path}/resources/js/dataTables.responsive.min.js"></script>
-<script src="${path}/resources/js/app.js"></script>
+<script src="${path}/resources/js/main/tabledata.js"></script>
 
 </body>
 

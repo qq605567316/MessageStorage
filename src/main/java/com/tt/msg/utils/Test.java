@@ -120,10 +120,43 @@ public class Test {
 //        System.out.println(f.getAbsolutePath());
 //        System.out.println(new Date());
 
-        ArrayList<Timestamp> s = new ArrayList<Timestamp>();
-        s = DateString.getPastDays(7);
-        System.out.println(s);
+//        ArrayList<Map<String,Object>> lists = new ArrayList<Map<String,Object>>();
+//        for (int k = 0; k < 3; k++) {
+//            Map<String,Object> map = new HashMap<String,Object>();
+//            map.put("type",""+k);
+//            for (int j = 0; j < 2; j++) {
+//                map.put("result",""+j);
+//                for (int i = 6; i >= 0; i--) {
+//                    Map<String,Object> map1 = new HashMap<String,Object>();
+//                    map.put("startDate",DateString.getPastDate(i));
+//                    map.put("endDate",DateString.getPastDate(i-1));
+//                    map1.putAll(map);
+//                    lists.add(map1);
+//                }
+//            }
+//        }
+//        System.out.println(lists);
 
+//        List<Integer> list = new ArrayList<Integer>();
+//        list.add(1);
+//        list.add(2);
+//        list.add(2);
+//        list.add(3);
+//        list.add(1);
+//        list.add(5);
+//        list.add(6);
+//        list.add(7);
+//        list.add(8);
+//        list.add(9);
+//        list.add(12);
+//        System.out.println(list.subList(0,1));
+//        System.out.println(list.subList(0,2));
+//        System.out.println(list.subList(0,3));
+//        System.out.println(list.subList(0,5));
+//        System.out.println(list.subList(2,4));
+
+        ArrayList<String> list1 = DateString.getX(7);
+        System.out.println(list1);
     }
 
 }

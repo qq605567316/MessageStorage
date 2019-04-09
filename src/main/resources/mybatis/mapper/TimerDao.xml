@@ -93,12 +93,12 @@
     </select>
 
     <select id="queryAllStatus" parameterType="Integer" resultType="Integer">
-        (select count(seq) from TIMER where type='0' and status='1') union all
         (select count(seq) from TIMER where type='0' and status='0') union all
-        (select count(seq) from TIMER where type='1' and status='1') union all
+        (select count(seq) from TIMER where type='0') union all
         (select count(seq) from TIMER where type='1' and status='0') union all
-        (select count(seq) from TIMER where type='2' and status='1') union all
-        (select count(seq) from TIMER where type='2' and status='0')
+        (select count(seq) from TIMER where type='1') union all
+        (select count(seq) from TIMER where type='2' and status='0') union all
+        (select count(seq) from TIMER where type='2')
     </select>
 
 </mapper>

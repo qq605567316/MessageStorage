@@ -52,12 +52,38 @@ function edittimer(seq,status) {
                         contentType: 'application/json;charset=utf-8',
                         success: function (data) {
                             alert(data.msg);
-                            window.location.href = '/MessageStorage/timer/list.action';
+                            window.location.reload();
                         }
                     });
                 },
                 onCancel: function () {
                     alert('取消编辑定时器信息!');
+                }
+            });
+        });
+
+}
+
+//点击查看调用
+function viewtimer(seq) {
+    $.getJSON('/MessageStorage/timer/getBySeq.action?seq=' + seq,
+        function (data) {
+            if(!data.success){
+                alert(data.msg);
+                window.location.href = '/MessageStorage/timer/list.action';
+            }
+            $("#viewtype").find("option[value='" + data.timer.type + "']").attr("selected", true);
+            $("#viewtype").trigger('changed.selected.amui');
+            $('#viewname').val(data.timer.name);
+            $('#viewExpression').val(data.timer.cronExpression);
+            $('#viewfilePath').val(data.timer.filePath);
+            $('#my-prompt3').modal({
+                relatedTarget: this,
+                onConfirm: function () {
+
+                },
+                onCancel: function () {
+
                 }
             });
         });
@@ -70,7 +96,7 @@ function change(seq,status) {
         type: 'GET',
         success: function (data) {
             alert(data.msg);
-            window.location.href = '/MessageStorage/timer/list.action';
+            window.location.reload();
         }
     });
 }
@@ -115,9 +141,9 @@ function list(page, data) {
             "      </li>");
     }
     for (var i = 0; i < list.length; i++) {
-        var status = "<a class='am-btn am-btn-default' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 0 + "')>" + "未执行</a>";
+        var status = "<a class='am-btn am-btn-default' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 0 + "')>" + "未执行</a>&nbsp;&nbsp;&nbsp;&nbsp;";
         if(list[i].status == "0"){
-            status = "<a class='am-btn am-btn-success' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 1 + "')>" + "执行中</a>";
+            status = "<a class='am-btn am-btn-success' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 1 + "')>" + "执行中</a>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
 
         if(i == 3 || i == 6){
@@ -127,13 +153,17 @@ function list(page, data) {
 
         html = "<div class=\"am-u-sm-12 am-u-md-6 am-u-lg-4 am-u-end\">"+
             "<div class=\"widget widget-purple am-cf\">"+
-            "<div class=\"widget-statistic-header\">"+status+
+            "<div style=\"width: 50%\">"+status + getType(list[i].type) +
             "</div>"+
             "<div class=\"widget-statistic-body\">"+
             "<div class=\"widget-statistic-value\">"+
-            getType(list[i].type) + list[i].name +
+            "<small>"+list[i].name +"</small>"+
             "</div>"+
             "<div class=\"widget-statistic-description\">"+
+            "<a href=\"javascript:;\" class=\"am-btn am-btn-secondary\" onclick= viewtimer('" + list[i].seq + "')>" +
+            "<i class=\"am-icon-eye\"></i> 查看" +
+            "</a>&nbsp;&nbsp;&nbsp;&nbsp;" +
+
             "<a href=\"javascript:;\" class=\"am-btn am-btn-warning\" onclick= edittimer('" + list[i].seq + "','" + list[i].status + "')>" +
             "<i class=\"am-icon-pencil\"></i> 编辑" +
             "</a>&nbsp;&nbsp;&nbsp;&nbsp;" +
@@ -142,8 +172,8 @@ function list(page, data) {
             "<i class=\"am-icon-trash\"></i> 删除" +
             "</a>" +
             "</div>"+
-            "<a href=\"javascript:;\" onclick=change('" + list[i].seq + "')>" +
-            "<span class=\"widget-statistic-icon am-icon-support\"></span>"+
+            "<a href=\"javascript:;\">" +
+            "<span class=\"widget-statistic-icon am-icon-bar-chart\" style=\"z-index:99\" onclick=tabletimer('" + list[i].seq + "')></span>"+
             "</a></div></div></div>";
         $("#html").append(html);
 
@@ -169,7 +199,7 @@ function deltimer(seq,status) {
                 type: 'GET',
                 success: function (data) {
                     alert(data.msg);
-                    window.location.href = '/MessageStorage/timer/list.action';
+                    window.location.reload();
                 }
             });
 
@@ -183,11 +213,11 @@ function deltimer(seq,status) {
 
 function getType(type) {
     if(type == "0"){
-        return "一 - ";
+        return "类型一";
     }else if(type == "1"){
-        return "二 - ";
+        return "类型二";
     }else if(type == "2"){
-        return "三 - ";
+        return "类型三";
     }else {
         return "未知 - ";
     }
@@ -196,4 +226,31 @@ function getType(type) {
 function selectFunc(){
     var page = $('select  option:selected').val();
     getlist(page);
+}
+
+//点击绘图调用
+function tabletimer(seq) {
+    alert(seq);
+    // $.getJSON('/MessageStorage/timer/getBySeq.action?seq=' + seq,
+    //     function (data) {
+    //         if (!data.success) {
+    //             alert(data.msg);
+    //             window.location.href = '/MessageStorage/timer/list.action';
+    //         }
+    //         $("#viewtype").find("option[value='" + data.timer.type + "']").attr("selected", true);
+    //         $("#viewtype").trigger('changed.selected.amui');
+    //         $('#viewname').val(data.timer.name);
+    //         $('#viewExpression').val(data.timer.cronExpression);
+    //         $('#viewfilePath').val(data.timer.filePath);
+    //         $('#my-prompt3').modal({
+    //             relatedTarget: this,
+    //             onConfirm: function () {
+    //
+    //             },
+    //             onCancel: function () {
+    //
+    //             }
+    //         });
+    //     });
+
 }

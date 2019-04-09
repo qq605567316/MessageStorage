@@ -8,10 +8,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName DateString
@@ -127,8 +124,9 @@ public class DateString {
             String mon = str.substring(5, 7);
             String day = str.substring(8, 10);
             ca.set(Integer.parseInt(year), Integer.parseInt(mon) - 1, Integer.parseInt(day));
-        } else
+        } else {
             return null;
+        }
         //System.out.println(ca.getTime());
         return ca.getTime();
 
@@ -231,11 +229,13 @@ public class DateString {
      * @author liboc
      */
     public static Date strToDate(final String str, String dateFormat) {
-        if (str == null || str.trim().length() == 0)
+        if (str == null || str.trim().length() == 0) {
             return null;
+        }
         try {
-            if (dateFormat == null || dateFormat.length() == 0)
+            if (dateFormat == null || dateFormat.length() == 0) {
                 dateFormat = "yyyy-MM-dd HH:mm:ss";
+            }
             DateFormat fmt = new SimpleDateFormat(dateFormat);
 
             return fmt.parse(str.trim());
@@ -271,8 +271,9 @@ public class DateString {
             String mon = str.substring(4, 6);
             String day = str.substring(6, 8);
             result = year + "-" + mon + "-" + day;
-        } else
+        } else {
             return null;
+        }
         //System.out.println(ca.getTime());
         return result;
 
@@ -376,7 +377,6 @@ public class DateString {
 
     /**
      * 获取过去第几天的日期
-     *
      * @param past
      * @return
      */
@@ -392,12 +392,38 @@ public class DateString {
     }
 
     /**
+     * 获取过去第几天的日期
+     * @param past
+     * @return
+     */
+    public static String getPast(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat(simpPatn);
+        return format.format(today);
+    }
+
+    /**
+     * 获取过去最近num天的data的String
+     * @param num
+     * @return
+     */
+    public static ArrayList<String> getX(int num){
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = num-1; i >=0; i--) {
+            list.add(getPast(i));
+        }
+        return list;
+    }
+
+    /**
      * 获取过去 任意天内的日期数组
      * @param intervals      intervals天内
      * @return              日期数组
      */
     public static ArrayList<Timestamp> getPastDays(int intervals) {
-        ArrayList<Timestamp> pastDaysList = new ArrayList<>();
+        ArrayList<Timestamp> pastDaysList = new ArrayList<Timestamp>();
         for (int i = 0; i <intervals; i++) {
             pastDaysList.add(getPastDate(i));
         }
@@ -410,10 +436,26 @@ public class DateString {
      * @return              日期数组
      */
     public static ArrayList<Timestamp> getFetureDays(int intervals) {
-        ArrayList<Timestamp> feturetDaysList = new ArrayList<>();
+        ArrayList<Timestamp> feturetDaysList = new ArrayList<Timestamp>();
         for (int i = 0; i <intervals; i++) {
             feturetDaysList.add(getFetureDate(i));
         }
         return feturetDaysList;
+    }
+
+    /**
+     * 获取最近intervals天 的开始与结束时间段
+     * @param intervals
+     * @return
+     */
+    public static ArrayList<Map<String,Object>> getDays(int intervals){
+        ArrayList<Map<String,Object>> lists = new ArrayList<Map<String,Object>>();
+        for (int i = intervals-1; i >= 0; i++) {
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("startDate",getPastDate(i));
+            map.put("endDate",getPastDate(i-1));
+            lists.add(map);
+        }
+        return lists;
     }
 }

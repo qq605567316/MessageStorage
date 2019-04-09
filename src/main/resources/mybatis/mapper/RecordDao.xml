@@ -51,4 +51,11 @@
         <if test='endDate != null'> AND DELDATE &lt; #{endDate,jdbcType=TIMESTAMP} </if>
     </select>
 
+    <select id="getTableInfo" resultType="Integer">
+        <foreach collection="list" open="(" close=")" separator="union all" item="map">
+            SELECT count(seq) FROM RECORD WHERE TYPE=#{map.type, jdbcType=VARCHAR} AND RESULT=#{map.result, jdbcType=VARCHAR}
+              AND DELDATE &gt;= #{map.startDate,jdbcType=TIMESTAMP} AND DELDATE &lt; #{map.endDate,jdbcType=TIMESTAMP}
+        </foreach>
+    </select>
+
 </mapper>
