@@ -69,6 +69,9 @@ public class FirstJob implements Job {
         };
         //获取所有同类文件
         File[] files = dir.listFiles(fileFilter);
+        if(files == null){
+            return;
+        }
         //每个文件单独处理
         for (File file : files) {
             this.dealFile(file, filePath, timerSeq);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName RecordDao
@@ -50,6 +51,7 @@ public class RecordDaoTest extends BaseTest {
         int t = recordDao.getTotal(recordForm);
         System.out.println(t);
     }
+
 
 
 }

@@ -15,4 +15,13 @@
             (#{Si},#{Pp},#{Th},#{Re},#{Wi},#{Dt},#{Vv},#{Cw},#{Sp},#{Mr},#{Mw},#{Qc},#{Q1},#{Q2},#{Q3})
     </insert>
 
+    <select id="queryBySeq" resultType="SurfaceObservation" parameterType="Long">
+        SELECT
+        *
+        FROM
+        SURFACE_OBS_INFO
+        WHERE
+        seq = #{seq}
+    </select>
+
 </mapper>

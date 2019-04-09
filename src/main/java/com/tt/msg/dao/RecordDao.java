@@ -45,4 +45,19 @@ public interface RecordDao {
      * @return
      */
     List<Integer> getTableInfo(List<Map<String,Object>> list);
+
+    /**
+     * 根据seq查询Record
+     * @param seq
+     * @return
+     */
+    Record queryBySeq(Long seq);
+
+    /**
+     * 根据timer的序号获取所有它所处理的数据
+     * @param list
+     * @param timerSeq
+     * @return
+     */
+    List<Integer> getTimerInfo(@Param("list") List<Map<String,Object>> list,@Param("timerSeq") Long timerSeq);
 }

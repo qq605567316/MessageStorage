@@ -99,8 +99,8 @@
             </li>
             <li class="sidebar-nav-link">
                 <a href="${path}/timer/list.action" class="active">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 配置定时器
-                    </a>
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 配置定时器
+                </a>
             </li>
             <li class="sidebar-nav-link">
                 <a href="${path}/record/list.action">
@@ -123,7 +123,8 @@
                     <p class="page-header-description">在此页面对定时器进行管理</p>
                 </div>
                 <div class="am-u-lg-3 tpl-index-settings-button">
-                    <button type="button" class="page-header-button" id="doc-prompt-toggle"><span class="am-icon-plus"></span> 新增
+                    <button type="button" class="page-header-button" id="doc-prompt-toggle"><span
+                            class="am-icon-plus"></span> 新增
                     </button>
                 </div>
             </div>
@@ -158,7 +159,9 @@
 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <button type="button" class="am-btn am-btn-success" onclick="getlist(1)"><i class="am-icon-search"></i>查找</button>
+                    <button type="button" class="am-btn am-btn-success" onclick="getlist(1)"><i
+                            class="am-icon-search"></i>查找
+                    </button>
                 </form>
             </div>
 
@@ -199,11 +202,13 @@
             </div>
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">名称</label>
-                <input type="text" class="am-modal-prompt-input" placeholder="定时器名称" name="name" id="name" maxlength="6">
+                <input type="text" class="am-modal-prompt-input" placeholder="定时器名称" name="name" id="name"
+                       maxlength="6">
             </div>
             <div class="am-modal-bd">
                 <a href="http://cron.qqe2.com/" target="_blank" for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析频次</a>
-                <input type="text" class="am-modal-prompt-input" placeholder="cron表达式" name="cronExpression" id="cronExpression">
+                <input type="text" class="am-modal-prompt-input" placeholder="cron表达式" name="cronExpression"
+                       id="cronExpression">
             </div>
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析路径</label>
@@ -226,7 +231,7 @@
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">报文类型</label>
                 <select data-am-selected name="type" id="edittype">
-                <%--<select name="type" id="edittype">--%>
+                    <%--<select name="type" id="edittype">--%>
                     <option value="0">类型一</option>
                     <option value="1">类型二</option>
                     <option value="2">类型三</option>
@@ -234,11 +239,13 @@
             </div>
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">名称</label>
-                <input type="text" class="am-modal-prompt-input" placeholder="定时器名称" name="name" id="editname" maxlength="6">
+                <input type="text" class="am-modal-prompt-input" placeholder="定时器名称" name="name" id="editname"
+                       maxlength="6">
             </div>
             <div class="am-modal-bd">
                 <a href="http://cron.qqe2.com/" target="_blank" for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析频次</a>
-                <input type="text" class="am-modal-prompt-input" placeholder="cron表达式" name="cronExpression" id="editcronExpression">
+                <input type="text" class="am-modal-prompt-input" placeholder="cron表达式" name="cronExpression"
+                       id="editcronExpression">
             </div>
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析路径</label>
@@ -267,20 +274,38 @@
             </div>
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">名称</label>
-                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="定时器名称" name="name" id="viewname" maxlength="6">
+                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="定时器名称" name="name"
+                       id="viewname" maxlength="6">
             </div>
             <div class="am-modal-bd">
                 <a href="http://cron.qqe2.com/" target="_blank" for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析频次</a>
-                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="cron表达式" name="cronExpression" id="viewExpression">
+                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="cron表达式"
+                       name="cronExpression" id="viewExpression">
             </div>
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析路径</label>
-                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="解析路径" name="filePath" id="viewfilePath">
+                <input type="text" disabled="disabled" class="am-modal-prompt-input" placeholder="解析路径" name="filePath"
+                       id="viewfilePath">
             </div>
             <div class="am-modal-footer">
                 <span class="am-modal-btn" data-am-modal-cancel>退出</span>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="am-popup" id="my-popup">
+    <div class="am-popup-inner">
+        <div class="am-popup-hd">
+            <h4 class="am-popup-title"><span id="tname"></span>定时器最近七天处理情况</h4>
+            <span data-am-modal-close
+                  class="am-close">x</span>
+        </div>
+        <div class="am-popup-bd">
+            <div style="height: 400px" id="tpl-echarts-A">
+
+            </div>
+        </div>
     </div>
 </div>
 

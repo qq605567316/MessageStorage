@@ -6,6 +6,7 @@ import com.tt.msg.utils.DateString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -45,6 +46,19 @@ public class TableDateController {
         map.put("type2All",list.get(3));
         map.put("type3Work",list.get(4));
         map.put("type3All",list.get(5));
+        map.put("table",map1);
+        return map;
+    }
+
+    @RequestMapping(value = "/timerdata", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String, Object> getTimeData(Long seq){
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        Map<String, Object> map1 = recordService.getTimerInfo(seq);
+        //获取作图x轴数据
+        ArrayList<String> list1 = DateString.getXDate(7);
+        map.put("xDate",list1);
         map.put("table",map1);
         return map;
     }

@@ -15,4 +15,13 @@
             (#{gdrFilePath},#{grdFilePath})
     </insert>
 
+    <select id="queryBySeq" resultType="Radar" parameterType="Long">
+        SELECT
+        *
+        FROM
+        RADAR_INFO
+        WHERE
+        seq = #{seq}
+    </select>
+
 </mapper>

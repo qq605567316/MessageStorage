@@ -58,4 +58,20 @@
         </foreach>
     </select>
 
+    <select id="getTimerInfo" resultType="Integer">
+        <foreach collection="list" open="(" close=")" separator="union all" item="map">
+            SELECT count(seq) FROM RECORD WHERE TIMERSEQ=#{timerSeq, jdbcType=NUMERIC} AND RESULT=#{map.result, jdbcType=VARCHAR}
+            AND DELDATE &gt;= #{map.startDate,jdbcType=TIMESTAMP} AND DELDATE &lt; #{map.endDate,jdbcType=TIMESTAMP}
+        </foreach>
+    </select>
+
+    <select id="queryBySeq" resultType="Record" parameterType="Long">
+        SELECT
+        *
+        FROM
+        RECORD
+        WHERE
+        seq = #{seq}
+    </select>
+
 </mapper>

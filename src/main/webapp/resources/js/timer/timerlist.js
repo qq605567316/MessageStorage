@@ -7,11 +7,11 @@ function getlist(page) {
     var type = $('#timertype').val();
 
     $.ajax({
-        type:'post',
-        url:'/MessageStorage/timer/getpage.action',
-        data:{name:name,type:type,page:page},
-        dataType:'json',
-        success:function (data) {
+        type: 'post',
+        url: '/MessageStorage/timer/getpage.action',
+        data: {name: name, type: type, page: page},
+        dataType: 'json',
+        success: function (data) {
             if (data.success) {
                 list(page, data);
             }
@@ -20,15 +20,15 @@ function getlist(page) {
 }
 
 //点击编辑调用
-function edittimer(seq,status) {
-    if(status == "0"){
+function edittimer(seq, status) {
+    if (status == "0") {
         alert("无法修改正在运行定时器！");
         return;
     }
 
     $.getJSON('/MessageStorage/timer/getBySeq.action?seq=' + seq,
         function (data) {
-            if(!data.success){
+            if (!data.success) {
                 alert(data.msg);
                 window.location.href = '/MessageStorage/timer/list.action';
             }
@@ -44,7 +44,13 @@ function edittimer(seq,status) {
                     var nameVal = $('#editname').val();
                     var cronExpressionVal = $('#editcronExpression').val();
                     var filePathVal = $('#editfilePath').val();
-                    var timer = {type:typeVal,name:nameVal,cronExpression:cronExpressionVal,filePath:filePathVal,seq:seq};
+                    var timer = {
+                        type: typeVal,
+                        name: nameVal,
+                        cronExpression: cronExpressionVal,
+                        filePath: filePathVal,
+                        seq: seq
+                    };
                     $.ajax({
                         url: '/MessageStorage/timer/edit.action',
                         type: 'POST',
@@ -68,7 +74,7 @@ function edittimer(seq,status) {
 function viewtimer(seq) {
     $.getJSON('/MessageStorage/timer/getBySeq.action?seq=' + seq,
         function (data) {
-            if(!data.success){
+            if (!data.success) {
                 alert(data.msg);
                 window.location.href = '/MessageStorage/timer/list.action';
             }
@@ -90,7 +96,7 @@ function viewtimer(seq) {
 
 }
 
-function change(seq,status) {
+function change(seq, status) {
     $.ajax({
         url: '/MessageStorage/timer/changeStatus.action?seq=' + seq + '&status=' + status,
         type: 'GET',
@@ -120,11 +126,11 @@ function list(page, data) {
         "          <select id='select' onchange='selectFunc()'>");
     for (var i = 1; i <= count; i++) {
         if (i == page) {
-            html = "  <option value="+ i +" class=\"\" selected=\"selected\" >" + i + "\n" +
+            html = "  <option value=" + i + " class=\"\" selected=\"selected\" >" + i + "\n" +
                 "\n" +
                 "</option>"
         } else {
-            html = "  <option value="+ i +" class=\"\">" + i + "\n" +
+            html = "  <option value=" + i + " class=\"\">" + i + "\n" +
                 "\n" +
                 "</option>"
         }
@@ -142,24 +148,24 @@ function list(page, data) {
     }
     for (var i = 0; i < list.length; i++) {
         var status = "<a class='am-btn am-btn-default' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 0 + "')>" + "未执行</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        if(list[i].status == "0"){
+        if (list[i].status == "0") {
             status = "<a class='am-btn am-btn-success' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 1 + "')>" + "执行中</a>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
 
-        if(i == 3 || i == 6){
+        if (i == 3 || i == 6) {
             html = "</div></div><div class=\"row-content am-cf\"><div class=\"row  am-cf\">";
             $("#html").append(html);
         }
 
-        html = "<div class=\"am-u-sm-12 am-u-md-6 am-u-lg-4 am-u-end\">"+
-            "<div class=\"widget widget-purple am-cf\">"+
-            "<div style=\"width: 50%\">"+status + getType(list[i].type) +
-            "</div>"+
-            "<div class=\"widget-statistic-body\">"+
-            "<div class=\"widget-statistic-value\">"+
-            "<small>"+list[i].name +"</small>"+
-            "</div>"+
-            "<div class=\"widget-statistic-description\">"+
+        html = "<div class=\"am-u-sm-12 am-u-md-6 am-u-lg-4 am-u-end\">" +
+            "<div class=\"widget widget-purple am-cf\">" +
+            "<div style=\"width: 50%\">" + status + getType(list[i].type) +
+            "</div>" +
+            "<div class=\"widget-statistic-body\">" +
+            "<div class=\"widget-statistic-value\">" +
+            "<small>" + list[i].name + "</small>" +
+            "</div>" +
+            "<div class=\"widget-statistic-description\">" +
             "<a href=\"javascript:;\" class=\"am-btn am-btn-secondary\" onclick= viewtimer('" + list[i].seq + "')>" +
             "<i class=\"am-icon-eye\"></i> 查看" +
             "</a>&nbsp;&nbsp;&nbsp;&nbsp;" +
@@ -171,9 +177,9 @@ function list(page, data) {
             "<a href=\"javascript:;\" class=\"am-btn am-btn-danger\" onclick=deltimer('" + list[i].seq + "','" + list[i].status + "')>" +
             "<i class=\"am-icon-trash\"></i> 删除" +
             "</a>" +
-            "</div>"+
+            "</div>" +
             "<a href=\"javascript:;\">" +
-            "<span class=\"widget-statistic-icon am-icon-bar-chart\" style=\"z-index:99\" onclick=tabletimer('" + list[i].seq + "')></span>"+
+            "<span class=\"widget-statistic-icon am-icon-bar-chart\" style=\"z-index:99\" onclick=tabletimer('" + list[i].seq + "','" + list[i].name + "')></span>" +
             "</a></div></div></div>";
         $("#html").append(html);
 
@@ -182,9 +188,9 @@ function list(page, data) {
 }
 
 //点击删除调用
-function deltimer(seq,status) {
+function deltimer(seq, status) {
 
-    if(status == "0"){
+    if (status == "0") {
         alert("无法删除正在运行定时器！");
         return;
     }
@@ -212,45 +218,87 @@ function deltimer(seq,status) {
 }
 
 function getType(type) {
-    if(type == "0"){
+    if (type == "0") {
         return "类型一";
-    }else if(type == "1"){
+    } else if (type == "1") {
         return "类型二";
-    }else if(type == "2"){
+    } else if (type == "2") {
         return "类型三";
-    }else {
+    } else {
         return "未知 - ";
     }
 }
 
-function selectFunc(){
+function selectFunc() {
     var page = $('select  option:selected').val();
     getlist(page);
 }
 
 //点击绘图调用
-function tabletimer(seq) {
-    alert(seq);
-    // $.getJSON('/MessageStorage/timer/getBySeq.action?seq=' + seq,
-    //     function (data) {
-    //         if (!data.success) {
-    //             alert(data.msg);
-    //             window.location.href = '/MessageStorage/timer/list.action';
-    //         }
-    //         $("#viewtype").find("option[value='" + data.timer.type + "']").attr("selected", true);
-    //         $("#viewtype").trigger('changed.selected.amui');
-    //         $('#viewname').val(data.timer.name);
-    //         $('#viewExpression').val(data.timer.cronExpression);
-    //         $('#viewfilePath').val(data.timer.filePath);
-    //         $('#my-prompt3').modal({
-    //             relatedTarget: this,
-    //             onConfirm: function () {
-    //
-    //             },
-    //             onCancel: function () {
-    //
-    //             }
-    //         });
-    //     });
+function tabletimer(seq,name) {
+    $('#tname').text(name);
+    $('#my-popup').modal({
+        relatedTarget: this,
+        onConfirm: function () {
 
+        },
+        onCancel: function () {
+
+        }
+    });
+    f(seq);
+
+}
+
+function f(seq) {
+    $.getJSON('/MessageStorage/table/timerdata.action?seq=' + seq,
+        function (data) {
+            var xDate = data.xDate;
+            var suc = data.table.suc;
+            var fail = data.table.fail;
+
+            // 页面数据
+            var pageData = {
+
+                'chart': function chartData() {
+
+                    echarts.init(document.getElementById('tpl-echarts-A')).setOption({
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['成功数', '失败数']
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: xDate
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: '数量/（个）',
+                            interval: 2
+                        },
+                        series: [{
+                            name: '成功数',
+                            type: 'line',
+                            data: suc
+                        },
+                            {
+                                name: '失败数',
+                                type: 'line',
+                                data: fail
+                            }
+                        ]
+                    });
+                }
+            };
+            pageData['chart']();
+
+
+        });
 }

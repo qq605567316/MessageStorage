@@ -1,8 +1,6 @@
 package com.tt.msg.controller;
 
-import com.tt.msg.entity.Record;
-import com.tt.msg.entity.RecordForm;
-import com.tt.msg.entity.RecordInfo;
+import com.tt.msg.entity.*;
 import com.tt.msg.service.RecordService;
 import com.tt.msg.utils.DateString;
 import com.tt.msg.utils.HttpServletRequestUtil;
@@ -59,6 +57,26 @@ public class RecordController {
         return modelMap;
     }
 
+    @RequestMapping(value = "/getBySeq", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String, Object> getBySeq(Long seq){
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap = recordService.queryBySeq(seq);
+        Record record = (Record) modelMap.get("record");
+        if(record == null){
+            modelMap.put("success", false);
+            modelMap.put("msg", "错误，未查询到该记录信息！");
+        }else {
+            modelMap.put("success", true);
+        }
+        return modelMap;
+    }
+
+    /**
+     * 改变前台传过来的值,让其适应数据库字段
+     * @param request
+     * @return
+     */
     private RecordForm setValue(HttpServletRequest request){
         RecordForm recordForm = new RecordForm();
         String fileName = HttpServletRequestUtil.getString(request,"fileName");

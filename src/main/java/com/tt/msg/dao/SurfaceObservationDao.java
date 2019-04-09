@@ -17,4 +17,11 @@ public interface SurfaceObservationDao {
      * @return
      */
     int insert(SurfaceObservation surfaceObservation);
+
+    /**
+     * 根据seq查找
+     * @param seq
+     * @return
+     */
+    SurfaceObservation queryBySeq(Long seq);
 }

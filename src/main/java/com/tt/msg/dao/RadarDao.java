@@ -17,4 +17,11 @@ public interface RadarDao {
      * @return
      */
     int insert(Radar radar);
+
+    /**
+     * 根据seq查询信息
+     * @param sucSeq
+     * @return
+     */
+    Radar queryBySeq(Long sucSeq);
 }

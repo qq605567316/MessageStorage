@@ -1,5 +1,10 @@
 package com.tt.msg.entity;
 
+import com.tt.msg.utils.DateString;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @ClassName SurfaceObservation
  * @Description 地面观测数据纪录类
@@ -97,6 +102,65 @@ public class SurfaceObservation {
                 ", Q2='" + Q2 + '\'' +
                 ", Q3='" + Q3 + '\'' +
                 '}';
+    }
+
+    /**
+     * 处理SurfaceObservation得到部分实际数据
+     * @param s
+     * @return
+     */
+    public List<String> dealSurface(SurfaceObservation s){
+        List<String> list = new ArrayList<String>();
+        String P1 = s.getSi();
+        String P2 = s.getPp();
+        String P3 = s.getTh();
+        String P4 = s.getRe();
+        String P5 = s.getWi();
+        String P6 = s.getDt();
+        String P7 = s.getVv();
+        String P8 = s.getCw();
+        String P9 = s.getSp();
+        String P10 = s.getMr();
+        String P11 = s.getMw();
+        String P12 = s.getQc();
+        String P13 = s.getQ1();
+        String P14 = s.getQ2();
+        String P15 = s.getQ3();
+
+        String str = "";
+
+        String[] p1 = P1.split("\\s+");
+        list.add(p1[0]);
+
+        str = DateString.Str2Date(p1[1]);
+        list.add(str);
+        str = p1[2].substring(0,2)+"°"+p1[2].substring(2,4)+"'"+p1[2].substring(4,6)+"\"";
+        list.add(str);
+        str = p1[3].substring(0,3)+"°"+p1[3].substring(3,5)+"'"+p1[3].substring(5,7)+"\"";
+        list.add(str);
+        String s1 = str.substring(0,1);
+        if("-".equals(s1)){
+
+        }
+        list.add(p1[4]);
+
+        String[] p2 = P2.split("\\s+");
+        String[] p3 = P3.split("\\s+");
+        String[] p4 = P4.split("\\s+");
+        String[] p5 = P5.split("\\s+");
+        String[] p6 = P6.split("\\s+");
+        String[] p7 = P7.split("\\s+");
+        String[] p8 = P8.split("\\s+");
+        String[] p9 = P9.split("\\s+");
+        String[] p10 = P10.split("\\s+");
+        String[] p11 = P11.split("\\s+");
+        String[] p12 = P12.split("\\s+");
+        String[] p13 = P13.split("\\s+");
+        String[] p14 = P14.split("\\s+");
+        String[] p15 = P15.split("\\s+");
+
+
+        return list;
     }
 
     public Long getSeq() {

@@ -24,6 +24,7 @@ public class DateString {
     static String defaultPattern = "yyyy-MM-dd HH:mm";
     static String otaPattern = "yyyyMMdd HH:mm:ss";
     static String simpPatn = "yyyy-MM-dd";
+    static String simpXPatn = "MM-dd";
     static String smallPatn = "yyyyMMdd";
     static String smallMonth = "yyyyMM";
     static String smalllestPatn = "yyMMdd";
@@ -392,7 +393,7 @@ public class DateString {
     }
 
     /**
-     * 获取过去第几天的日期
+     * 获取过去第几天的日期 年月日
      * @param past
      * @return
      */
@@ -405,7 +406,20 @@ public class DateString {
     }
 
     /**
-     * 获取过去最近num天的data的String
+     * 获取过去第几天的日期 月日
+     * @param past
+     * @return
+     */
+    public static String getXPast(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat(simpXPatn);
+        return format.format(today);
+    }
+
+    /**
+     * 获取过去最近num天的data的String 年月日
      * @param num
      * @return
      */
@@ -413,6 +427,19 @@ public class DateString {
         ArrayList<String> list = new ArrayList<String>();
         for (int i = num-1; i >=0; i--) {
             list.add(getPast(i));
+        }
+        return list;
+    }
+
+    /**
+     * 获取过去最近num天的data的String 月日
+     * @param num
+     * @return
+     */
+    public static ArrayList<String> getXDate(int num){
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = num-1; i >=0; i--) {
+            list.add(getXPast(i));
         }
         return list;
     }

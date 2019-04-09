@@ -26,4 +26,10 @@ public class RecordServiceTest extends BaseTest {
         System.out.println(map);
     }
 
+    @Test
+    public void getTabkeBySeq(){
+        Map<String, Object> map =  recordService.getTimerInfo(102L);
+        System.out.println(map);
+    }
+
 }

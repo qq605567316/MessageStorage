@@ -155,8 +155,18 @@ public class Test {
 //        System.out.println(list.subList(0,5));
 //        System.out.println(list.subList(2,4));
 
-        ArrayList<String> list1 = DateString.getX(7);
-        System.out.println(list1);
+//        ArrayList<String> list1 = DateString.getX(7);
+//        System.out.println(list1);
+
+//        String b = "Hello Java World";
+//        System.out.println("原字符串："+b);
+//        /*把字符串转化为数组形式，并用正则表达式进行分割*/
+//        String [] c = b.split("\\s+");
+//        for (String ss : c){
+//            System.out.println(ss);
+//        }
+        String str = "-125.2";
+        System.out.println(Float.parseFloat(str)*10);
     }
 
 }

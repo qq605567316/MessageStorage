@@ -40,4 +40,17 @@ public interface RecordService {
      * @return
      */
     Map<String, Object> getTableInfo();
+
+    /**
+     * 根据seq查询记录
+     * @param seq
+     * @return
+     */
+    Map<String,Object> queryBySeq(Long seq);
+
+    /**
+     * 根据timer的seq获取近7天它的数据
+     * @return
+     */
+    Map<String, Object> getTimerInfo(Long timerSeq);
 }
