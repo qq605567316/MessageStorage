@@ -4,13 +4,16 @@ import com.tt.msg.entity.*;
 import com.tt.msg.service.RecordService;
 import com.tt.msg.utils.DateString;
 import com.tt.msg.utils.HttpServletRequestUtil;
+import com.tt.msg.utils.excel.ViewExcel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -105,8 +108,25 @@ public class RecordController {
         if (!"-1".equals(result)) {
             recordForm.setResult(result);
         }
-        recordForm.setPage(Integer.parseInt(page));
+        if(page != null){
+            recordForm.setPage(Integer.parseInt(page));
+        }
         return recordForm;
+    }
+
+    /**
+     * 导出
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    public ModelAndView export(ModelMap map, HttpServletRequest request){
+        String fileName = HttpServletRequestUtil.getString(request, "fileName");
+        System.out.println(fileName);
+        RecordForm recordForm = this.setValue(request);
+        List<Map<String, String>> list = recordService.getExcelDate(recordForm);
+        String[] titles = {"序号","报文类型","处理时间","处理结果","失败原因","处理文件现所在位置"};
+        ViewExcel excel = new ViewExcel(titles);
+        map.put("excelList",list);
+        return new ModelAndView(excel,map);
     }
 
 }

@@ -3,10 +3,7 @@ package com.tt.msg.service.impl;
 import com.tt.msg.dao.RadarDao;
 import com.tt.msg.dao.RecordDao;
 import com.tt.msg.dao.SurfaceObservationDao;
-import com.tt.msg.entity.Radar;
-import com.tt.msg.entity.Record;
-import com.tt.msg.entity.RecordForm;
-import com.tt.msg.entity.SurfaceObservation;
+import com.tt.msg.entity.*;
 import com.tt.msg.service.RecordService;
 import com.tt.msg.utils.DateString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +43,29 @@ public class RecordServiceImpl implements RecordService {
         Integer startRow = 10 * page - 9;
         Integer endRow = 10 * page;
         return recordDao.getPage(recordForm, startRow, endRow);
+    }
+
+    @Override
+    public List<Map<String, String>> getExcelDate(RecordForm recordForm) {
+        List<Record> records = recordDao.getExcelDate(recordForm);
+        //处理取到的数据
+        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>();
+        for (Record record : records) {
+            Map<String, String> map = new HashMap<String, String>();
+            RecordInfo recordInfo = new RecordInfo(record);
+            map.put("序号", recordInfo.getSeq().toString());
+            map.put("报文类型", recordInfo.getType());
+            map.put("处理时间", recordInfo.getDelDate());
+            map.put("处理文件现所在位置", recordInfo.getFileName());
+            map.put("处理结果", recordInfo.getResult());
+            if("0".equals(record.getResult())){
+                map.put("失败原因", recordInfo.getFailMsg());
+            }else {
+                map.put("失败原因", "");
+            }
+            mapList.add(map);
+        }
+        return mapList;
     }
 
     @Override

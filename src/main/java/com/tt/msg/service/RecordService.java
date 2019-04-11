@@ -24,12 +24,20 @@ public interface RecordService {
     int insert(Record record);
 
     /**
-     * 获取数据
+     * 获取数据 分页
      *
      * @param recordForm
      * @return
      */
     List<Record> getPage(RecordForm recordForm);
+
+    /**
+     * 获取数据 不分页
+     *
+     * @param recordForm
+     * @return
+     */
+    List<Map<String, String>> getExcelDate(RecordForm recordForm);
 
     /**
      * 获取数据总数

@@ -53,6 +53,9 @@ function init(theme) {
                     //类型一数据
                     var echartsA = echarts.init(document.getElementById('tpl-echarts-A'), theme);
                     optionA = {
+                        title: {
+                            text: '地面观测类型'
+                        },
                         tooltip: {
                             trigger: 'axis'
                         },
@@ -76,11 +79,23 @@ function init(theme) {
                         series: [{
                             name: '成功数',
                             type: 'line',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'top'
+                                }
+                            },
                             data: oneSuc
                         },
                             {
                                 name: '失败数',
                                 type: 'line',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'top'
+                                    }
+                                },
                                 data: oneFail
                             }
                         ]
@@ -91,6 +106,9 @@ function init(theme) {
                     //类型二数据
                     var echartsB = echarts.init(document.getElementById('tpl-echarts-B'), theme);
                     optionB = {
+                        title: {
+                            text: '雷达产品类型'
+                        },
                         tooltip: {
                             trigger: 'axis'
                         },
@@ -115,11 +133,23 @@ function init(theme) {
                         series: [{
                             name: '成功数',
                             type: 'bar',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'top'
+                                }
+                            },
                             data: twoSuc
                         },
                             {
                                 name: '失败数',
                                 type: 'bar',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'top'
+                                    }
+                                },
                                 data: twoFail
                             }
                         ]
@@ -130,6 +160,9 @@ function init(theme) {
                     //类型三数据
                     var echartsC = echarts.init(document.getElementById('tpl-echarts-C'), theme);
                     optionC = {
+                        title: {
+                            text: '卫星产品类型'
+                        },
                         tooltip: {
                             trigger: 'axis'
                         },
@@ -155,12 +188,40 @@ function init(theme) {
                                 name: '成功数',
                                 type: 'line',
                                 step: 'start',
+                                lineStyle: {
+                                    normal: {
+                                        type: 'dashed'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'left',
+                                        textStyle: {
+                                            fontSize: 18
+                                        }
+                                    }
+                                },
                                 data: threeSuc
                             },
                             {
                                 name: '失败数',
                                 type: 'line',
                                 step: 'end',
+                                lineStyle: {
+                                    normal: {
+                                        type: 'dashed'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'left',
+                                        textStyle: {
+                                            fontSize: 18
+                                        }
+                                    }
+                                },
                                 data: threeFail
                             }
                         ]

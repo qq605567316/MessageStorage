@@ -179,7 +179,7 @@ function list(page, data) {
             "</a>" +
             "</div>" +
             "<a href=\"javascript:;\">" +
-            "<span class=\"widget-statistic-icon am-icon-bar-chart\" style=\"z-index:99\" onclick=tabletimer('" + list[i].seq + "','" + list[i].name + "')></span>" +
+            "<span class=\"widget-statistic-icon am-icon-bar-chart\" style=\"z-index:99\" onclick=tabletimer('" + list[i].seq + "','" + list[i].name + "','" + list[i].type + "')></span>" +
             "</a></div></div></div>";
         $("#html").append(html);
 
@@ -219,13 +219,13 @@ function deltimer(seq, status) {
 
 function getType(type) {
     if (type == "0") {
-        return "类型一";
+        return "地面观测";
     } else if (type == "1") {
-        return "类型二";
+        return "雷达产品";
     } else if (type == "2") {
-        return "类型三";
+        return "卫星产品";
     } else {
-        return "未知 - ";
+        return "未知类型";
     }
 }
 
@@ -235,22 +235,25 @@ function selectFunc() {
 }
 
 //点击绘图调用
-function tabletimer(seq, name) {
+function tabletimer(seq, name, status) {
     $('#tname').text(name);
     $('#my-popup').modal({
-        relatedTarget: this,
-        onConfirm: function () {
-
-        },
-        onCancel: function () {
-
-        }
+        relatedTarget: this
     });
-    f(seq);
+    if (status == "0") {
+        var title = "地面观测 - " + name;
+    }
+    if (status == "1") {
+        var title = "雷达产品 - " + name;
+    }
+    if (status == "2") {
+        var title = "卫星产品 - " + name;
+    }
+    f(seq, title);
 
 }
 
-function f(seq) {
+function f(seq, title) {
     $.getJSON('/MessageStorage/table/timerdata.action?seq=' + seq,
         function (data) {
             var xDate = data.xDate;
@@ -263,6 +266,9 @@ function f(seq) {
                 'chart': function chartData() {
 
                     echarts.init(document.getElementById('tpl-echarts-A'), 'shine').setOption({
+                        title: {
+                            text: title
+                        },
                         tooltip: {
                             trigger: 'axis'
                         },
@@ -286,11 +292,23 @@ function f(seq) {
                         series: [{
                             name: '成功数',
                             type: 'line',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'top'
+                                }
+                            },
                             data: suc
                         },
                             {
                                 name: '失败数',
                                 type: 'line',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'top'
+                                    }
+                                },
                                 data: fail
                             }
                         ]

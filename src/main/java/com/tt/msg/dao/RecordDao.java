@@ -66,4 +66,12 @@ public interface RecordDao {
      * @return
      */
     List<Integer> getTimerInfo(@Param("list") List<Map<String, Object>> list, @Param("timerSeq") Long timerSeq);
+
+    /**
+     * 查询所有符合条件的数据
+     *
+     * @param recordForm
+     * @return
+     */
+    List<Record> getExcelDate(@Param("record") RecordForm recordForm);
 }

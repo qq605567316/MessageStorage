@@ -110,7 +110,6 @@ public class DateString {
     public static Date getDate(String str) {
         str = validatorDate(str);
         Calendar ca = Calendar.getInstance();
-        //System.out.println(str);
         if (str.length() >= 19) {
             String year = str.substring(0, 4);
             String mon = str.substring(5, 7);
@@ -128,7 +127,6 @@ public class DateString {
         } else {
             return null;
         }
-        //System.out.println(ca.getTime());
         return ca.getTime();
 
     }

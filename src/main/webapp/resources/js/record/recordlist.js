@@ -27,6 +27,21 @@ function getlist(page) {
     });
 }
 
+//导出excel
+function exp() {
+    var startDate = $('#startDate').val();
+    var endDate = $('#endDate').val();
+
+    if (startDate != "" && endDate != "" && startDate >= endDate) {
+        alert('后面的日期应该大于前面的日期！');
+        return;
+    }
+
+    var form = window.document.getElementById("excelForm");
+    form.action = "/MessageStorage/record/export.action";
+    form.submit();
+}
+
 function list(page, data) {
     var list = data.records;//后台返回的所有记录List
     var count = Math.floor((data.total + 9) / 10);//总页数

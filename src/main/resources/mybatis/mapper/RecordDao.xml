@@ -39,6 +39,19 @@
 
         WHERE t.rowno &gt;= #{startRow,jdbcType=INTEGER}
     </select>
+    <select id="getExcelDate" resultType="Record">
+        SELECT *
+
+        FROM RECORD d WHERE 1=1
+
+        <if test='record.fileName != null'>AND d.FILENAME LIKE '%' || #{record.fileName,jdbcType=VARCHAR} || '%'</if>
+        <if test='record.type != null'>AND d.TYPE = #{record.type,jdbcType=VARCHAR}</if>
+        <if test='record.result != null'>AND d.RESULT = #{record.result,jdbcType=VARCHAR}</if>
+        <if test='record.startDate != null'>AND d.DELDATE &gt;= #{record.startDate,jdbcType=TIMESTAMP}</if>
+        <if test='record.endDate != null'>AND d.DELDATE &lt; #{record.endDate,jdbcType=TIMESTAMP}</if>
+        ORDER BY d.DELDATE DESC
+
+    </select>
 
     <select id="getTotal" resultType="Integer" parameterType="RecordForm">
         SELECT count(seq)

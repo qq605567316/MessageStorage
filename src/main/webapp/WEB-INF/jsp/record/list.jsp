@@ -124,6 +124,11 @@
                     </div>
                     <p class="page-header-description">在此页面查看处理记录</p>
                 </div>
+                <div class="am-u-lg-3 tpl-index-settings-button">
+                    <button type="button" class="page-header-button" onclick="exp()"><span
+                            class="am-icon-plus"></span> 导出
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -138,18 +143,18 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <form class="am-form-inline" role="form">
+                            <form class="am-form-inline" role="form" method="post" id="excelForm">
 
                                 <label class="am-form-label">文件名：</label>
                                 <div class="am-input-group am-input-group-primary">
-                                    <input type="text" class="am-form-field" maxlength="18" id="fileName">
+                                    <input type="text" class="am-form-field" maxlength="18" id="fileName" name="fileName">
                                 </div>
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <label class="am-form-label">类型：</label>
                                 <select data-am-selected="{btnWidth: '8%', btnSize: 'sm', btnStyle: 'secondary'}"
-                                        id="type">
+                                        id="type" name="type">
                                     <option value="-1" selected>所有类型</option>
                                     <option value="0">地面观测</option>
                                     <option value="1">雷达产品</option>
@@ -161,21 +166,21 @@
                                 <label class="am-form-label">日期：</label>
                                 <div class="am-form-group">
                                     <input size="12" type="text" readonly class="am-form-field" data-am-datepicker
-                                           id="startDate">
+                                           id="startDate" name="startDate">
                                 </div>
 
                                 &nbsp;-&nbsp;
 
                                 <div class="am-form-group">
                                     <input size="12" type="text" readonly class="am-form-field" data-am-datepicker
-                                           id="endDate">
+                                           id="endDate" name="endDate">
                                 </div>
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <label class="am-form-label">结果：</label>
                                 <select data-am-selected="{btnWidth: '8%', btnSize: 'sm', btnStyle: 'secondary'}"
-                                        id="result">
+                                        id="result" name="result">
                                     <option value="-1" selected>所有结果</option>
                                     <option value="0">失败</option>
                                     <option value="1">成功</option>
