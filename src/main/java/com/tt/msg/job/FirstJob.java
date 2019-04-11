@@ -74,6 +74,9 @@ public class FirstJob implements Job {
         }
         //每个文件单独处理
         for (File file : files) {
+            if(file.isDirectory()){
+                continue;
+            }
             this.dealFile(file, filePath, timerSeq);
         }
     }

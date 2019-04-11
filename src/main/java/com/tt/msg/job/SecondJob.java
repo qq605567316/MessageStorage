@@ -68,6 +68,9 @@ public class SecondJob implements Job {
         }
         //每个文件单独处理
         for (File file : files) {
+            if(file.isDirectory()){
+                continue;
+            }
             this.dealFile(file,timerSeq);
         }
     }

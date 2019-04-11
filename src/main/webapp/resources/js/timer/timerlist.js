@@ -262,7 +262,7 @@ function f(seq) {
 
                 'chart': function chartData() {
 
-                    echarts.init(document.getElementById('tpl-echarts-A')).setOption({
+                    echarts.init(document.getElementById('tpl-echarts-A'),'shine').setOption({
                         tooltip: {
                             trigger: 'axis'
                         },

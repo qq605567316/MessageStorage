@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -86,6 +87,32 @@ public class TimerServiceImpl implements TimerService {
     @Override
     public List<Integer> queryAllStatus() {
         return timerDao.queryAllStatus();
+    }
+
+    @Override
+    public boolean queryByTimer(Timer timer) {
+        String filePath = timer.getFilePath();
+        String str = filePath.substring(filePath.length()-1);
+        if (File.separator.equals(str)){
+            filePath = filePath.substring(0, filePath.length()-1);
+        }
+        timer.setFilePath(filePath);
+        Timer t = timerDao.queryByTimer(timer);
+        //新增逻辑
+        if(timer.getSeq() == null){
+            if(t == null){
+                return false;
+            }
+            return true;
+        }
+        //编辑逻辑
+        if(t == null){
+            return false;
+        }
+        if(timer.getSeq().equals(t.getSeq())){
+            return false;
+        }
+        return true;
     }
 
     @Override

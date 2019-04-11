@@ -92,16 +92,25 @@ function selectFunc(){
 }
 
 function Detail(seq) {
-
-    alert("待完成！");
-    return;
-
     $.getJSON('/MessageStorage/record/getBySeq.action?seq=' + seq,
         function (data) {
             if(!data.success){
                 alert(data.msg);
                 return;
             }
+            var record = data.record;
+            if(!data.rs){
+                //失败的记录处理
+                $('#failMsg').text(record.failMsg);
+                $('#failPath').text(record.fileName);
+                $('#fail-modal').modal({
+                    relatedTarget: this
+                })
+            }else{
+                //成功的记录处理
+
+            }
+
             $('#my-prompt').modal({
                 relatedTarget: this,
                 onConfirm: function () {

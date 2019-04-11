@@ -85,4 +85,11 @@ public interface TimerService {
      * @return
      */
     List<Integer> queryAllStatus();
+
+    /**
+     * 检查是否有相同的timer
+     * @param timer
+     * @return
+     */
+    boolean queryByTimer(Timer timer);
 }

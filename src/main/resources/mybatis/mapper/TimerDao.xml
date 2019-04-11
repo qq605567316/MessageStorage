@@ -47,6 +47,15 @@
         seq = #{seq}
     </select>
 
+    <select id="queryByTimer" resultType="Timer" parameterType="Timer">
+        SELECT
+        *
+        FROM
+        TIMER
+        WHERE
+        TYPE = #{type,jdbcType=VARCHAR} and FILEPATH = #{filePath,jdbcType=VARCHAR}
+    </select>
+
     <select id="queryByName" resultType="Timer" parameterType="String">
         SELECT
         *

@@ -204,6 +204,8 @@
 <script src="${path}/resources/js/amazeui.datatables.min.js"></script>
 <script src="${path}/resources/js/dataTables.responsive.min.js"></script>
 <script src="${path}/resources/js/main/tabledata.js"></script>
+<script src="${path}/resources/js/tabletheme/black.js"></script>
+<script src="${path}/resources/js/tabletheme/white.js"></script>
 
 </body>
 

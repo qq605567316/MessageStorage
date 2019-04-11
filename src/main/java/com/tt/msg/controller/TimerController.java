@@ -46,19 +46,19 @@ public class TimerController {
         return "timer/list";
     }
 
-    @RequestMapping(value = "/getpage",method = RequestMethod.POST)
+    @RequestMapping(value = "/getpage", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> getTimersByPage(HttpServletRequest request){
+    private Map<String, Object> getTimersByPage(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        String name = HttpServletRequestUtil.getString(request,"name");
-        String type = HttpServletRequestUtil.getString(request,"type");
-        if("-1".equals(type)){
+        String name = HttpServletRequestUtil.getString(request, "name");
+        String type = HttpServletRequestUtil.getString(request, "type");
+        if ("-1".equals(type)) {
             type = null;
         }
         int page = HttpServletRequestUtil.getInt(request, "page");
-        List<Timer> timers = timerService.queryPage(name,type,page);
-        int total = timerService.queryTotal(name,type);
-        modelMap.put("total",total);
+        List<Timer> timers = timerService.queryPage(name, type, page);
+        int total = timerService.queryTotal(name, type);
+        modelMap.put("total", total);
         modelMap.put("timers", timers);
         modelMap.put("success", true);
         return modelMap;
@@ -68,13 +68,18 @@ public class TimerController {
     @ResponseBody
     private Map<String, Object> addTimer(@RequestBody Timer timer) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        if(StringUtils.isBlank(timer.getName())){
+        if (StringUtils.isBlank(timer.getName())) {
             modelMap.put("msg", "添加时出现错误！");
+            return modelMap;
+        }
+        boolean b = timerService.queryByTimer(timer);
+        if (b) {
+            modelMap.put("msg", "该目录已存在该类型定时器，可通过修改已存在定时器的cron来替换该操作！");
             return modelMap;
         }
         modelMap = this.checkData(timer);
         //判断是否通过检查
-        if((Boolean) modelMap.get(FLAG)){
+        if ((Boolean) modelMap.get(FLAG)) {
             //新添加的定时器状态默认为停止
             timer.setStatus("1");
             timerService.insert(timer);
@@ -87,13 +92,18 @@ public class TimerController {
     @ResponseBody
     private Map<String, Object> editTimer(@RequestBody Timer timer) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        if(StringUtils.isBlank(timer.getName())){
+        if (StringUtils.isBlank(timer.getName())) {
             modelMap.put("msg", "修改时出现错误！");
+            return modelMap;
+        }
+        boolean b = timerService.queryByTimer(timer);
+        if ((b)) {
+            modelMap.put("msg", "该目录已存在该类型定时器，可通过修改已存在的cron满足该新建定时器需求！");
             return modelMap;
         }
         modelMap = this.checkData(timer);
         //判断是否通过检查
-        if((Boolean) modelMap.get(FLAG)){
+        if ((Boolean) modelMap.get(FLAG)) {
             //新添加的定时器状态默认为停止
             timer.setStatus("1");
             timerService.update(timer);
@@ -104,18 +114,18 @@ public class TimerController {
 
     @RequestMapping(value = "/getBySeq", method = RequestMethod.GET)
     @ResponseBody
-    private Map<String, Object> getBySeq(Long seq){
+    private Map<String, Object> getBySeq(Long seq) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (seq == null){
+        if (seq == null) {
             modelMap.put("success", false);
             modelMap.put("msg", "错误，未接收到传递的Seq！");
             return modelMap;
         }
         Timer timer = timerService.queryBySeq(seq);
-        if(timer == null){
+        if (timer == null) {
             modelMap.put("success", false);
             modelMap.put("msg", "错误，未查询到要编辑的定时器信息！");
-        }else {
+        } else {
             modelMap.put("success", true);
             modelMap.put("timer", timer);
         }
@@ -124,11 +134,11 @@ public class TimerController {
 
     @RequestMapping(value = "/del", method = RequestMethod.GET)
     @ResponseBody
-    private Map<String, Object> delTimer(Long seq){
+    private Map<String, Object> delTimer(Long seq) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (seq == null){
+        if (seq == null) {
             modelMap.put("msg", "删除时出现错误！");
-        }else {
+        } else {
             timerService.delete(seq);
             modelMap.put("msg", "删除成功！");
         }
@@ -137,47 +147,56 @@ public class TimerController {
 
     @RequestMapping(value = "/changeStatus", method = RequestMethod.GET)
     @ResponseBody
-    private Map<String, Object> changeStatus(Long seq,String status){
+    private Map<String, Object> changeStatus(Long seq, String status) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (seq == null || StringUtils.isBlank(status)){
+        if (seq == null || StringUtils.isBlank(status)) {
             modelMap.put("msg", "传递seq或状态时出错！");
-        }else {
-            timerService.changeStatus(seq,status);
+        } else {
+            timerService.changeStatus(seq, status);
             modelMap.put("msg", "状态改变成功！");
         }
         return modelMap;
     }
 
-    private Map<String, Object> checkData(Timer timer){
+    /**
+     * 检查输入的数据是否正确
+     *
+     * @param timer
+     * @return
+     */
+    private Map<String, Object> checkData(Timer timer) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         boolean flag = true;
         StringBuilder msg = new StringBuilder();
-        //判断名字是否已经存在
-        String name = timer.getName();
-        Timer t = timerService.queryByName(name);
-        if(t != null && !t.getSeq().equals(timer.getSeq())){
-            msg.append("名字已经存在");
-            flag = false;
+        if (timer.getSeq() == null) {
+            //判断名字是否已经存在
+            String name = timer.getName();
+            Timer t = timerService.queryByName(name);
+            if (t != null && !t.getSeq().equals(timer.getSeq())) {
+                msg.append("名字已经存在");
+                flag = false;
+            }
         }
         //判断cron表达式是否符合规则
         String cronExpression = timer.getCronExpression();
-        if(!CronExpression.isValidExpression(cronExpression)){
+        if (!CronExpression.isValidExpression(cronExpression)) {
             msg.append(" 时间不符合cron表达式规则");
             flag = false;
         }
         //判断文件路径是否存在
         String filePath = timer.getFilePath();
         File file = new File(filePath);
-        if(!file.exists()){
+        if (!file.exists()) {
             msg.append(" 文件路径不存在");
             flag = false;
         }
-        if(!flag){
+        if (!flag) {
             msg.append(",请按要求重新操作！");
         }
-        modelMap.put("msg",msg.toString());
-        modelMap.put(FLAG,flag);
+        modelMap.put("msg", msg.toString());
+        modelMap.put(FLAG, flag);
         return modelMap;
     }
 
 }
+

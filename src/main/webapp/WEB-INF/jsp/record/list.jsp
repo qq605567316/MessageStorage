@@ -223,7 +223,49 @@
 </div>
 </div>
 
-<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="fail-modal">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">处理详情
+            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+        <div class="am-modal-bd">
+
+            <div class="am-panel-group" id="accordion">
+                <div class="am-panel am-panel-default">
+                    <div class="am-panel-hd">
+                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
+                            失败原因
+                        </h4>
+                    </div>
+                    <div id="do-not-say-1" class="am-panel-collapse am-collapse am-in">
+                        <div class="am-panel-bd">
+                            <span id="failMsg">
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-panel am-panel-default">
+                    <div class="am-panel-hd">
+                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-2'}">
+                            失败文件现在所在目录及名称
+                        </h4>
+                    </div>
+                    <div id="do-not-say-2" class="am-panel-collapse am-collapse">
+                        <div class="am-panel-bd">
+                            <span id="failPath">
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="suc-modal">
     <div class="am-modal-dialog">
         <div class="am-modal-hd">修改定时器:</div>
 

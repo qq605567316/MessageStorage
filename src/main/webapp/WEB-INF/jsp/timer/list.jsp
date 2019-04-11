@@ -151,7 +151,7 @@
 
                     <label class="am-form-label">定时器类型：</label>
                     <select data-am-selected="{btnWidth: '7%', btnSize: 'sm', btnStyle: 'secondary'}" id="timertype">
-                        <option value="-1" selected>定时器类型</option>
+                        <option value="-1" selected>所有类型</option>
                         <option value="0">类型一</option>
                         <option value="1">类型二</option>
                         <option value="2">类型三</option>
@@ -311,11 +311,11 @@
 
 <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">删除定时器</div>
         <div class="am-modal-bd">
-            确定要删除这个定时器吗？
+            删除定时器
         </div>
         <div class="am-modal-bd">
+            确定要删除这个定时器吗？<br/><br/>
             <input type="hidden" class="am-modal-prompt-input" id="seq" value="">
         </div>
         <div class="am-modal-footer">
@@ -332,6 +332,7 @@
 <script src="${path}/resources/js/app.js"></script>
 <script src="${path}/resources/js/timer/timerlist.js"></script>
 <script src="${path}/resources/js/timer/timeradd.js"></script>
+<script src="${path}/resources/js/tabletheme/shine.js"></script>
 </body>
 
 </html>

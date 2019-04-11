@@ -1,7 +1,6 @@
 $(function() {
     // 读取body data-type 判断是哪个页面然后执行相应页面方法，方法在下面。
     var dataType = $('body').attr('data-type');
-    console.log(dataType);
 
     autoLeftNav();
     $(window).resize(function() {
@@ -13,7 +12,6 @@ $(function() {
 
 
 // 风格切换
-
 $('.tpl-skiner-toggle').on('click', function() {
     $('.tpl-skiner').toggleClass('active');
 });
@@ -30,8 +28,6 @@ $('.tpl-skiner-content-bar').find('span').on('click', function() {
 
 
 // 侧边菜单开关
-
-
 function autoLeftNav() {
 
 

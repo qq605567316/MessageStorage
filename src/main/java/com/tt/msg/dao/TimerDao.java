@@ -82,5 +82,10 @@ public interface TimerDao {
      */
     void initTimers();
 
-
+    /**
+     * 根据timer查询有几个相同功能的timer
+     * @param timer
+     * @return
+     */
+    Timer queryByTimer(Timer timer);
 }

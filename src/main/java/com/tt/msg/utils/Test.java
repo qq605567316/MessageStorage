@@ -167,6 +167,7 @@ public class Test {
 //        }
         String str = "-125.2";
         System.out.println(Float.parseFloat(str)*10);
+        System.out.println(str.substring(str.length()-2));
     }
 
 }
