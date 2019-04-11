@@ -39,19 +39,19 @@ public class RecordController {
         return "record/list";
     }
 
-    @RequestMapping(value = "/getpage",method = RequestMethod.POST)
+    @RequestMapping(value = "/getpage", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> getRecordsByPage(HttpServletRequest request){
+    private Map<String, Object> getRecordsByPage(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         RecordForm recordForm = this.setValue(request);
         List<Record> records = recordService.getPage(recordForm);
         List<RecordInfo> rInfos = new ArrayList<RecordInfo>();
-        for (Record record :records) {
+        for (Record record : records) {
             RecordInfo recordInfo = new RecordInfo(record);
             rInfos.add(recordInfo);
         }
         int total = recordService.getTotal(recordForm);
-        modelMap.put("total",total);
+        modelMap.put("total", total);
         modelMap.put("records", rInfos);
         modelMap.put("success", true);
         return modelMap;
@@ -59,14 +59,14 @@ public class RecordController {
 
     @RequestMapping(value = "/getBySeq", method = RequestMethod.GET)
     @ResponseBody
-    private Map<String, Object> getBySeq(Long seq){
+    private Map<String, Object> getBySeq(Long seq) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         modelMap = recordService.queryBySeq(seq);
         Record record = (Record) modelMap.get("record");
-        if(record == null){
+        if (record == null) {
             modelMap.put("success", false);
             modelMap.put("msg", "错误，未查询到该记录信息！");
-        }else {
+        } else {
             modelMap.put("success", true);
         }
         return modelMap;
@@ -74,34 +74,35 @@ public class RecordController {
 
     /**
      * 改变前台传过来的值,让其适应数据库字段
+     *
      * @param request
      * @return
      */
-    private RecordForm setValue(HttpServletRequest request){
+    private RecordForm setValue(HttpServletRequest request) {
         RecordForm recordForm = new RecordForm();
-        String fileName = HttpServletRequestUtil.getString(request,"fileName");
-        String type = HttpServletRequestUtil.getString(request,"type");
+        String fileName = HttpServletRequestUtil.getString(request, "fileName");
+        String type = HttpServletRequestUtil.getString(request, "type");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-        String result = HttpServletRequestUtil.getString(request,"result");
-        String page = HttpServletRequestUtil.getString(request,"page");
-        if (!"".equals(fileName)){
+        String result = HttpServletRequestUtil.getString(request, "result");
+        String page = HttpServletRequestUtil.getString(request, "page");
+        if (!"".equals(fileName)) {
             recordForm.setFileName(fileName);
         }
-        if(!"-1".equals(type)){
+        if (!"-1".equals(type)) {
             recordForm.setType(type);
         }
-        if (!"".equals(startDate)){
+        if (!"".equals(startDate)) {
             startDate += " 00:00:00";
             Timestamp sts = Timestamp.valueOf(startDate);
             recordForm.setStartDate(sts);
         }
-        if (!"".equals(endDate)){
+        if (!"".equals(endDate)) {
             endDate += " 00:00:00";
             Timestamp ets = Timestamp.valueOf(endDate);
             recordForm.setEndDate(ets);
         }
-        if(!"-1".equals(result)){
+        if (!"-1".equals(result)) {
             recordForm.setResult(result);
         }
         recordForm.setPage(Integer.parseInt(page));

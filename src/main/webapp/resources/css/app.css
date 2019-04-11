@@ -1117,14 +1117,14 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .theme-white .widget-purple {
   padding: 12px 17px;
-  border: 1px solid #8E44AD;
-  border-top: 2px solid #8E44AD;
-  background: #8E44AD;
+  border: 1px solid #32c5d2;
+  border-top: 2px solid #32c5d2;
+  background: #32c5d2;
   color: #ffffff;
   min-height: 174px;
 }
 .theme-white .widget-purple .widget-statistic-icon {
-  color: #9956b5;
+  color: #9ef7ff;
 }
 .theme-white .widget-purple .widget-statistic-header {
   color: #ded5e7;
@@ -1134,8 +1134,8 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .theme-white .page-header-button {
   opacity: .8;
-  border: 1px solid #32c5d2;
-  background: #32c5d2;
+  border: 1px solid #0077f9;
+  background: #0077f9;
   color: #fff;
 }
 .theme-white .page-header-button:hover {

@@ -50,10 +50,10 @@ public class Manager {
     }
 
     public void setLevelName(int userLevel) {
-        if (userLevel == 0){
+        if (userLevel == 0) {
             this.levelName = "超级管理员";
         }
-        if(userLevel == 1){
+        if (userLevel == 1) {
             this.levelName = "普通管理员";
         }
     }

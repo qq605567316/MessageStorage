@@ -1,6 +1,6 @@
 $(function () {
     //从后台获得select组件的数据
-     var addTimerUrl = '/MessageStorage/timer/add.action';
+    var addTimerUrl = '/MessageStorage/timer/add.action';
 
     $('#doc-prompt-toggle').on('click', function () {
 
@@ -11,7 +11,7 @@ $(function () {
                 var nameVal = $('#name').val();
                 var cronExpressionVal = $('#cronExpression').val();
                 var filePathVal = $('#filePath').val();
-                var timer = {type:typeVal,name:nameVal,cronExpression:cronExpressionVal,filePath:filePathVal};
+                var timer = {type: typeVal, name: nameVal, cronExpression: cronExpressionVal, filePath: filePathVal};
                 $.ajax({
                     url: addTimerUrl,
                     type: 'POST',

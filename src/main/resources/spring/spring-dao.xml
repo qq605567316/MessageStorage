@@ -30,7 +30,7 @@
         <!-- 当获取连接失败重试次数 -->
         <property name="acquireRetryAttempts" value="2"/>
         <!-- 减少连接池内连接的生存周期，使之小于上一项中所设置的wait_timeout 的值，防止数据库与程序断开连接 -->
-        <property name="maxIdleTime" value="1800" />
+        <property name="maxIdleTime" value="1800"/>
     </bean>
 
     <!-- 3.配置SqlSessionFactory对象 -->

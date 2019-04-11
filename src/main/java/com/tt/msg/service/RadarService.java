@@ -13,6 +13,7 @@ import com.tt.msg.entity.Radar;
 public interface RadarService {
     /**
      * 插入
+     *
      * @param radar
      * @return
      */

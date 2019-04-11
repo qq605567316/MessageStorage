@@ -16,6 +16,7 @@ import java.util.List;
 public interface TimerDao {
     /**
      * 插入
+     *
      * @param timer
      * @return
      */
@@ -23,6 +24,7 @@ public interface TimerDao {
 
     /**
      * 删除记录
+     *
      * @param seq
      */
     void delete(Long seq);
@@ -37,6 +39,7 @@ public interface TimerDao {
 
     /**
      * 通过ID查询定时器
+     *
      * @param seq
      * @return
      */
@@ -44,6 +47,7 @@ public interface TimerDao {
 
     /**
      * 通过name查询定时器
+     *
      * @param name
      * @return
      */
@@ -51,28 +55,30 @@ public interface TimerDao {
 
     /**
      * 符合条件的分页查询
+     *
      * @param name
      * @param type
      * @param startRow
      * @param endRow
      * @return
      */
-    List<Timer> queryPage(@Param("name") String name,@Param("type")String type,@Param("startRow") Integer startRow, @Param("endRow")Integer endRow);
+    List<Timer> queryPage(@Param("name") String name, @Param("type") String type, @Param("startRow") Integer startRow, @Param("endRow") Integer endRow);
 
     /**
-     *
      * @return 返回符合条件的配置的定时器总数
      */
-    Integer queryTotal(@Param("name")String name,@Param("type")String type);
+    Integer queryTotal(@Param("name") String name, @Param("type") String type);
 
     /**
      * 返回各定时器类型的失败与所有定时器数量
+     *
      * @return
      */
     List<Integer> queryAllStatus();
 
     /**
      * 查询所有
+     *
      * @return 返回所有定时器
      */
     List<Timer> queryAll();
@@ -84,6 +90,7 @@ public interface TimerDao {
 
     /**
      * 根据timer查询有几个相同功能的timer
+     *
      * @param timer
      * @return
      */

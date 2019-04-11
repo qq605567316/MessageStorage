@@ -18,6 +18,7 @@ import java.util.Map;
 public interface RecordDao {
     /**
      * 插入
+     *
      * @param record
      * @return
      */
@@ -25,15 +26,17 @@ public interface RecordDao {
 
     /**
      * 分页查询
+     *
      * @param recordForm
      * @param startRow
      * @param endRow
      * @return
      */
-    List<Record> getPage(@Param("record")RecordForm recordForm,@Param("startRow")Integer startRow, @Param("endRow")Integer endRow);
+    List<Record> getPage(@Param("record") RecordForm recordForm, @Param("startRow") Integer startRow, @Param("endRow") Integer endRow);
 
     /**
      * 获取总记录数
+     *
      * @param recordForm
      * @return
      */
@@ -41,13 +44,15 @@ public interface RecordDao {
 
     /**
      * 获取作图需要的信息
+     *
      * @param list
      * @return
      */
-    List<Integer> getTableInfo(List<Map<String,Object>> list);
+    List<Integer> getTableInfo(List<Map<String, Object>> list);
 
     /**
      * 根据seq查询Record
+     *
      * @param seq
      * @return
      */
@@ -55,9 +60,10 @@ public interface RecordDao {
 
     /**
      * 根据timer的序号获取所有它所处理的数据
+     *
      * @param list
      * @param timerSeq
      * @return
      */
-    List<Integer> getTimerInfo(@Param("list") List<Map<String,Object>> list,@Param("timerSeq") Long timerSeq);
+    List<Integer> getTimerInfo(@Param("list") List<Map<String, Object>> list, @Param("timerSeq") Long timerSeq);
 }

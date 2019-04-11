@@ -63,20 +63,21 @@ public class SecondJob implements Job {
         };
         //获取所有同类文件
         File[] files = dir.listFiles(fileFilter);
-        if(files == null){
+        if (files == null) {
             return;
         }
         //每个文件单独处理
         for (File file : files) {
-            if(file.isDirectory()){
+            if (file.isDirectory()) {
                 continue;
             }
-            this.dealFile(file,timerSeq);
+            this.dealFile(file, timerSeq);
         }
     }
 
     /**
      * 具体的处理方法
+     *
      * @param file
      */
     private void dealFile(File file, Long timerSeq) {
@@ -99,11 +100,11 @@ public class SecondJob implements Job {
             //解压并返回解压后的路径
             dealPath = this.unZipFiles(file);
             //若解压失败
-            if("-1".equals(dealPath)){
+            if ("-1".equals(dealPath)) {
                 //放入失败文件夹
-                FileUtils.moveFile(file,failFile);
+                FileUtils.moveFile(file, failFile);
                 //保存解压失败记录
-                Record record = new Record(timerSeq, filePath,"1","文件解压失败");
+                Record record = new Record(timerSeq, filePath, "1", "文件解压失败");
                 recordService.insert(record);
                 return;
             }
@@ -113,58 +114,58 @@ public class SecondJob implements Job {
                 @Override
                 public boolean accept(File pathname) {
                     String name = pathname.getName();
-                    return name.endsWith("gdr")||name.endsWith("grd");
+                    return name.endsWith("gdr") || name.endsWith("grd");
                 }
             };
             //过滤出grd与gdr文件
             File[] files = dealDir.listFiles(filter);
             //过滤非雷达产品zip
-            if(files.length == 0){
+            if (files.length == 0) {
                 //删除解压出来的文件
                 dealAll(dealPath);
                 return;
             }
             //每个文件单独处理
             for (File f : files) {
-                if(f.getName().endsWith("gdr")){
+                if (f.getName().endsWith("gdr")) {
                     retmap = this.dealGDRFile(f);
 
-                }else if(f.getName().endsWith("grd")){
+                } else if (f.getName().endsWith("grd")) {
                     retmap = this.dealGRDFile(f);
-                }else {
+                } else {
                     continue;
                 }
             }
             /**
              * 返回的png处理标志码 1：成功 0：失败
              */
-            Integer code = (Integer)retmap.get("RETCODE");
+            Integer code = (Integer) retmap.get("RETCODE");
             //删除处理后不需要的文件
-            if (code == 1){
+            if (code == 1) {
                 Radar radar = dealEnding(dealPath);
                 //插入数据表
                 radarService.insert(radar);
                 Long sucSeq = radar.getSeq();
                 //放入记录表
-                Record record = new Record(timerSeq, sucPath,"1",sucSeq);
+                Record record = new Record(timerSeq, sucPath, "1", sucSeq);
                 recordService.insert(record);
                 //放入历史文件夹
-                FileUtils.moveFile(file,successFile);
-            }else{
+                FileUtils.moveFile(file, successFile);
+            } else {
                 dealAll(dealPath);
-                Record record = new Record(timerSeq, failPath,"1","处理成png图片时失败！");
+                Record record = new Record(timerSeq, failPath, "1", "处理成png图片时失败！");
                 recordService.insert(record);
                 //放入失败文件夹
-                FileUtils.moveFile(file,failFile);
+                FileUtils.moveFile(file, failFile);
             }
         } catch (IOException e) {
             e.printStackTrace();
             dealAll(file.getAbsolutePath());
-            Record record = new Record(timerSeq, failPath,"1",e.getMessage());
+            Record record = new Record(timerSeq, failPath, "1", e.getMessage());
             recordService.insert(record);
             //放入失败文件夹
             try {
-                FileUtils.moveFile(file,failFile);
+                FileUtils.moveFile(file, failFile);
             } catch (IOException e1) {
                 e1.printStackTrace();
                 LOGGER.debug(e.getMessage());
@@ -175,27 +176,26 @@ public class SecondJob implements Job {
 
     /**
      * 解压zip
+     *
      * @param zipFile 待解压的文件
      * @return 解压出来的文件存放路径
      * @throws IOException
      */
     private String unZipFiles(File zipFile) {
         String filePath = zipFile.getAbsolutePath();
-        String descDir = filePath.substring(0,filePath.lastIndexOf("."));
+        String descDir = filePath.substring(0, filePath.lastIndexOf("."));
         File pathFile = new File(descDir);
-        if(!pathFile.exists())
-        {
+        if (!pathFile.exists()) {
             pathFile.mkdirs();
         }
         //解决zip文件中有中文目录或者中文文件
         ZipFile zip = null;
         try {
             zip = new ZipFile(zipFile, Charset.forName("GBK"));
-            for(Enumeration entries = zip.entries(); entries.hasMoreElements();)
-            {
-                ZipEntry entry = (ZipEntry)entries.nextElement();
+            for (Enumeration entries = zip.entries(); entries.hasMoreElements(); ) {
+                ZipEntry entry = (ZipEntry) entries.nextElement();
                 String zipEntryName = entry.getName();
-                if(entry.isDirectory()){
+                if (entry.isDirectory()) {
                     new File(descDir + File.separator + zipEntryName).mkdir();
                     continue;
                 }
@@ -204,9 +204,8 @@ public class SecondJob implements Job {
                 OutputStream out = new FileOutputStream(outPath);
                 byte[] buf1 = new byte[1024];
                 int len;
-                while((len=in.read(buf1))>0)
-                {
-                    out.write(buf1,0,len);
+                while ((len = in.read(buf1)) > 0) {
+                    out.write(buf1, 0, len);
                 }
                 in.close();
                 out.close();
@@ -216,7 +215,7 @@ public class SecondJob implements Job {
         } catch (IOException e) {
             e.printStackTrace();
             return "-1";
-        }finally {
+        } finally {
             try {
                 if (zip != null) {
                     zip.close();
@@ -230,43 +229,46 @@ public class SecondJob implements Job {
 
     /**
      * 处理gdr文件
+     *
      * @param file
      */
-    private HashMap<String, Object> dealGDRFile(File file){
+    private HashMap<String, Object> dealGDRFile(File file) {
         HashMap<String, Object> retmap = new HashMap<String, Object>();
         genRadarPic_gdr genGDR = new genRadarPic_gdr();
-        retmap = genGDR.drawRadarPNG(file.getParent(),file.getName());
+        retmap = genGDR.drawRadarPNG(file.getParent(), file.getName());
         return retmap;
     }
 
     /**
      * 处理grd文件
+     *
      * @param file
      */
-    private HashMap<String, Object> dealGRDFile(File file){
+    private HashMap<String, Object> dealGRDFile(File file) {
         HashMap<String, Object> retmap = new HashMap<String, Object>();
         genRadarPic_grd genGRD = new genRadarPic_grd();
-        retmap = genGRD.drawRadarPNG(file.getParent(),file.getName());
+        retmap = genGRD.drawRadarPNG(file.getParent(), file.getName());
         return retmap;
     }
 
     /**
      * 删除解压文件夹下非png文件 图片处理成功执行
+     *
      * @param path
      */
-    private Radar dealEnding(String path){
+    private Radar dealEnding(String path) {
         File dir = new File(path);
         File[] files = dir.listFiles();
         Radar radar = new Radar();
-        for (File f: files){
+        for (File f : files) {
             String fileName = f.getName();
-            if (!fileName.endsWith("png")){
+            if (!fileName.endsWith("png")) {
                 f.delete();
-            }else {
-                if (fileName.indexOf("grd") != -1){
+            } else {
+                if (fileName.indexOf("grd") != -1) {
                     radar.setGrdFilePath(f.getAbsolutePath());
                 }
-                if (fileName.indexOf("gdr") != -1){
+                if (fileName.indexOf("gdr") != -1) {
                     radar.setGdrFilePath(f.getAbsolutePath());
                 }
             }
@@ -276,9 +278,10 @@ public class SecondJob implements Job {
 
     /**
      * 删除解压文件夹 图片处理失败执行
+     *
      * @param path
      */
-    private void dealAll(String path){
+    private void dealAll(String path) {
         try {
 
             File file = new File(path);

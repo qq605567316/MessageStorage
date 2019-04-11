@@ -235,7 +235,7 @@ function selectFunc() {
 }
 
 //点击绘图调用
-function tabletimer(seq,name) {
+function tabletimer(seq, name) {
     $('#tname').text(name);
     $('#my-popup').modal({
         relatedTarget: this,
@@ -262,7 +262,7 @@ function f(seq) {
 
                 'chart': function chartData() {
 
-                    echarts.init(document.getElementById('tpl-echarts-A'),'shine').setOption({
+                    echarts.init(document.getElementById('tpl-echarts-A'), 'shine').setOption({
                         tooltip: {
                             trigger: 'axis'
                         },

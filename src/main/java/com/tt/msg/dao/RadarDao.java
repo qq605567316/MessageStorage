@@ -13,6 +13,7 @@ import com.tt.msg.entity.Radar;
 public interface RadarDao {
     /**
      * 插入
+     *
      * @param radar
      * @return
      */
@@ -20,6 +21,7 @@ public interface RadarDao {
 
     /**
      * 根据seq查询信息
+     *
      * @param sucSeq
      * @return
      */

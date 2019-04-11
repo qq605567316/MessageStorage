@@ -14,6 +14,7 @@ import com.tt.msg.entity.Manager;
 public interface ManagerService {
     /**
      * 用户登录验证
+     *
      * @param username
      * @param password
      * @return

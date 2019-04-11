@@ -51,6 +51,7 @@ public class Record {
 
     /**
      * 处理失败时调用的构造器
+     *
      * @param type
      * @param fileName
      * @param failMsg
@@ -66,6 +67,7 @@ public class Record {
 
     /**
      * 处理成功时调用的构造器
+     *
      * @param type
      * @param fileName
      * @param sucSeq

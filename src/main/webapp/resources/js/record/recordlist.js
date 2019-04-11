@@ -9,22 +9,22 @@ function getlist(page) {
     var endDate = $('#endDate').val();
     var result = $('#result').val();
 
-    if(startDate != "" && endDate != "" && startDate>=endDate){
+    if (startDate != "" && endDate != "" && startDate >= endDate) {
         alert('后面的日期应该大于前面的日期！');
         return;
     }
 
     $.ajax({
-        type:'post',
-        url:'/MessageStorage/record/getpage.action',
-        data:{fileName:fileName,type:type,startDate:startDate,endDate:endDate,result:result,page:page},
-        dataType:'json',
-        success:function (data) {
-                    if (data.success) {
-                        list(page, data);
-                    }
-                }
-        });
+        type: 'post',
+        url: '/MessageStorage/record/getpage.action',
+        data: {fileName: fileName, type: type, startDate: startDate, endDate: endDate, result: result, page: page},
+        dataType: 'json',
+        success: function (data) {
+            if (data.success) {
+                list(page, data);
+            }
+        }
+    });
 }
 
 function list(page, data) {
@@ -46,11 +46,11 @@ function list(page, data) {
         "          <select id='select' onchange='selectFunc()'>");
     for (var i = 1; i <= count; i++) {
         if (i == page) {
-            html = "  <option value="+ i +" class=\"\" selected=\"selected\" >" + i + "\n" +
+            html = "  <option value=" + i + " class=\"\" selected=\"selected\" >" + i + "\n" +
                 "\n" +
                 "</option>"
         } else {
-            html = "  <option value="+ i +" class=\"\">" + i + "\n" +
+            html = "  <option value=" + i + " class=\"\">" + i + "\n" +
                 "\n" +
                 "</option>"
         }
@@ -86,7 +86,7 @@ function list(page, data) {
 
 }
 
-function selectFunc(){
+function selectFunc() {
     var page = $('#select').val();
     getlist(page);
 }
@@ -94,19 +94,19 @@ function selectFunc(){
 function Detail(seq) {
     $.getJSON('/MessageStorage/record/getBySeq.action?seq=' + seq,
         function (data) {
-            if(!data.success){
+            if (!data.success) {
                 alert(data.msg);
                 return;
             }
             var record = data.record;
-            if(!data.rs){
+            if (!data.rs) {
                 //失败的记录处理
                 $('#failMsg').text(record.failMsg);
                 $('#failPath').text(record.fileName);
                 $('#fail-modal').modal({
                     relatedTarget: this
                 })
-            }else{
+            } else {
                 //成功的记录处理
 
             }
@@ -118,7 +118,13 @@ function Detail(seq) {
                     var nameVal = $('#editname').val();
                     var cronExpressionVal = $('#editcronExpression').val();
                     var filePathVal = $('#editfilePath').val();
-                    var timer = {type:typeVal,name:nameVal,cronExpression:cronExpressionVal,filePath:filePathVal,seq:seq};
+                    var timer = {
+                        type: typeVal,
+                        name: nameVal,
+                        cronExpression: cronExpressionVal,
+                        filePath: filePathVal,
+                        seq: seq
+                    };
                     $.ajax({
                         url: '/MessageStorage/timer/edit.action',
                         type: 'POST',

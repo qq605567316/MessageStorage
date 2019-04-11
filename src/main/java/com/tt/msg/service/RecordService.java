@@ -17,6 +17,7 @@ import java.util.Map;
 public interface RecordService {
     /**
      * 插入
+     *
      * @param record
      * @return
      */
@@ -24,6 +25,7 @@ public interface RecordService {
 
     /**
      * 获取数据
+     *
      * @param recordForm
      * @return
      */
@@ -31,25 +33,29 @@ public interface RecordService {
 
     /**
      * 获取数据总数
+     *
      * @return
      */
     int getTotal(RecordForm recordForm);
 
     /**
      * 获取作图信息
+     *
      * @return
      */
     Map<String, Object> getTableInfo();
 
     /**
      * 根据seq查询记录
+     *
      * @param seq
      * @return
      */
-    Map<String,Object> queryBySeq(Long seq);
+    Map<String, Object> queryBySeq(Long seq);
 
     /**
      * 根据timer的seq获取近7天它的数据
+     *
      * @return
      */
     Map<String, Object> getTimerInfo(Long timerSeq);

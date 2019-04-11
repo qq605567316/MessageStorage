@@ -26,11 +26,12 @@
 
         FROM RECORD d WHERE 1=1
 
-        <if test='record.fileName != null'> AND d.FILENAME LIKE  '%' || #{record.fileName,jdbcType=VARCHAR} || '%'  </if>
-        <if test='record.type != null'> AND d.TYPE = #{record.type,jdbcType=VARCHAR} </if>
-        <if test='record.result != null'> AND d.RESULT = #{record.result,jdbcType=VARCHAR} </if>
-        <if test='record.startDate != null'> AND d.DELDATE &gt;= #{record.startDate,jdbcType=TIMESTAMP} </if>
-        <if test='record.endDate != null'> AND d.DELDATE &lt; #{record.endDate,jdbcType=TIMESTAMP} </if>
+        <if test='record.fileName != null'>AND d.FILENAME LIKE '%' || #{record.fileName,jdbcType=VARCHAR} || '%'</if>
+        <if test='record.type != null'>AND d.TYPE = #{record.type,jdbcType=VARCHAR}</if>
+        <if test='record.result != null'>AND d.RESULT = #{record.result,jdbcType=VARCHAR}</if>
+        <if test='record.startDate != null'>AND d.DELDATE &gt;= #{record.startDate,jdbcType=TIMESTAMP}</if>
+        <if test='record.endDate != null'>AND d.DELDATE &lt; #{record.endDate,jdbcType=TIMESTAMP}</if>
+        ORDER BY d.DELDATE DESC
 
         ) r
 
@@ -44,23 +45,25 @@
 
         FROM RECORD WHERE 1=1
 
-        <if test='fileName != null'> AND FILENAME LIKE  '%' || #{fileName,jdbcType=VARCHAR} || '%'  </if>
-        <if test='type != null'> AND TYPE = #{type,jdbcType=VARCHAR} </if>
-        <if test='result != null'> AND RESULT = #{result,jdbcType=VARCHAR} </if>
-        <if test='startDate != null'> AND DELDATE &gt;= #{startDate,jdbcType=TIMESTAMP} </if>
-        <if test='endDate != null'> AND DELDATE &lt; #{endDate,jdbcType=TIMESTAMP} </if>
+        <if test='fileName != null'>AND FILENAME LIKE '%' || #{fileName,jdbcType=VARCHAR} || '%'</if>
+        <if test='type != null'>AND TYPE = #{type,jdbcType=VARCHAR}</if>
+        <if test='result != null'>AND RESULT = #{result,jdbcType=VARCHAR}</if>
+        <if test='startDate != null'>AND DELDATE &gt;= #{startDate,jdbcType=TIMESTAMP}</if>
+        <if test='endDate != null'>AND DELDATE &lt; #{endDate,jdbcType=TIMESTAMP}</if>
     </select>
 
     <select id="getTableInfo" resultType="Integer">
         <foreach collection="list" open="(" close=")" separator="union all" item="map">
-            SELECT count(seq) FROM RECORD WHERE TYPE=#{map.type, jdbcType=VARCHAR} AND RESULT=#{map.result, jdbcType=VARCHAR}
-              AND DELDATE &gt;= #{map.startDate,jdbcType=TIMESTAMP} AND DELDATE &lt; #{map.endDate,jdbcType=TIMESTAMP}
+            SELECT count(seq) FROM RECORD WHERE TYPE=#{map.type, jdbcType=VARCHAR} AND
+            RESULT=#{map.result, jdbcType=VARCHAR}
+            AND DELDATE &gt;= #{map.startDate,jdbcType=TIMESTAMP} AND DELDATE &lt; #{map.endDate,jdbcType=TIMESTAMP}
         </foreach>
     </select>
 
     <select id="getTimerInfo" resultType="Integer">
         <foreach collection="list" open="(" close=")" separator="union all" item="map">
-            SELECT count(seq) FROM RECORD WHERE TIMERSEQ=#{timerSeq, jdbcType=NUMERIC} AND RESULT=#{map.result, jdbcType=VARCHAR}
+            SELECT count(seq) FROM RECORD WHERE TIMERSEQ=#{timerSeq, jdbcType=NUMERIC} AND
+            RESULT=#{map.result, jdbcType=VARCHAR}
             AND DELDATE &gt;= #{map.startDate,jdbcType=TIMESTAMP} AND DELDATE &lt; #{map.endDate,jdbcType=TIMESTAMP}
         </foreach>
     </select>

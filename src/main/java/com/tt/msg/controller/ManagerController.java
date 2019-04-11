@@ -33,12 +33,12 @@ public class ManagerController {
 
     @RequestMapping(value = "/login")
     private String login(HttpServletRequest request) {
-        if(request.getSession().getAttribute(USER_SESSION) != null){
+        if (request.getSession().getAttribute(USER_SESSION) != null) {
             return "main";
         }
         String username = HttpServletRequestUtil.getString(request, "username");
         String password = HttpServletRequestUtil.getString(request, "password");
-        if(username == null || password == null){
+        if (username == null || password == null) {
             request.setAttribute("tip", "请输入用户名和密码！");
             return "login";
         }

@@ -13,6 +13,7 @@ import com.tt.msg.entity.SurfaceObservation;
 public interface SurfaceObservationDao {
     /**
      * 插入
+     *
      * @param surfaceObservation
      * @return
      */
@@ -20,6 +21,7 @@ public interface SurfaceObservationDao {
 
     /**
      * 根据seq查找
+     *
      * @param seq
      * @return
      */

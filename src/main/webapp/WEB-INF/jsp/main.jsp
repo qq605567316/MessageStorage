@@ -22,13 +22,13 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-        <link rel="icon" type="image/png" href="${path}/resources/i/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="${path}/resources/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="${path}/resources/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <script src="${path}/resources/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="${path}/resources/css/amazeui.min.css" />
-    <link rel="stylesheet" href="${path}/resources/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="${path}/resources/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="${path}/resources/css/amazeui.datatables.min.css"/>
     <link rel="stylesheet" href="${path}/resources/css/app.css">
     <script src="${path}/resources/js/jquery.min.js"></script>
 
@@ -140,20 +140,23 @@
                         </div>
                         <div class="widget-body widget-body-md am-fr">
 
-                            <div class="am-progress-title">类型一 <span
-                                    class="am-fr am-progress-title-more"><label id="s1">14</label> / <label id="a1">20</label></span>
+                            <div class="am-progress-title">地面观测类型定时器 <span
+                                    class="am-fr am-progress-title-more"><label id="s1">14</label> / <label
+                                    id="a1">20</label></span>
                             </div>
                             <div class="am-progress">
                                 <div class="am-progress-bar" id="d1"></div>
                             </div>
-                            <div class="am-progress-title">类型二 <span
-                                    class="am-fr am-progress-title-more"><label id="s2"></label> / <label id="a2"></label></span>
+                            <div class="am-progress-title">雷达产品类型定时器 <span
+                                    class="am-fr am-progress-title-more"><label id="s2"></label> / <label
+                                    id="a2"></label></span>
                             </div>
                             <div class="am-progress">
                                 <div class="am-progress-bar  am-progress-bar-warning" id="d2"></div>
                             </div>
-                            <div class="am-progress-title">类型三 <span
-                                    class="am-fr am-progress-title-more"><label id="s3"></label> / <label id="a3"></label></span>
+                            <div class="am-progress-title">卫星产品类型定时器 <span
+                                    class="am-fr am-progress-title-more"><label id="s3"></label> / <label
+                                    id="a3"></label></span>
                             </div>
                             <div class="am-progress">
                                 <div class="am-progress-bar am-progress-bar-danger" id="d3"></div>
@@ -165,7 +168,7 @@
 
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
-                    <div class="widget-title am-fl">最近7天类型一定时器处理数据情况</div>
+                    <div class="widget-title am-fl">最近7天地面观测类型定时器处理数据情况</div>
                 </div>
                 <div class="widget-body am-fr">
                     <div style="height: 400px" id="tpl-echarts-A">
@@ -176,7 +179,7 @@
 
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
-                    <div class="widget-title am-fl">最近7天类型二定时器处理数据情况</div>
+                    <div class="widget-title am-fl">最近7天雷达产品类型定时器处理数据情况</div>
                 </div>
                 <div class="widget-body am-fr">
                     <div style="height: 400px" id="tpl-echarts-B">
@@ -187,7 +190,7 @@
 
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
-                    <div class="widget-title am-fl">最近7天类型三定时器处理数据情况</div>
+                    <div class="widget-title am-fl">最近7天卫星产品类型定时器处理数据情况</div>
                 </div>
                 <div class="widget-body am-fr">
                     <div style="height: 400px" id="tpl-echarts-C">

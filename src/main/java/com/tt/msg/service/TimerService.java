@@ -15,31 +15,36 @@ import java.util.List;
 public interface TimerService {
     /**
      * 插入新增
+     *
      * @param timer
      */
     public void insert(Timer timer);
 
     /**
      * 根据序列删除
+     *
      * @param seq
      */
     public void delete(Long seq);
 
     /**
      * 修改操作
+     *
      * @param timer
      */
     public void update(Timer timer);
 
     /**
      * 启动或停止定时器
+     *
      * @param seq
      * @param status
      */
-    public void changeStatus(Long seq,String status);
+    public void changeStatus(Long seq, String status);
 
     /**
      * 通过ID查询定时器
+     *
      * @param seq
      * @return
      */
@@ -47,6 +52,7 @@ public interface TimerService {
 
     /**
      * 通过name查询定时器
+     *
      * @param name
      * @return
      */
@@ -54,23 +60,26 @@ public interface TimerService {
 
     /**
      * 根据条件分页查询
+     *
      * @param name
      * @param type
      * @param pageNum
      * @return
      */
-    public List<Timer> queryPage(String name,String type,Integer pageNum);
+    public List<Timer> queryPage(String name, String type, Integer pageNum);
 
     /**
      * 查询符合条件的定时器总数
+     *
      * @param name
      * @param type
      * @return
      */
-    public Integer queryTotal(String name,String type);
+    public Integer queryTotal(String name, String type);
 
     /**
      * 查询所有定时器
+     *
      * @return 所有定时器
      */
     public List<Timer> queryAll();
@@ -82,12 +91,14 @@ public interface TimerService {
 
     /**
      * 返回各定时器类型的失败与所有定时器数量
+     *
      * @return
      */
     List<Integer> queryAllStatus();
 
     /**
      * 检查是否有相同的timer
+     *
      * @param timer
      * @return
      */

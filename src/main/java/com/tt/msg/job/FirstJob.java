@@ -29,7 +29,7 @@ import java.util.List;
  * @Author tanjiang
  * @CreateTime 2019/2/25 21:59
  * @Version 1.0
-  **/
+ **/
 
 @Component
 public class FirstJob implements Job {
@@ -69,12 +69,12 @@ public class FirstJob implements Job {
         };
         //获取所有同类文件
         File[] files = dir.listFiles(fileFilter);
-        if(files == null){
+        if (files == null) {
             return;
         }
         //每个文件单独处理
         for (File file : files) {
-            if(file.isDirectory()){
+            if (file.isDirectory()) {
                 continue;
             }
             this.dealFile(file, filePath, timerSeq);
@@ -83,9 +83,10 @@ public class FirstJob implements Job {
 
     /**
      * 具体的处理方法
+     *
      * @param file
      */
-    private void dealFile(File file, String filePath, Long timerSeq){
+    private void dealFile(File file, String filePath, Long timerSeq) {
         //成功文件夹
         File successFile = new File(filePath + successPath + DateString.getFileDefaultString(new Date()) + "_" + file.getName());
         //获取处理成功时文件的路径
@@ -116,27 +117,27 @@ public class FirstJob implements Job {
                 surfaceObservation.setQ2(lines.get(i++));
                 surfaceObservation.setQ3(lines.get(i++));
                 surfaceObservations.add(surfaceObservation);
-            }while (!FILE_END_SIGN.equals(lines.get(i)));
+            } while (!FILE_END_SIGN.equals(lines.get(i)));
 
-            for(SurfaceObservation surfaceObservation : surfaceObservations){
+            for (SurfaceObservation surfaceObservation : surfaceObservations) {
                 String result = surfaceObservationService.insert(surfaceObservation);
-                if("s".equals(result)){
+                if ("s".equals(result)) {
                     Long sucSeq = surfaceObservation.getSeq();
                     Record record = new Record(timerSeq, sucPath, "0", sucSeq);
                     recordService.insert(record);
-                }else {
-                    Record record = new Record(timerSeq, failPath,"0", result);
+                } else {
+                    Record record = new Record(timerSeq, failPath, "0", result);
                     recordService.insert(record);
                 }
             }
             //放入类型一解析成功文件夹
-            FileUtils.moveFile(file,successFile);
+            FileUtils.moveFile(file, successFile);
         } catch (IOException e) {
             try {
-                Record record = new Record(timerSeq, failPath,"0",e.getMessage());
+                Record record = new Record(timerSeq, failPath, "0", e.getMessage());
                 recordService.insert(record);
                 //放入类型一解析失败文件夹
-                FileUtils.moveFile(file,failFile);
+                FileUtils.moveFile(file, failFile);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

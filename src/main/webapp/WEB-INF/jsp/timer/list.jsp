@@ -150,11 +150,11 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     <label class="am-form-label">定时器类型：</label>
-                    <select data-am-selected="{btnWidth: '7%', btnSize: 'sm', btnStyle: 'secondary'}" id="timertype">
+                    <select data-am-selected="{btnWidth: '8%', btnSize: 'sm', btnStyle: 'secondary'}" id="timertype">
                         <option value="-1" selected>所有类型</option>
-                        <option value="0">类型一</option>
-                        <option value="1">类型二</option>
-                        <option value="2">类型三</option>
+                        <option value="0">地面观测</option>
+                        <option value="1">雷达产品</option>
+                        <option value="2">卫星产品</option>
                     </select>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -195,9 +195,9 @@
             <div class="am-modal-bd">
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">报文类型</label>
                 <select data-am-selected name="type" id="type">
-                    <option value="0">类型一</option>
-                    <option value="1">类型二</option>
-                    <option value="2">类型三</option>
+                    <option value="0">地面观测</option>
+                    <option value="1">雷达产品</option>
+                    <option value="2">卫星产品</option>
                 </select>
             </div>
             <div class="am-modal-bd">
@@ -232,9 +232,9 @@
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">报文类型</label>
                 <select data-am-selected name="type" id="edittype">
                     <%--<select name="type" id="edittype">--%>
-                    <option value="0">类型一</option>
-                    <option value="1">类型二</option>
-                    <option value="2">类型三</option>
+                    <option value="0">地面观测</option>
+                    <option value="1">雷达产品</option>
+                    <option value="2">卫星产品</option>
                 </select>
             </div>
             <div class="am-modal-bd">
@@ -267,9 +267,9 @@
                 <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">报文类型</label>
                 <select data-am-selected name="type" id="viewtype" disabled="disabled">
                     <%--<select name="type" id="edittype">--%>
-                    <option value="0">类型一</option>
-                    <option value="1">类型二</option>
-                    <option value="2">类型三</option>
+                    <option value="0">地面观测</option>
+                    <option value="1">雷达产品</option>
+                    <option value="2">卫星产品</option>
                 </select>
             </div>
             <div class="am-modal-bd">

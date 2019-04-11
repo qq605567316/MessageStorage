@@ -13,6 +13,7 @@ import com.tt.msg.entity.SurfaceObservation;
 public interface SurfaceObservationService {
     /**
      * 插入
+     *
      * @param surfaceObservation
      */
     public String insert(SurfaceObservation surfaceObservation);

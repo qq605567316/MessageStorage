@@ -106,10 +106,11 @@ public class SurfaceObservation {
 
     /**
      * 处理SurfaceObservation得到部分实际数据
+     *
      * @param s
      * @return
      */
-    public List<String> dealSurface(SurfaceObservation s){
+    public List<String> dealSurface(SurfaceObservation s) {
         List<String> list = new ArrayList<String>();
         String P1 = s.getSi();
         String P2 = s.getPp();
@@ -134,12 +135,12 @@ public class SurfaceObservation {
 
         str = DateString.Str2Date(p1[1]);
         list.add(str);
-        str = p1[2].substring(0,2)+"°"+p1[2].substring(2,4)+"'"+p1[2].substring(4,6)+"\"";
+        str = p1[2].substring(0, 2) + "°" + p1[2].substring(2, 4) + "'" + p1[2].substring(4, 6) + "\"";
         list.add(str);
-        str = p1[3].substring(0,3)+"°"+p1[3].substring(3,5)+"'"+p1[3].substring(5,7)+"\"";
+        str = p1[3].substring(0, 3) + "°" + p1[3].substring(3, 5) + "'" + p1[3].substring(5, 7) + "\"";
         list.add(str);
-        String s1 = str.substring(0,1);
-        if("-".equals(s1)){
+        String s1 = str.substring(0, 1);
+        if ("-".equals(s1)) {
 
         }
         list.add(p1[4]);

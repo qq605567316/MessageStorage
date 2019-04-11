@@ -50,18 +50,18 @@ public class RecordInfo {
         this.failMsg = record.getFailMsg();
         this.sucSeq = record.getSucSeq();
         this.delDate = DateString.getFullString(record.getDelDate());
-        if("0".equals(record.getResult())){
+        if ("0".equals(record.getResult())) {
             this.result = "失败";
-        }else {
+        } else {
             this.result = "成功";
         }
-        if("0".equals(record.getType())){
-            this.type = "类型一";
-        }else if("1".equals(record.getType())){
-            this.type = "类型二";
-        }else if ("2".equals(record.getType())){
-            this.type = "类型三";
-        }else {
+        if ("0".equals(record.getType())) {
+            this.type = "地面观测";
+        } else if ("1".equals(record.getType())) {
+            this.type = "雷达产品";
+        } else if ("2".equals(record.getType())) {
+            this.type = "卫星产品";
+        } else {
             this.type = "该类型需要到RecordInfo拓展";
         }
     }

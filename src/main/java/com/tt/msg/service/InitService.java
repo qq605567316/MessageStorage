@@ -20,7 +20,7 @@ public class InitService implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-//        初始化定时器状态
+        //初始化定时器状态
         timerService.initTimers();
     }
 }

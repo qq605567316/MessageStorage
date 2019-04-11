@@ -222,10 +222,8 @@ public class DateString {
     /**
      * 将字符串转换成指定格式的日期.
      *
-     * @param str
-     *            日期字符串.
-     * @param dateFormat
-     *            日期格式. 如果为空，默认为:yyyy-MM-dd HH:mm:ss.
+     * @param str        日期字符串.
+     * @param dateFormat 日期格式. 如果为空，默认为:yyyy-MM-dd HH:mm:ss.
      * @return
      * @author liboc
      */
@@ -282,7 +280,8 @@ public class DateString {
 
     /**
      * 获取当月第一天
-     * @param month 月份
+     *
+     * @param month      月份
      * @param dateFormat 返回日期格式
      * @return 默认YYYYMMDD
      */
@@ -302,7 +301,8 @@ public class DateString {
 
     /**
      * 获取当月最后一天
-     * @param month 月份
+     *
+     * @param month      月份
      * @param dateFormat 返回日期格式
      * @return 默认YYYYMMDD
      */
@@ -322,6 +322,7 @@ public class DateString {
 
     /**
      * 获取天的时间段
+     *
      * @param startDay
      * @param endDay
      * @param pattern
@@ -334,7 +335,7 @@ public class DateString {
         String curr = startDay;
         while (curr.compareTo(endDay) < 1) {
             list.add(curr);
-            Date date = DateUtils.addDays(DateUtils.parseDate(curr, new String[] {pattern}), 1);
+            Date date = DateUtils.addDays(DateUtils.parseDate(curr, new String[]{pattern}), 1);
             curr = DateFormatUtils.format(date, pattern);
         }
         return list;
@@ -342,6 +343,7 @@ public class DateString {
 
     /**
      * 获取月份的时间段
+     *
      * @param startMonth
      * @param endMonth
      * @param pattern
@@ -354,7 +356,7 @@ public class DateString {
         String curr = startMonth;
         while (curr.compareTo(endMonth) < 1) {
             list.add(curr);
-            Date date = DateUtils.addMonths(DateUtils.parseDate(curr, new String[] {pattern}), 1);
+            Date date = DateUtils.addMonths(DateUtils.parseDate(curr, new String[]{pattern}), 1);
             curr = DateFormatUtils.format(date, pattern);
         }
         return list;
@@ -362,6 +364,7 @@ public class DateString {
 
     /**
      * 获取未来 第 past 天的日期
+     *
      * @param past
      * @return
      */
@@ -378,6 +381,7 @@ public class DateString {
 
     /**
      * 获取过去第几天的日期
+     *
      * @param past
      * @return
      */
@@ -394,6 +398,7 @@ public class DateString {
 
     /**
      * 获取过去第几天的日期 年月日
+     *
      * @param past
      * @return
      */
@@ -407,6 +412,7 @@ public class DateString {
 
     /**
      * 获取过去第几天的日期 月日
+     *
      * @param past
      * @return
      */
@@ -420,12 +426,13 @@ public class DateString {
 
     /**
      * 获取过去最近num天的data的String 年月日
+     *
      * @param num
      * @return
      */
-    public static ArrayList<String> getX(int num){
+    public static ArrayList<String> getX(int num) {
         ArrayList<String> list = new ArrayList<String>();
-        for (int i = num-1; i >=0; i--) {
+        for (int i = num - 1; i >= 0; i--) {
             list.add(getPast(i));
         }
         return list;
@@ -433,12 +440,13 @@ public class DateString {
 
     /**
      * 获取过去最近num天的data的String 月日
+     *
      * @param num
      * @return
      */
-    public static ArrayList<String> getXDate(int num){
+    public static ArrayList<String> getXDate(int num) {
         ArrayList<String> list = new ArrayList<String>();
-        for (int i = num-1; i >=0; i--) {
+        for (int i = num - 1; i >= 0; i--) {
             list.add(getXPast(i));
         }
         return list;
@@ -446,12 +454,13 @@ public class DateString {
 
     /**
      * 获取过去 任意天内的日期数组
-     * @param intervals      intervals天内
-     * @return              日期数组
+     *
+     * @param intervals intervals天内
+     * @return 日期数组
      */
     public static ArrayList<Timestamp> getPastDays(int intervals) {
         ArrayList<Timestamp> pastDaysList = new ArrayList<Timestamp>();
-        for (int i = 0; i <intervals; i++) {
+        for (int i = 0; i < intervals; i++) {
             pastDaysList.add(getPastDate(i));
         }
         return pastDaysList;
@@ -459,12 +468,13 @@ public class DateString {
 
     /**
      * 获取未来 任意天内的日期数组
-     * @param intervals      intervals天内
-     * @return              日期数组
+     *
+     * @param intervals intervals天内
+     * @return 日期数组
      */
     public static ArrayList<Timestamp> getFetureDays(int intervals) {
         ArrayList<Timestamp> feturetDaysList = new ArrayList<Timestamp>();
-        for (int i = 0; i <intervals; i++) {
+        for (int i = 0; i < intervals; i++) {
             feturetDaysList.add(getFetureDate(i));
         }
         return feturetDaysList;
@@ -472,15 +482,16 @@ public class DateString {
 
     /**
      * 获取最近intervals天 的开始与结束时间段
+     *
      * @param intervals
      * @return
      */
-    public static ArrayList<Map<String,Object>> getDays(int intervals){
-        ArrayList<Map<String,Object>> lists = new ArrayList<Map<String,Object>>();
-        for (int i = intervals-1; i >= 0; i++) {
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("startDate",getPastDate(i));
-            map.put("endDate",getPastDate(i-1));
+    public static ArrayList<Map<String, Object>> getDays(int intervals) {
+        ArrayList<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
+        for (int i = intervals - 1; i >= 0; i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("startDate", getPastDate(i));
+            map.put("endDate", getPastDate(i - 1));
             lists.add(map);
         }
         return lists;

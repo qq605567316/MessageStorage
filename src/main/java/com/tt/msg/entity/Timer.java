@@ -18,7 +18,7 @@ public class Timer {
      */
     private String name;
     /**
-     *解析报文类型
+     * 解析报文类型
      */
     private String type;
     /**
@@ -52,7 +52,7 @@ public class Timer {
     }
 
     public Timer(Long seq, String name, String type, String status, String filePath,
-            String cronExpression) {
+                 String cronExpression) {
         this.seq = seq;
         this.name = name;
         this.type = type;

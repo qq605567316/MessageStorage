@@ -1,18 +1,18 @@
-$(function() {
+$(function () {
     autoLeftNav();
-    $(window).resize(function() {
+    $(window).resize(function () {
         autoLeftNav();
         console.log($(window).width())
     });
-    if ($('body').attr('class') == "theme-white"){
+    if ($('body').attr('class') == "theme-white") {
         init("white");
     }
-    if($('body').attr('class') == "theme-black"){
+    if ($('body').attr('class') == "theme-black") {
         init("black");
     }
 });
 
-function init(theme){
+function init(theme) {
     $.getJSON('/MessageStorage/table/getdata.action',
         function (data) {
 
@@ -23,13 +23,13 @@ function init(theme){
             var workthree = data.type3Work;
             var allthree = data.type3All;
 
-            var sty1 = workone/allone;
-            var sty2 = worktwo/alltwo;
-            var sty3 = workthree/allthree;
+            var sty1 = workone / allone;
+            var sty2 = worktwo / alltwo;
+            var sty3 = workthree / allthree;
 
-            $("#d1").css("width",sty1*100+"%");
-            $("#d2").css("width",sty2*100+"%");
-            $("#d3").css("width",sty3*100+"%");
+            $("#d1").css("width", sty1 * 100 + "%");
+            $("#d2").css("width", sty2 * 100 + "%");
+            $("#d3").css("width", sty3 * 100 + "%");
 
             $("#s1").text(workone);
             $("#a1").text(allone);
@@ -51,7 +51,7 @@ function init(theme){
                 'chart': function chartData() {
 
                     //类型一数据
-                    var echartsA = echarts.init(document.getElementById('tpl-echarts-A'),theme);
+                    var echartsA = echarts.init(document.getElementById('tpl-echarts-A'), theme);
                     optionA = {
                         tooltip: {
                             trigger: 'axis'
@@ -89,7 +89,7 @@ function init(theme){
 
 
                     //类型二数据
-                    var echartsB = echarts.init(document.getElementById('tpl-echarts-B'),theme);
+                    var echartsB = echarts.init(document.getElementById('tpl-echarts-B'), theme);
                     optionB = {
                         tooltip: {
                             trigger: 'axis'
@@ -128,19 +128,13 @@ function init(theme){
 
 
                     //类型三数据
-                    var echartsC = echarts.init(document.getElementById('tpl-echarts-C'),theme);
+                    var echartsC = echarts.init(document.getElementById('tpl-echarts-C'), theme);
                     optionC = {
                         tooltip: {
                             trigger: 'axis'
                         },
                         legend: {
-                            data:['成功数', '失败数']
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '4%',
-                            bottom: '3%',
-                            containLabel: true
+                            data: ['成功数', '失败数']
                         },
                         toolbox: {
                             feature: {
@@ -158,16 +152,16 @@ function init(theme){
                         },
                         series: [
                             {
-                                name:'成功数',
-                                type:'line',
+                                name: '成功数',
+                                type: 'line',
                                 step: 'start',
-                                data:threeSuc
+                                data: threeSuc
                             },
                             {
-                                name:'失败数',
-                                type:'line',
+                                name: '失败数',
+                                type: 'line',
                                 step: 'end',
-                                data:threeFail
+                                data: threeFail
                             }
                         ]
                     };
@@ -182,16 +176,16 @@ function init(theme){
 
 
 // 风格切换
-$('.tpl-skiner-toggle').on('click', function() {
+$('.tpl-skiner-toggle').on('click', function () {
     $('.tpl-skiner').toggleClass('active');
 });
-$('.tpl-skiner-content-bar').find('span').on('click', function() {
+$('.tpl-skiner-content-bar').find('span').on('click', function () {
     $('body').attr('class', $(this).attr('data-color'));
     saveSelectColor.Color = $(this).attr('data-color');
-    if ($(this).attr('data-color') == "theme-white"){
+    if ($(this).attr('data-color') == "theme-white") {
         init("white");
     }
-    if($(this).attr('data-color') == "theme-black"){
+    if ($(this).attr('data-color') == "theme-black") {
         init("black");
     }
     // 保存选择项
@@ -202,7 +196,7 @@ $('.tpl-skiner-content-bar').find('span').on('click', function() {
 // 侧边菜单开关
 function autoLeftNav() {
 
-    $('.tpl-header-switch-button').on('click', function() {
+    $('.tpl-header-switch-button').on('click', function () {
         if ($('.left-sidebar').is('.active')) {
             if ($(window).width() > 1024) {
                 $('.tpl-content-wrapper').removeClass('active');
@@ -225,7 +219,7 @@ function autoLeftNav() {
 }
 
 // 侧边菜单
-$('.sidebar-nav-sub-title').on('click', function() {
+$('.sidebar-nav-sub-title').on('click', function () {
     $(this).siblings('.sidebar-nav-sub').slideToggle(80)
         .end()
         .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');

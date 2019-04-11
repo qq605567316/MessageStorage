@@ -63,15 +63,15 @@ public class TimerServiceImpl implements TimerService {
     }
 
     @Override
-    public List<Timer> queryPage(String name,String type,Integer pageNum) {
+    public List<Timer> queryPage(String name, String type, Integer pageNum) {
         Integer startRow = 9 * pageNum - 8;
         Integer endRow = 9 * pageNum;
-        return timerDao.queryPage(name,type,startRow, endRow);
+        return timerDao.queryPage(name, type, startRow, endRow);
     }
 
     @Override
-    public Integer queryTotal(String name,String type) {
-        return timerDao.queryTotal(name,type);
+    public Integer queryTotal(String name, String type) {
+        return timerDao.queryTotal(name, type);
     }
 
     @Override
@@ -92,24 +92,24 @@ public class TimerServiceImpl implements TimerService {
     @Override
     public boolean queryByTimer(Timer timer) {
         String filePath = timer.getFilePath();
-        String str = filePath.substring(filePath.length()-1);
-        if (File.separator.equals(str)){
-            filePath = filePath.substring(0, filePath.length()-1);
+        String str = filePath.substring(filePath.length() - 1);
+        if (File.separator.equals(str)) {
+            filePath = filePath.substring(0, filePath.length() - 1);
         }
         timer.setFilePath(filePath);
         Timer t = timerDao.queryByTimer(timer);
         //新增逻辑
-        if(timer.getSeq() == null){
-            if(t == null){
+        if (timer.getSeq() == null) {
+            if (t == null) {
                 return false;
             }
             return true;
         }
         //编辑逻辑
-        if(t == null){
+        if (t == null) {
             return false;
         }
-        if(timer.getSeq().equals(t.getSeq())){
+        if (timer.getSeq().equals(t.getSeq())) {
             return false;
         }
         return true;
@@ -129,6 +129,7 @@ public class TimerServiceImpl implements TimerService {
 
     /**
      * 启动定时任务
+     *
      * @param timer
      * @return
      */
@@ -144,10 +145,10 @@ public class TimerServiceImpl implements TimerService {
         } else if (TIMER_TYPE_TWO.equals(type)) {
             QuartzManager.addJob(seq, name, SecondJob.class, cronExpression, filePath);
             return true;
-        } else if(TIMER_TYPE_THREE.equals(type)){
+        } else if (TIMER_TYPE_THREE.equals(type)) {
             QuartzManager.addJob(seq, name, ThirdJob.class, cronExpression, filePath);
             return true;
-        }else {
+        } else {
             //todo 抛异常
             return false;
         }
@@ -155,6 +156,7 @@ public class TimerServiceImpl implements TimerService {
 
     /**
      * 关闭定时任务
+     *
      * @param timer
      */
     private void shutDown(Timer timer) {

@@ -74,8 +74,8 @@
 
         FROM TIMER WHERE 1=1
 
-        <if test='name != null'> AND NAME LIKE  '%' || #{name,jdbcType=VARCHAR} || '%'  </if>
-        <if test='type != null'> AND TYPE = #{type,jdbcType=VARCHAR} </if>
+        <if test='name != null'>AND NAME LIKE '%' || #{name,jdbcType=VARCHAR} || '%'</if>
+        <if test='type != null'>AND TYPE = #{type,jdbcType=VARCHAR}</if>
 
         ) t
 
@@ -97,8 +97,8 @@
         FROM
         TIMER
         WHERE 1=1
-        <if test='name != null'> AND NAME LIKE  '%' || #{name,jdbcType=VARCHAR} || '%'  </if>
-        <if test='type != null'> AND TYPE = #{type,jdbcType=VARCHAR} </if>
+        <if test='name != null'>AND NAME LIKE '%' || #{name,jdbcType=VARCHAR} || '%'</if>
+        <if test='type != null'>AND TYPE = #{type,jdbcType=VARCHAR}</if>
     </select>
 
     <select id="queryAllStatus" parameterType="Integer" resultType="Integer">

@@ -12,7 +12,7 @@
         INSERT INTO
         SURFACE_OBS_INFO(SI,PP,TH,RE,WI,DT,VV,CW,SP,MR,MW,QC,Q1,Q2,Q3)
         VALUES
-            (#{Si},#{Pp},#{Th},#{Re},#{Wi},#{Dt},#{Vv},#{Cw},#{Sp},#{Mr},#{Mw},#{Qc},#{Q1},#{Q2},#{Q3})
+        (#{Si},#{Pp},#{Th},#{Re},#{Wi},#{Dt},#{Vv},#{Cw},#{Sp},#{Mr},#{Mw},#{Qc},#{Q1},#{Q2},#{Q3})
     </insert>
 
     <select id="queryBySeq" resultType="SurfaceObservation" parameterType="Long">
