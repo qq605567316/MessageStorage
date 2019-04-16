@@ -1,23 +1,24 @@
 package com.tt.msg.dao;
 
 import com.tt.msg.entity.Radar;
+import com.tt.msg.entity.Satellite;
 
 /**
- * @InterfaceName RadarDao
- * @Description 雷达反演产品生成图片Dao层
+ * @InterfaceName SatelliteDao
+ * @Description 卫星类型报文Dao层
  * @Author tanjiang
- * @CreateTime 2019/4/1 9:19
+ * @CreateTime 2019/4/12 19:56
  * @Version 1.0
  **/
 
-public interface RadarDao {
+public interface SatelliteDao {
     /**
      * 插入
      *
-     * @param radar
+     * @param satellite
      * @return
      */
-    int insert(Radar radar);
+    int insert(Satellite satellite);
 
     /**
      * 根据seq查询信息

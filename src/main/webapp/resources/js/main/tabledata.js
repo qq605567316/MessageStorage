@@ -13,6 +13,7 @@ $(function () {
 });
 
 function init(theme) {
+    $.AMUI.progress.start();
     $.getJSON('/MessageStorage/table/getdata.action',
         function (data) {
 
@@ -74,7 +75,7 @@ function init(theme) {
                         yAxis: {
                             type: 'value',
                             name: '数量/（个）',
-                            interval: 10
+                            interval: 50
                         },
                         series: [{
                             name: '成功数',
@@ -128,7 +129,7 @@ function init(theme) {
                         yAxis: {
                             type: 'value',
                             name: '数量/（个）',
-                            interval: 10
+                            interval: 50
                         },
                         series: [{
                             name: '成功数',
@@ -181,7 +182,7 @@ function init(theme) {
                         yAxis: {
                             type: 'value',
                             name: '数量/（个）',
-                            interval: 10
+                            interval: 50
                         },
                         series: [
                             {
@@ -233,6 +234,7 @@ function init(theme) {
             //设置数据
             pageData['chart']();
         });
+    $.AMUI.progress.done();
 }
 
 

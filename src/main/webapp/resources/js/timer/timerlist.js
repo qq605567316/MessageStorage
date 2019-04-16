@@ -6,6 +6,7 @@ function getlist(page) {
     var name = $('#timername').val();
     var type = $('#timertype').val();
 
+    $.AMUI.progress.start();
     $.ajax({
         type: 'post',
         url: '/MessageStorage/timer/getpage.action',
@@ -17,6 +18,7 @@ function getlist(page) {
             }
         }
     });
+    $.AMUI.progress.done();
 }
 
 //点击编辑调用
@@ -51,16 +53,22 @@ function edittimer(seq, status) {
                         filePath: filePathVal,
                         seq: seq
                     };
+                    $.AMUI.progress.start();
                     $.ajax({
                         url: '/MessageStorage/timer/edit.action',
                         type: 'POST',
                         data: JSON.stringify(timer),
                         contentType: 'application/json;charset=utf-8',
                         success: function (data) {
-                            alert(data.msg);
-                            window.location.reload();
+                            if(data.suc){
+                                alert(data.msg);
+                                window.location.reload();
+                            }else{
+                                nextF(data);
+                            }
                         }
                     });
+                    $.AMUI.progress.done();
                 },
                 onCancel: function () {
                     alert('取消编辑定时器信息!');
@@ -179,7 +187,7 @@ function list(page, data) {
             "</a>" +
             "</div>" +
             "<a href=\"javascript:;\">" +
-            "<span class=\"widget-statistic-icon am-icon-bar-chart\" style=\"z-index:99\" onclick=tabletimer('" + list[i].seq + "','" + list[i].name + "','" + list[i].type + "')></span>" +
+            "<span class=\"widget-statistic-icon am-icon-line-chart\" style=\"z-index:99\" onclick=tabletimer('" + list[i].seq + "','" + list[i].name + "','" + list[i].type + "')></span>" +
             "</a></div></div></div>";
         $("#html").append(html);
 
@@ -196,6 +204,7 @@ function deltimer(seq, status) {
     }
 
     $('#seq').val(seq);
+    $.AMUI.progress.start();
     $('#my-confirm').modal({
         relatedTarget: this,
         onConfirm: function () {
@@ -212,9 +221,10 @@ function deltimer(seq, status) {
 
         },
         onCancel: function () {
-            alert('算逑,不弄了');
+
         }
     });
+    $.AMUI.progress.done();
 }
 
 function getType(type) {
@@ -287,7 +297,7 @@ function f(seq, title) {
                         yAxis: {
                             type: 'value',
                             name: '数量/（个）',
-                            interval: 2
+                            interval: 25
                         },
                         series: [{
                             name: '成功数',

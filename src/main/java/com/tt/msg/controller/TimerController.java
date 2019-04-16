@@ -1,8 +1,10 @@
 package com.tt.msg.controller;
 
+import com.tt.msg.entity.Manager;
 import com.tt.msg.entity.Timer;
 import com.tt.msg.service.TimerService;
 import com.tt.msg.utils.HttpServletRequestUtil;
+import com.tt.msg.utils.QuartzManager;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronExpression;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +33,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/timer")
 public class TimerController {
+
+    private static final String USER_SESSION = "manager";
+
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -66,18 +72,24 @@ public class TimerController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> addTimer(@RequestBody Timer timer) {
+    private Map<String, Object> addTimer(@RequestBody Timer timer, HttpSession session) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         if (StringUtils.isBlank(timer.getName())) {
             modelMap.put("msg", "添加时出现错误！");
             return modelMap;
         }
-        boolean b = timerService.queryByTimer(timer);
+        Map<String, Object> map = timerService.queryByTimer(timer);
+        boolean b = (boolean) map.get("result");
+        Manager manager = (Manager) session.getAttribute(USER_SESSION);
+        int level = manager.getUserLevel();
         if (b) {
-            modelMap.put("msg", "该目录已存在该类型定时器，可通过修改已存在定时器的cron来替换该操作！");
+            modelMap.put("suc", false);
+            modelMap.put("timer", map.get("timer"));
+            modelMap.put("lv", level);
             return modelMap;
         }
         modelMap = this.checkData(timer);
+        modelMap.put("suc", true);
         //判断是否通过检查
         if ((Boolean) modelMap.get(FLAG)) {
             //新添加的定时器状态默认为停止
@@ -90,18 +102,24 @@ public class TimerController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> editTimer(@RequestBody Timer timer) {
+    private Map<String, Object> editTimer(@RequestBody Timer timer, HttpSession session) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         if (StringUtils.isBlank(timer.getName())) {
             modelMap.put("msg", "修改时出现错误！");
             return modelMap;
         }
-        boolean b = timerService.queryByTimer(timer);
-        if ((b)) {
-            modelMap.put("msg", "该目录已存在该类型定时器，可通过修改已存在的cron满足该新建定时器需求！");
+        Map<String, Object> map = timerService.queryByTimer(timer);
+        Boolean b = (Boolean) map.get("result");
+        Manager manager = (Manager) session.getAttribute(USER_SESSION);
+        int level = manager.getUserLevel();
+        if (b) {
+            modelMap.put("suc", false);
+            modelMap.put("timer", map.get("timer"));
+            modelMap.put("lv", level);
             return modelMap;
         }
         modelMap = this.checkData(timer);
+        modelMap.put("suc", true);
         //判断是否通过检查
         if ((Boolean) modelMap.get(FLAG)) {
             //新添加的定时器状态默认为停止
@@ -198,5 +216,30 @@ public class TimerController {
         return modelMap;
     }
 
+    @RequestMapping(value = "/nextedit", method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String, Object> nextEditTimer(@RequestBody Timer timer) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        if (StringUtils.isBlank(timer.getName())) {
+            modelMap.put("msg", "修改时出现错误！");
+            return modelMap;
+        }
+        //判断cron表达式是否符合规则
+        String cronExpression = timer.getCronExpression();
+        if (!CronExpression.isValidExpression(cronExpression)) {
+            modelMap.put("msg", "时间不符合cron表达式规则");
+            return modelMap;
+        }
+        //新添加的定时器状态默认为停止
+        timerService.update(timer);
+        if("0".equals(timer.getStatus())){
+            Long seq = timer.getSeq();
+            String name = timer.getName();
+            String cron = timer.getCronExpression();
+            QuartzManager.modifyJobTime(seq,name,cron);
+        }
+        modelMap.put("msg", "修改成功！");
+        return modelMap;
+    }
 }
 

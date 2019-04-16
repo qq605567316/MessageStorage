@@ -13,7 +13,7 @@ function getlist(page) {
         alert('后面的日期应该大于前面的日期！');
         return;
     }
-
+    $.AMUI.progress.start();
     $.ajax({
         type: 'post',
         url: '/MessageStorage/record/getpage.action',
@@ -25,6 +25,7 @@ function getlist(page) {
             }
         }
     });
+    $.AMUI.progress.done();
 }
 
 //导出excel
@@ -123,7 +124,17 @@ function Detail(seq) {
                 })
             } else {
                 //成功的记录处理
+                var type = record.type;
+                if(type == "0"){
+                    //地面观测报文成功结果
 
+                }else if(type == "1"){
+                    //雷达产品报文成功结果
+
+                }else{
+                    //卫星产品报文成功结果
+
+                }
             }
 
             $('#my-prompt').modal({

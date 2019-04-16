@@ -56,12 +56,12 @@
 
             <form class="am-form tpl-form-line-form" method="post" action="${path}/user/login.action">
                 <div class="am-form-group">
-                    <input type="text" class="tpl-form-input" name="username" placeholder="请输入账号">
+                    <input type="text" class="tpl-form-input" name="username" placeholder="请输入账号" maxlength="8">
 
                 </div>
 
                 <div class="am-form-group">
-                    <input type="password" class="tpl-form-input" name="password" placeholder="请输入密码">
+                    <input type="password" class="tpl-form-input" name="password" placeholder="请输入密码" maxlength="16">
 
                 </div>
 

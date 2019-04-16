@@ -27,7 +27,6 @@ public class SurfaceObservationServiceImpl implements SurfaceObservationService 
             surfaceObservationDao.insert(surfaceObservation);
             return "s";
         } catch (Exception e) {
-            //todo log
             return e.getMessage();
         }
     }

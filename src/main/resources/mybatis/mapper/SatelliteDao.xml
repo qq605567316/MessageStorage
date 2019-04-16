@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.msg.dao.SatelliteDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insert" parameterType="Satellite">
+        <!-- 获取自增id -->
+        <selectKey keyProperty="seq" resultType="Long" order="AFTER">
+            SELECT Satellite_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+        INSERT INTO
+        Satellite_INFO(FILEDATE,ELEVATION,PRODUCTID,STATIONID,FILEPATH)
+        VALUES
+        (#{fileDate,jdbcType=TIMESTAMP},#{elevation,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{stationId,jdbcType=VARCHAR},#{filePath,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="queryBySeq" resultType="Satellite" parameterType="Long">
+        SELECT
+        *
+        FROM
+        Satellite_INFO
+        WHERE
+        seq = #{seq}
+    </select>
+
+</mapper>

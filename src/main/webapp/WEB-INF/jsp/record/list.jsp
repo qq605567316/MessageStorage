@@ -95,7 +95,7 @@
         <ul class="sidebar-nav">
             <li class="sidebar-nav-link">
                 <a href="${path}/user/login.action">
-                    <i class="am-icon-home sidebar-nav-link-logo"></i> 主页面
+                    <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 定时器情况
                 </a>
             </li>
             <li class="sidebar-nav-link">
@@ -126,7 +126,7 @@
                 </div>
                 <div class="am-u-lg-3 tpl-index-settings-button">
                     <button type="button" class="page-header-button" onclick="exp()"><span
-                            class="am-icon-plus"></span> 导出
+                            class="am-icon-file-excel-o"></span> 导出
                     </button>
                 </div>
             </div>
@@ -243,13 +243,13 @@
             <div class="am-panel-group" id="accordion">
                 <div class="am-panel am-panel-default">
                     <div class="am-panel-hd">
-                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
-                            失败原因
+                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say'}">
+                            失败文件现在所在目录及名称
                         </h4>
                     </div>
-                    <div id="do-not-say-1" class="am-panel-collapse am-collapse am-in">
-                        <div class="am-panel-bd">
-                            <span id="failMsg">
+                    <div id="do-not-say" class="am-panel-collapse am-collapse">
+                        <div class="am-panel-bd am-scrollable-horizontal">
+                            <span id="failPath">
 
                             </span>
                         </div>
@@ -257,13 +257,13 @@
                 </div>
                 <div class="am-panel am-panel-default">
                     <div class="am-panel-hd">
-                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-2'}">
-                            失败文件现在所在目录及名称
+                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
+                            失败原因
                         </h4>
                     </div>
-                    <div id="do-not-say-2" class="am-panel-collapse am-collapse">
-                        <div class="am-panel-bd">
-                            <span id="failPath">
+                    <div id="do-not-say-1" class="am-panel-collapse am-collapse am-in">
+                        <div class="am-panel-bd am-scrollable-horizontal">
+                            <span id="failMsg" class="am-text-danger">
 
                             </span>
                         </div>

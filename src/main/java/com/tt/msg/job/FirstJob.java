@@ -3,7 +3,6 @@ package com.tt.msg.job;
 
 import com.tt.msg.entity.Record;
 import com.tt.msg.entity.SurfaceObservation;
-import com.tt.msg.service.RadarService;
 import com.tt.msg.service.RecordService;
 import com.tt.msg.service.SurfaceObservationService;
 import com.tt.msg.utils.ApplicationContextHelper;
@@ -14,7 +13,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -31,7 +29,6 @@ import java.util.List;
  * @Version 1.0
  **/
 
-@Component
 public class FirstJob implements Job {
 
     private SurfaceObservationService surfaceObservationService = ApplicationContextHelper.getBean(SurfaceObservationService.class);
@@ -77,6 +74,7 @@ public class FirstJob implements Job {
             if (file.isDirectory()) {
                 continue;
             }
+
             this.dealFile(file, filePath, timerSeq);
         }
     }
@@ -118,7 +116,8 @@ public class FirstJob implements Job {
                 surfaceObservation.setQ3(lines.get(i++));
                 surfaceObservations.add(surfaceObservation);
             } while (!FILE_END_SIGN.equals(lines.get(i)));
-
+            i = 0;
+            StringBuilder sBuilder = new StringBuilder("异常原因：");
             for (SurfaceObservation surfaceObservation : surfaceObservations) {
                 String result = surfaceObservationService.insert(surfaceObservation);
                 if ("s".equals(result)) {
@@ -126,20 +125,30 @@ public class FirstJob implements Job {
                     Record record = new Record(timerSeq, sucPath, "0", sucSeq);
                     recordService.insert(record);
                 } else {
-                    Record record = new Record(timerSeq, failPath, "0", result);
+                    Record record = new Record(timerSeq, failPath, "0", "数据插入出现异常，请检查源文档数据规范性");
                     recordService.insert(record);
+                    i++;
+                    sBuilder.append(i+":"+result);
                 }
             }
-            //放入类型一解析成功文件夹
-            FileUtils.moveFile(file, successFile);
+            if (i != 0){
+                FileUtils.moveFile(file,failFile);
+                LOGGER.info(file.getName()+"处理过程中出现错误");
+                LOGGER.error(sBuilder.toString());
+            }else {
+                //放入类型一解析成功文件夹
+                FileUtils.moveFile(file, successFile);
+                LOGGER.info(file.getName()+"处理成功！");
+            }
         } catch (IOException e) {
             try {
-                Record record = new Record(timerSeq, failPath, "0", e.getMessage());
+                Record record = new Record(timerSeq, failPath, "0", "源文件移动出现错误！");
                 recordService.insert(record);
                 //放入类型一解析失败文件夹
                 FileUtils.moveFile(file, failFile);
             } catch (IOException e1) {
-                e1.printStackTrace();
+                LOGGER.info(file.getName()+"放入失败文件夹出现错误");
+                LOGGER.error("放入失败文件夹出现错误："+e1.getMessage());
             }
         }
     }

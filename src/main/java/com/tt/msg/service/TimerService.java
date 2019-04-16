@@ -3,6 +3,7 @@ package com.tt.msg.service;
 import com.tt.msg.entity.Timer;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @InterfaceName TimerService
@@ -102,5 +103,5 @@ public interface TimerService {
      * @param timer
      * @return
      */
-    boolean queryByTimer(Timer timer);
+    Map<String, Object> queryByTimer(Timer timer);
 }

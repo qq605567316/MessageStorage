@@ -60,9 +60,9 @@ public class ViewExcel extends AbstractExcelView {
             }
         }
         // 设置下载时客户端Excel的名称
-        String filename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".xls";
-        response.setContentType("application/vnd.ms-excel");
+        String filename = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".xls";
         response.setHeader("Content-Disposition", "attachment;filename=" + filename);
+        response.setContentType("application/vnd.ms-excel");
         OutputStream ouputStream = response.getOutputStream();
         workbook.write(ouputStream);
         ouputStream.flush();

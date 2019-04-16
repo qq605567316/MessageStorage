@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName TimerServiceImpl
@@ -90,7 +92,8 @@ public class TimerServiceImpl implements TimerService {
     }
 
     @Override
-    public boolean queryByTimer(Timer timer) {
+    public Map<String, Object> queryByTimer(Timer timer) {
+        Map<String,Object> map = new HashMap<String, Object>();
         String filePath = timer.getFilePath();
         String str = filePath.substring(filePath.length() - 1);
         if (File.separator.equals(str)) {
@@ -98,21 +101,27 @@ public class TimerServiceImpl implements TimerService {
         }
         timer.setFilePath(filePath);
         Timer t = timerDao.queryByTimer(timer);
+        map.put("timer",t);
         //新增逻辑
         if (timer.getSeq() == null) {
             if (t == null) {
-                return false;
+                map.put("result",false);
+                return map;
             }
-            return true;
+            map.put("result",true);
+            return map;
         }
         //编辑逻辑
         if (t == null) {
-            return false;
+            map.put("result",false);
+            return map;
         }
         if (timer.getSeq().equals(t.getSeq())) {
-            return false;
+            map.put("result",false);
+            return map;
         }
-        return true;
+        map.put("result",true);
+        return map;
     }
 
     @Override

@@ -104,7 +104,7 @@ public class SecondJob implements Job {
                 //放入失败文件夹
                 FileUtils.moveFile(file, failFile);
                 //保存解压失败记录
-                Record record = new Record(timerSeq, filePath, "1", "文件解压失败");
+                Record record = new Record(timerSeq, failPath, "1", "文件解压失败");
                 recordService.insert(record);
                 return;
             }
@@ -120,7 +120,7 @@ public class SecondJob implements Job {
             //过滤出grd与gdr文件
             File[] files = dealDir.listFiles(filter);
             //过滤非雷达产品zip
-            if (files.length == 0) {
+            if (files == null | files.length == 0) {
                 //删除解压出来的文件
                 dealAll(dealPath);
                 return;
@@ -151,24 +151,27 @@ public class SecondJob implements Job {
                 recordService.insert(record);
                 //放入历史文件夹
                 FileUtils.moveFile(file, successFile);
+                LOGGER.info(file.getName()+"处理成功!");
             } else {
                 dealAll(dealPath);
                 Record record = new Record(timerSeq, failPath, "1", "处理成png图片时失败！");
                 recordService.insert(record);
                 //放入失败文件夹
                 FileUtils.moveFile(file, failFile);
+                LOGGER.info(file.getName()+"处理失败！");
+                LOGGER.error(file.getName()+"处理失败,处理成png图片时失败,可能zip内文件数据不对！");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info(file.getName()+"处理失败！");
             dealAll(file.getAbsolutePath());
-            Record record = new Record(timerSeq, failPath, "1", e.getMessage());
+            Record record = new Record(timerSeq, failPath, "1", "移动失败文件时出现错误");
             recordService.insert(record);
             //放入失败文件夹
             try {
                 FileUtils.moveFile(file, failFile);
+                LOGGER.error(file.getName()+"处理失败："+e.getMessage());
             } catch (IOException e1) {
-                e1.printStackTrace();
-                LOGGER.debug(e.getMessage());
+                LOGGER.error(file.getName()+"移入fail文件夹失败："+e.getMessage());
             }
         }
 
@@ -213,7 +216,7 @@ public class SecondJob implements Job {
 
             return descDir;
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("解压文件时发生错误，错误原因：" + e.getMessage());
             return "-1";
         } finally {
             try {
@@ -221,7 +224,7 @@ public class SecondJob implements Job {
                     zip.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("关闭zip文件流失败: "+e.getMessage());
             }
         }
     }
@@ -265,10 +268,10 @@ public class SecondJob implements Job {
             if (!fileName.endsWith("png")) {
                 f.delete();
             } else {
-                if (fileName.indexOf("grd") != -1) {
+                if (fileName.contains("grd")) {
                     radar.setGrdFilePath(f.getAbsolutePath());
                 }
-                if (fileName.indexOf("gdr") != -1) {
+                if (fileName.contains("gdr")) {
                     radar.setGdrFilePath(f.getAbsolutePath());
                 }
             }
@@ -283,18 +286,23 @@ public class SecondJob implements Job {
      */
     private void dealAll(String path) {
         try {
-
             File file = new File(path);
+            if(!file.exists()){
+                return;
+            }
             // 当且仅当此抽象路径名表示的文件存在且 是一个目录时，返回 true
             if (!file.isDirectory()) {
                 file.delete();
-            } else if (file.isDirectory()) {
+            }else{
                 String[] filelist = file.list();
+                if (filelist == null){
+                    return;
+                }
                 for (int i = 0; i < filelist.length; i++) {
                     File delfile = new File(path + File.separator + filelist[i]);
                     if (!delfile.isDirectory()) {
                         delfile.delete();
-                    } else if (delfile.isDirectory()) {
+                    } else {
                         dealAll(path + File.separator + filelist[i]);
                     }
                 }
@@ -302,8 +310,7 @@ public class SecondJob implements Job {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.debug(e.getMessage());
+            LOGGER.error("删除解压后的文件夹失败："+e.getMessage());
         }
     }
 }

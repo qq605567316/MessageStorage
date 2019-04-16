@@ -94,7 +94,7 @@
         <ul class="sidebar-nav">
             <li class="sidebar-nav-link">
                 <a href="${path}/user/login.action">
-                    <i class="am-icon-home sidebar-nav-link-logo"></i> 主页面
+                    <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 定时器情况
                 </a>
             </li>
             <li class="sidebar-nav-link">
@@ -325,6 +325,55 @@
     </div>
 </div>
 
+<div class="am-modal am-modal-confirm" tabindex="-1" id="nextF">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+            定时器功能冲突
+        </div>
+        <div class="am-modal-bd">
+            该目录已存在此类定时器，是否通过修改已存在定时器的cron来替换该操作？<br/><br/>
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="nextF2">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">现存在的同目录同功能定时器:</div>
+        <form enctype="multipart/form-data">
+            <div class="am-modal-bd">
+                <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">报文类型</label>
+                <select data-am-selected name="type" id="etype" disabled>
+                    <%--<select name="type" id="edittype">--%>
+                    <option value="0">地面观测</option>
+                    <option value="1">雷达产品</option>
+                    <option value="2">卫星产品</option>
+                </select>
+            </div>
+            <div class="am-modal-bd">
+                <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">名称</label>
+                <input type="text" class="am-modal-prompt-input" placeholder="定时器名称" name="name" id="ename"
+                       maxlength="6" disabled>
+            </div>
+            <div class="am-modal-bd">
+                <a href="http://cron.qqe2.com/" target="_blank" for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析频次</a>
+                <input type="text" class="am-modal-prompt-input" placeholder="cron表达式" name="cronExpression"
+                       id="ecronExpression">
+            </div>
+            <div class="am-modal-bd">
+                <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">解析路径</label>
+                <input type="text" class="am-modal-prompt-input" placeholder="解析路径" name="filePath" id="efilePath" disabled>
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script src="${path}/resources/js/amazeui.min.js"></script>
 <script src="${path}/resources/js/amazeui.datatables.min.js"></script>

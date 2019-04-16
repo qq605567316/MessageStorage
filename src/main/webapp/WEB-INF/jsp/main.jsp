@@ -18,7 +18,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Amaze UI Admin index Examples</title>
-    <meta name="description" content="这是一个 index 页面">
+    <meta name="description" content="图表展示页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
@@ -95,7 +95,7 @@
         <ul class="sidebar-nav">
             <li class="sidebar-nav-link">
                 <a href="${path}/user/login.action" class="active">
-                    <i class="am-icon-home sidebar-nav-link-logo"></i> 主页面
+                    <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 定时器情况
                 </a>
             </li>
             <li class="sidebar-nav-link">
@@ -119,9 +119,9 @@
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
                     <div class="page-header-heading">
-                        <span class="am-icon-home sidebar-nav-link-logo"></span> 主页面
+                        <span class="am-icon-bar-chart sidebar-nav-link-logo"></span> 数据统计
                     </div>
-                    <p class="page-header-description">此页面展示定时器情况及最近7天各定时器处理的记录情况</p>
+                    <p class="page-header-description">此页面展示定时器情况及最近7天各类定时器处理的记录情况</p>
                 </div>
             </div>
 

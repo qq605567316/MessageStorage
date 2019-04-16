@@ -92,10 +92,10 @@ public class QuartzManager {
      * @Title: QuartzManager.java
      */
     @SuppressWarnings("rawtypes")
-    public static void modifyJobTime(String jobName, String time) {
+    public static void modifyJobTime(Long timerSeq, String jobName, String time) {
         try {
             Scheduler sched = schedulerFactory.getScheduler();
-            TriggerKey triggerKey = TriggerKey.triggerKey(TRIGGER_NAME, TRIGGER_GROUP_NAME);
+            TriggerKey triggerKey = TriggerKey.triggerKey(jobName, TRIGGER_GROUP_NAME);
             CronTrigger trigger = (CronTrigger) sched.getTrigger(triggerKey);
             if (trigger == null) {
                 return;
@@ -103,26 +103,26 @@ public class QuartzManager {
             String oldTime = trigger.getCronExpression();
             if (!oldTime.equalsIgnoreCase(time)) {
                 /** 方式一 ：调用 rescheduleJob 开始 */
-                // 触发器
-                TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
-                // 触发器名,触发器组
-                triggerBuilder.withIdentity(TRIGGER_NAME, TRIGGER_GROUP_NAME);
-                //triggerBuilder.startNow();
-                // 触发器时间设定
-                triggerBuilder.withSchedule(CronScheduleBuilder.cronSchedule(time));
-                // 创建Trigger对象
-                trigger = (CronTrigger) triggerBuilder.build();
-                // 方式一 ：修改一个任务的触发时间
-                sched.rescheduleJob(triggerKey, trigger);
+//                // 触发器
+//                TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
+//                // 触发器名,触发器组
+//                triggerBuilder.withIdentity(jobName, TRIGGER_GROUP_NAME);
+//                //triggerBuilder.startNow();
+//                // 触发器时间设定
+//                triggerBuilder.withSchedule(CronScheduleBuilder.cronSchedule(time));
+//                // 创建Trigger对象
+//                trigger = (CronTrigger) triggerBuilder.build();
+//                // 方式一 ：修改一个任务的触发时间
+//                sched.rescheduleJob(triggerKey, trigger);
                 /** 方式一 ：调用 rescheduleJob 结束 */
 
                 /** 方式二：先删除，然后在创建一个新的Job 开始 */
-//                JobDetail jobDetail = sched.getJobDetail(JobKey.jobKey(jobName, JOB_GROUP_NAME));
-//                JobDataMap jobDataMap = jobDetail.getJobDataMap();
-//                String filePath = (String) jobDataMap.get("filePath");
-//                Class<? extends Job> jobClass = jobDetail.getJobClass();
-//                removeJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME);
-//                addJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME, jobClass, time, filePath);
+                JobDetail jobDetail = sched.getJobDetail(JobKey.jobKey(jobName, JOB_GROUP_NAME));
+                JobDataMap jobDataMap = jobDetail.getJobDataMap();
+                String filePath = (String) jobDataMap.get("filePath");
+                Class<? extends Job> jobClass = jobDetail.getJobClass();
+                removeJob(jobName, JOB_GROUP_NAME, jobName, TRIGGER_GROUP_NAME);
+                addJob(timerSeq, jobName, JOB_GROUP_NAME, jobName, TRIGGER_GROUP_NAME, jobClass, time, filePath);
                 /** 方式二 ：先删除，然后在创建一个新的Job 结束 */
             }
         } catch (Exception e) {
