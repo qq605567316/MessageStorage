@@ -155,9 +155,9 @@ function list(page, data) {
             "      </li>");
     }
     for (var i = 0; i < list.length; i++) {
-        var status = "<a class='am-btn am-btn-default' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 0 + "')>" + "未执行</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        var status = "<a class='am-btn am-btn-default' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 0 + "')>" + "未执行</a>&nbsp;&nbsp;&nbsp;";
         if (list[i].status == "0") {
-            status = "<a class='am-btn am-btn-success' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 1 + "')>" + "执行中</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            status = "<a class='am-btn am-btn-success' href=\"javascript:;\" onclick=change('" + list[i].seq + "','" + 1 + "')>" + "执行中</a>&nbsp;&nbsp;&nbsp;";
         }
 
         if (i == 3 || i == 6) {

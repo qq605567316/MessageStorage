@@ -1,6 +1,5 @@
 package com.tt.msg.dao;
 
-import com.tt.msg.entity.Radar;
 import com.tt.msg.entity.Satellite;
 
 /**
@@ -26,5 +25,5 @@ public interface SatelliteDao {
      * @param seq
      * @return
      */
-    Radar queryBySeq(Long seq);
+    Satellite queryBySeq(Long seq);
 }

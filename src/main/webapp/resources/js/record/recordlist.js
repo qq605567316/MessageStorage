@@ -125,46 +125,69 @@ function Detail(seq) {
             } else {
                 //成功的记录处理
                 var type = record.type;
-                if(type == "0"){
+                var obj = data.obj;
+                if (type == "0") {
                     //地面观测报文成功结果
-
-                }else if(type == "1"){
+                    var i = 0;
+                    $('#p11').text(obj[i++]);
+                    $('#p12').text(obj[i++]);
+                    $('#p13').text(obj[i++]);
+                    $('#p14').text(obj[i++]);
+                    $('#p15').text(obj[i++]);
+                    $('#p16').text(obj[i++]);
+                    $('#p21').text(obj[i++]);
+                    $('#p22').text(obj[i++]);
+                    $('#p23').text(obj[i++]);
+                    $('#p24').text(obj[i++]);
+                    $('#p25').text(obj[i++]);
+                    $('#p26').text(obj[i++]);
+                    $('#p31').text(obj[i++]);
+                    $('#p32').text(obj[i++]);
+                    $('#p33').text(obj[i++]);
+                    $('#p34').text(obj[i++]);
+                    $('#p35').text(obj[i++]);
+                    $('#p36').text(obj[i++]);
+                    $('#p41').text(obj[i++]);
+                    $('#p42').text(obj[i++]);
+                    $('#p43').text(obj[i++]);
+                    $('#p44').text(obj[i++]);
+                    $('#p45').text(obj[i++]);
+                    $('#p51').text(obj[i++]);
+                    $('#p52').text(obj[i++]);
+                    $('#p53').text(obj[i++]);
+                    $('#p54').text(obj[i++]);
+                    $('#p55').text(obj[i++]);
+                    $('#p56').text(obj[i++]);
+                    $('#p57').text(obj[i++]);
+                    $('#p58').text(obj[i++]);
+                    $('#p59').text(obj[i++]);
+                    $('#p61').text(obj[i++]);
+                    $('#p62').text(obj[i++]);
+                    $('#p63').text(obj[i++]);
+                    $('#p64').text(obj[i++]);
+                    $('#p65').text(obj[i++]);
+                    $('#filePath1').text(obj[i]);
+                    $('#suc-typeone').modal({
+                        relatedTarget: this
+                    })
+                } else if (type == "1") {
                     //雷达产品报文成功结果
-
-                }else{
+                    $('#picPath').text(obj[0]);
+                    $('#filePath2').text(obj[1]);
+                    $('#suc-typetwo').modal({
+                        relatedTarget: this
+                    })
+                } else {
                     //卫星产品报文成功结果
-
+                    $('#filedate').text(obj.fileTime);
+                    $('#elevation').text(obj.elevation);
+                    $('#productid').text(obj.productId);
+                    $('#stationid').text(obj.stationId);
+                    $('#filePath3').text(obj.filePath);
+                    $('#suc-typethree').modal({
+                        relatedTarget: this
+                    })
                 }
             }
-
-            $('#my-prompt').modal({
-                relatedTarget: this,
-                onConfirm: function () {
-                    var typeVal = $('#edittype').val();
-                    var nameVal = $('#editname').val();
-                    var cronExpressionVal = $('#editcronExpression').val();
-                    var filePathVal = $('#editfilePath').val();
-                    var timer = {
-                        type: typeVal,
-                        name: nameVal,
-                        cronExpression: cronExpressionVal,
-                        filePath: filePathVal,
-                        seq: seq
-                    };
-                    $.ajax({
-                        url: '/MessageStorage/timer/edit.action',
-                        type: 'POST',
-                        data: JSON.stringify(timer),
-                        contentType: 'application/json;charset=utf-8',
-                        success: function (data) {
-                            alert(data.msg);
-                            window.location.href = '/MessageStorage/timer/list.action';
-                        }
-                    });
-                },
-                onCancel: function () {
-                    alert('取消编辑定时器信息!');
-                }
-            });
         });
 }

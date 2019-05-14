@@ -2,6 +2,7 @@ package com.tt.msg.service.impl;
 
 import com.tt.msg.dao.RadarDao;
 import com.tt.msg.dao.RecordDao;
+import com.tt.msg.dao.SatelliteDao;
 import com.tt.msg.dao.SurfaceObservationDao;
 import com.tt.msg.entity.*;
 import com.tt.msg.service.RecordService;
@@ -9,6 +10,7 @@ import com.tt.msg.utils.DateString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,9 @@ public class RecordServiceImpl implements RecordService {
 
     @Autowired
     private RadarDao radarDao;
+
+    @Autowired
+    private SatelliteDao satelliteDao;
 
     @Autowired
     private SurfaceObservationDao surfaceObservationDao;
@@ -120,14 +125,21 @@ public class RecordServiceImpl implements RecordService {
         if ("0".equals(type)) {
             SurfaceObservation surfaceObservation = surfaceObservationDao.queryBySeq(sucSeq);
             List<String> list = surfaceObservation.dealSurface(surfaceObservation);
+            list.add(record.getFileName());
             map.put("obj", list);
         }
         if ("1".equals(type)) {
             Radar radar = radarDao.queryBySeq(sucSeq);
-            map.put("obj", radar);
+            List<String> list = new ArrayList<String>();
+            File f = new File(radar.getGdrFilePath());
+            list.add(f.getParent());
+            list.add(record.getFileName());
+            map.put("obj", list);
         }
         if ("2".equals(type)) {
-            //todo
+            Satellite satellite = satelliteDao.queryBySeq(sucSeq);
+            satellite.setFileTime(DateString.getFullString(satellite.getFileDate()));
+            map.put("obj",satellite);
         }
 
         return map;

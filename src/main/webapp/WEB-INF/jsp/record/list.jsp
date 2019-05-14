@@ -147,7 +147,8 @@
 
                                 <label class="am-form-label">文件名：</label>
                                 <div class="am-input-group am-input-group-primary">
-                                    <input type="text" class="am-form-field" maxlength="18" id="fileName" name="fileName">
+                                    <input type="text" class="am-form-field" maxlength="18" id="fileName"
+                                           name="fileName">
                                 </div>
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -240,45 +241,337 @@
         </div>
         <div class="am-modal-bd">
 
-            <div class="am-panel-group" id="accordion">
-                <div class="am-panel am-panel-default">
-                    <div class="am-panel-hd">
-                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say'}">
-                            失败文件现在所在目录及名称
-                        </h4>
-                    </div>
-                    <div id="do-not-say" class="am-panel-collapse am-collapse">
-                        <div class="am-panel-bd am-scrollable-horizontal">
-                            <span id="failPath">
+            <section data-am-widget="accordion" class="am-accordion am-accordion-default"
+                     data-am-accordion='{ "multiple": true }'>
+                <dl class="am-accordion-item am-active">
+                    <dt class="am-accordion-title">
+                        失败原因
+                    </dt>
+                    <dd class="am-accordion-bd am-collapse am-in">
+                        <div class="am-accordion-content am-scrollable-horizontal">
+                        <span id="failMsg" class="am-text-danger">
 
                             </span>
                         </div>
-                    </div>
-                </div>
-                <div class="am-panel am-panel-default">
-                    <div class="am-panel-hd">
-                        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
-                            失败原因
-                        </h4>
-                    </div>
-                    <div id="do-not-say-1" class="am-panel-collapse am-collapse am-in">
-                        <div class="am-panel-bd am-scrollable-horizontal">
-                            <span id="failMsg" class="am-text-danger">
+                    </dd>
+                </dl>
+                <dl class="am-accordion-item">
+                    <dt class="am-accordion-title">
+                        失败文件现在所在目录及名称
+                    </dt>
+                    <dd class="am-accordion-bd am-collapse ">
+                        <div class="am-accordion-content am-scrollable-horizontal">
+                        <span id="failPath">
 
                             </span>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </dd>
+                </dl>
+            </section>
 
         </div>
     </div>
 </div>
 
-<div class="am-modal am-modal-prompt" tabindex="-1" id="suc-modal">
+<div class="am-modal am-modal-prompt" tabindex="-1" id="suc-typeone">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">修改定时器:</div>
+        <div class="am-modal-hd">地面观测报文:</div>
+        <section data-am-widget="accordion" class="am-accordion am-accordion-default"
+                 data-am-accordion='{ "multiple": true }'>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    观测站基本信息
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        区站号:
+                        <span id="p11">
 
+                        </span>
+                        观测时间:
+                        <span id="p12">
+
+                        </span>
+                        纬度:
+                        <span id="p13">
+
+                        </span>
+                        经度:
+                        <span id="p14">
+
+                        </span>
+                        观测方式:
+                        <span id="p15">
+
+                        </span>
+                        文件是否更正过:
+                        <span id="p16">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    气压数据
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        本站气压:
+                        <span id="p21">
+
+                        </span>
+                        海平面气压:
+                        <span id="p22">
+
+                        </span>
+                        最高本站气压:
+                        <span id="p23">
+
+                        </span>
+                        最高本站气压出现时间:
+                        <span id="p24">
+
+                        </span>
+                        最低本站气压:
+                        <span id="p25">
+
+                        </span>
+                        最低本站气压出现时间:
+                        <span id="p26">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    温度数据
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        气温数据:
+                        <span id="p31">
+
+                        </span>
+                        最高气温:
+                        <span id="p32">
+
+                        </span>
+                        最高气温出现时间:
+                        <span id="p33">
+
+                        </span>
+                        最低气温:
+                        <span id="p34">
+
+                        </span>
+                        最低气温出现时间:
+                        <span id="p35">
+
+                        </span>
+                        露点温度:
+                        <span id="p36">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    湿度和降水数据
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        相对湿度:
+                        <span id="p41">
+
+                        </span>
+                        最小相对湿度:
+                        <span id="p42">
+
+                        </span>
+                        最小相对湿度出现时间:
+                        <span id="p43">
+
+                        </span>
+                        水汽压:
+                        <span id="p44">
+
+                        </span>
+                        小时降水量:
+                        <span id="p45">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    风观测数据
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        两分钟风向:
+                        <span id="p51">
+
+                        </span>
+                        两分钟平均风速:
+                        <span id="p52">
+
+                        </span>
+                        十分钟风向:
+                        <span id="p53">
+
+                        </span>
+                        十分钟平均风速:
+                        <span id="p54">
+
+                        </span>
+                        最大风速风向:
+                        <span id="p55">
+
+                        </span>
+                        最大风速:
+                        <span id="p56">
+
+                        </span>
+                        最大风速出现时间:
+                        <span id="p57">
+
+                        </span>
+                        瞬时风向:
+                        <span id="p58">
+
+                        </span>
+                        瞬时风速:
+                        <span id="p59">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    地温数据
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        地表温度:
+                        <span id="p61">
+
+                        </span>
+                        地表最高温度:
+                        <span id="p62">
+
+                        </span>
+                        地表最高温度出现时间:
+                        <span id="p63">
+
+                        </span>
+                        地表最低温度:
+                        <span id="p64">
+
+                        </span>
+                        地表最低温度出现时间:
+                        <span id="p65">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item">
+                <dt class="am-accordion-title">
+                    源文件现在所在目录及名称
+                </dt>
+                <dd class="am-accordion-bd am-collapse ">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        <span id="filePath1">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+        </section>
+    </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="suc-typetwo">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">雷达报文:</div>
+        <section data-am-widget="accordion" class="am-accordion am-accordion-default"
+                 data-am-accordion='{ "multiple": true }'>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    处理生成文件目录位置
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        <span id="picPath">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item">
+                <dt class="am-accordion-title">
+                    源文件现在所在目录及名称
+                </dt>
+                <dd class="am-accordion-bd am-collapse ">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        <span id="filePath2">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+        </section>
+    </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="suc-typethree">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">卫星报文:</div>
+        <section data-am-widget="accordion" class="am-accordion am-accordion-default"
+                 data-am-accordion='{ "multiple": true }'>
+            <dl class="am-accordion-item am-active">
+                <dt class="am-accordion-title">
+                    报文信息
+                </dt>
+                <dd class="am-accordion-bd am-collapse am-in">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        收集时间:
+                        <span id="filedate">
+
+                        </span>
+                        仰角号:
+                        <span id="elevation">
+
+                        </span>
+                        产品号:
+                        <span id="productid">
+
+                        </span>
+                        站号:
+                        <span id="stationid">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="am-accordion-item">
+                <dt class="am-accordion-title">
+                    源文件现在所在目录及名称
+                </dt>
+                <dd class="am-accordion-bd am-collapse ">
+                    <div class="am-accordion-content am-scrollable-horizontal">
+                        <span id="filePath3">
+
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+        </section>
     </div>
 </div>
 

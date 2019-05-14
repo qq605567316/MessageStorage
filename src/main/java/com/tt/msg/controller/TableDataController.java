@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/table")
-public class TableDateController {
+public class TableDataController {
 
     @Autowired
     private RecordService recordService;

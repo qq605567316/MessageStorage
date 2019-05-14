@@ -158,7 +158,6 @@ public class TimerServiceImpl implements TimerService {
             QuartzManager.addJob(seq, name, ThirdJob.class, cronExpression, filePath);
             return true;
         } else {
-            //todo 抛异常
             return false;
         }
     }

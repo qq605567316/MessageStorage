@@ -49,7 +49,7 @@ public class ExcelUtil {
                 }
                 // 遍历所有的列
                 List<Object> li = new ArrayList<Object>();
-                for (int y = 0; y < 7; y++) {    //由于个人原因被明确规定了导入数据只有三列，
+                for (int y = 0; y < 7; y++) {    //由于个人原因被明确规定了导入数据只有7列，
                     cell = row.getCell(y);    //且 考虑到导入的excel单元格内可以不写东西得情况
                     if (cell == null)        //所以直接用 明确的数值来确定遍历的次数
                     {

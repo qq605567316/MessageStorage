@@ -198,6 +198,7 @@ public class genRadarPic_gdr {
 
             g2d.dispose();
 
+            filename = filename.replace(".","_");
             // 保存文件
             OutputStream out = new FileOutputStream(new File(filepath
                     + File.separator + filename + ".png"));

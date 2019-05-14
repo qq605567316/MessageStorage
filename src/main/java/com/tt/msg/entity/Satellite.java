@@ -38,6 +38,11 @@ public class Satellite {
      */
     private String filePath;
 
+    /**
+     * 用于页面显示的日期
+     */
+    private String fileTime;
+
     public Satellite() {
     }
 
@@ -95,5 +100,13 @@ public class Satellite {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getFileTime() {
+        return fileTime;
+    }
+
+    public void setFileTime(String fileTime) {
+        this.fileTime = fileTime;
     }
 }

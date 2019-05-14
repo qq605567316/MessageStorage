@@ -128,38 +128,122 @@ public class SurfaceObservation {
         String P14 = s.getQ2();
         String P15 = s.getQ3();
 
-        String str = "";
+        String str;
+        int num;
 
+        //区站号
         String[] p1 = P1.split("\\s+");
         list.add(p1[0]);
-
+        //观测时间
         str = DateString.Str2Date(p1[1]);
         list.add(str);
+        //纬度
         str = p1[2].substring(0, 2) + "°" + p1[2].substring(2, 4) + "'" + p1[2].substring(4, 6) + "\"";
         list.add(str);
+        //经度
         str = p1[3].substring(0, 3) + "°" + p1[3].substring(3, 5) + "'" + p1[3].substring(5, 7) + "\"";
         list.add(str);
-        String s1 = str.substring(0, 1);
-        if ("-".equals(s1)) {
-
+        //观测方式
+        if("1".equals(p1[6])){
+            list.add("人工观测");
+        }else{
+            list.add("自动站观测");
         }
-        list.add(p1[4]);
+        //文件更正标志
+        if("000".equals(p1[8])){
+            list.add("是");
+        }else {
+            list.add("否");
+        }
 
         String[] p2 = P2.split("\\s+");
-        String[] p3 = P3.split("\\s+");
-        String[] p4 = P4.split("\\s+");
-        String[] p5 = P5.split("\\s+");
-        String[] p6 = P6.split("\\s+");
-        String[] p7 = P7.split("\\s+");
-        String[] p8 = P8.split("\\s+");
-        String[] p9 = P9.split("\\s+");
-        String[] p10 = P10.split("\\s+");
-        String[] p11 = P11.split("\\s+");
-        String[] p12 = P12.split("\\s+");
-        String[] p13 = P13.split("\\s+");
-        String[] p14 = P14.split("\\s+");
-        String[] p15 = P15.split("\\s+");
+        //本站气压
+        num = Integer.valueOf(p2[1]);
+        list.add(String.format("%.1f",num*0.1)+"hPa");
+        //海平面气压
+        num = Integer.valueOf(p2[2]);
+        list.add(String.format("%.1f",num*0.1)+"hPa");
+        //最高本站气压
+        num = Integer.valueOf(p2[5]);
+        list.add(String.format("%.1f",num*0.1)+"hPa");
+        //最高本站气压出现时间
+        list.add(p2[6].substring(0,2)+":"+p2[6].substring(2,4));
+        //最低本站气压
+        num = Integer.valueOf(p2[7]);
+        list.add(String.format("%.1f",num*0.1)+"hPa");
+        //最低本站气压出现时间
+        list.add(p2[8].substring(0,2)+":"+p2[8].substring(2,4));
 
+        String[] p3 = P3.split("\\s+");
+        //气温
+        num = Integer.valueOf(p3[1]);
+        list.add(String.format("%.1f",100-num*0.1)+"℃");
+        //最高气温
+        num = Integer.valueOf(p3[2]);
+        list.add(String.format("%.1f",100-num*0.1)+"℃");
+        //最高气温出现时间
+        list.add(p3[3].substring(0,2)+":"+p3[3].substring(2,4));
+        //最低气温
+        num = Integer.valueOf(p3[4]);
+        list.add(String.format("%.1f",100-num*0.1)+"℃");
+        //最低气温出现时间
+        list.add(p3[5].substring(0,2)+":"+p3[5].substring(2,4));
+        //露点温度
+        num = Integer.valueOf(p3[9]);
+        list.add(String.format("%.1f",100-num*0.1)+"℃");
+        //相对湿度
+        list.add(p3[10]+"%");
+        //最小相对湿度
+        list.add(p3[11]+"%");
+        //最小相对湿度出现时间
+        list.add(p3[12].substring(0,2)+":"+p3[12].substring(2,4));
+        //水汽压
+        num = Integer.valueOf(p3[13]);
+        list.add(String.format("%.1f",num*0.1)+"hPa");
+
+        String[] p4 = P4.split("\\s+");
+        //小时降水量
+        num = Integer.valueOf(p4[1]);
+        list.add(String.format("%.1f",num*0.1)+"mm");
+
+        String[] p5 = P5.split("\\s+");
+        //两分钟风向
+        list.add(p5[1]+"°");
+        //两分钟平均风速
+        num = Integer.valueOf(p5[2]);
+        list.add(String.format("%.1f",num*0.1)+"m/s");
+        //十分钟风向
+        list.add(p5[3]+"°");
+        //十分钟平均风速
+        num = Integer.valueOf(p5[4]);
+        list.add(String.format("%.1f",num*0.1)+"m/s");
+        //最大风速风向
+        list.add(p5[5]+"°");
+        //最大风速
+        num = Integer.valueOf(p5[6]);
+        list.add(String.format("%.1f",num*0.1)+"m/s");
+        //最大风速出现时间
+        list.add(p5[7].substring(0,2)+":"+p5[7].substring(2,4));
+        //瞬时风向
+        list.add(p5[8]+"°");
+        //瞬时风速
+        num = Integer.valueOf(p5[9]);
+        list.add(String.format("%.1f",num*0.1)+"m/s");
+
+        String[] p6 = P6.split("\\s+");
+        //地表温度
+        num = Integer.valueOf(p6[1]);
+        list.add(String.format("%.1f",100-num*0.1)+"℃");
+        //地表最高温度
+        num = Integer.valueOf(p6[2]);
+        list.add(String.format("%.1f",100-num*0.1)+"℃");
+        //地表最高温度出现时间
+        list.add(p6[3].substring(0,2)+":"+p6[3].substring(2,4));
+        //地表最低温度
+        num = Integer.valueOf(p6[4]);
+        list.add(String.format("%.1f",100-num*0.1)+"℃");
+        //地表最低温度出现时间
+        list.add(p6[5].substring(0,2)+":"+p6[5].substring(2,4));
 
         return list;
     }

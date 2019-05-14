@@ -151,27 +151,27 @@ public class SecondJob implements Job {
                 recordService.insert(record);
                 //放入历史文件夹
                 FileUtils.moveFile(file, successFile);
-                LOGGER.info(file.getName()+"处理成功!");
+                LOGGER.info(file.getName() + "处理成功!");
             } else {
                 dealAll(dealPath);
                 Record record = new Record(timerSeq, failPath, "1", "处理成png图片时失败！");
                 recordService.insert(record);
                 //放入失败文件夹
                 FileUtils.moveFile(file, failFile);
-                LOGGER.info(file.getName()+"处理失败！");
-                LOGGER.error(file.getName()+"处理失败,处理成png图片时失败,可能zip内文件数据不对！");
+                LOGGER.info(file.getName() + "处理失败！");
+                LOGGER.error(file.getName() + "处理失败,处理成png图片时失败,可能zip内文件数据不对！");
             }
         } catch (IOException e) {
-            LOGGER.info(file.getName()+"处理失败！");
+            LOGGER.info(file.getName() + "处理失败！");
             dealAll(file.getAbsolutePath());
             Record record = new Record(timerSeq, failPath, "1", "移动失败文件时出现错误");
             recordService.insert(record);
             //放入失败文件夹
             try {
                 FileUtils.moveFile(file, failFile);
-                LOGGER.error(file.getName()+"处理失败："+e.getMessage());
+                LOGGER.error(file.getName() + "处理失败：" + e.getMessage());
             } catch (IOException e1) {
-                LOGGER.error(file.getName()+"移入fail文件夹失败："+e.getMessage());
+                LOGGER.error(file.getName() + "移入fail文件夹失败：" + e.getMessage());
             }
         }
 
@@ -224,7 +224,7 @@ public class SecondJob implements Job {
                     zip.close();
                 }
             } catch (IOException e) {
-                LOGGER.error("关闭zip文件流失败: "+e.getMessage());
+                LOGGER.error("关闭zip文件流失败: " + e.getMessage());
             }
         }
     }
@@ -287,15 +287,15 @@ public class SecondJob implements Job {
     private void dealAll(String path) {
         try {
             File file = new File(path);
-            if(!file.exists()){
+            if (!file.exists()) {
                 return;
             }
             // 当且仅当此抽象路径名表示的文件存在且 是一个目录时，返回 true
             if (!file.isDirectory()) {
                 file.delete();
-            }else{
+            } else {
                 String[] filelist = file.list();
-                if (filelist == null){
+                if (filelist == null) {
                     return;
                 }
                 for (int i = 0; i < filelist.length; i++) {
@@ -310,7 +310,7 @@ public class SecondJob implements Job {
             }
 
         } catch (Exception e) {
-            LOGGER.error("删除解压后的文件夹失败："+e.getMessage());
+            LOGGER.error("删除解压后的文件夹失败：" + e.getMessage());
         }
     }
 }
