@@ -12,7 +12,7 @@
         INSERT INTO
         RADAR_INFO(GDRFILEPATH,GRDFILEPATH)
         VALUES
-        (#{gdrFilePath},#{grdFilePath})
+        (#{gdrFilePath,jdbcType=VARCHAR},#{grdFilePath,jdbcType=VARCHAR})
     </insert>
 
     <select id="queryBySeq" resultType="Radar" parameterType="Long">

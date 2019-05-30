@@ -2,7 +2,6 @@ package com.tt.msg.controller;
 
 import com.tt.msg.entity.*;
 import com.tt.msg.service.RecordService;
-import com.tt.msg.utils.DateString;
 import com.tt.msg.utils.HttpServletRequestUtil;
 import com.tt.msg.utils.excel.ViewExcel;
 import org.slf4j.Logger;
@@ -120,7 +119,6 @@ public class RecordController {
     @RequestMapping(value = "/export", method = RequestMethod.POST)
     public ModelAndView export(ModelMap map, HttpServletRequest request){
         String fileName = HttpServletRequestUtil.getString(request, "fileName");
-        System.out.println(fileName);
         RecordForm recordForm = this.setValue(request);
         List<Map<String, String>> list = recordService.getExcelDate(recordForm);
         String[] titles = {"序号","报文类型","处理时间","处理结果","失败原因","处理文件现所在位置"};

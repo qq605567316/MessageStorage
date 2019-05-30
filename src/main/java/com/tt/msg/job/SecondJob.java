@@ -129,9 +129,14 @@ public class SecondJob implements Job {
             for (File f : files) {
                 if (f.getName().endsWith("gdr")) {
                     retmap = this.dealGDRFile(f);
-
+                    if ((Integer) retmap.get("RETCODE") != 1){
+                        break;
+                    }
                 } else if (f.getName().endsWith("grd")) {
                     retmap = this.dealGRDFile(f);
+                    if ((Integer) retmap.get("RETCODE") != 1){
+                        break;
+                    }
                 } else {
                     continue;
                 }

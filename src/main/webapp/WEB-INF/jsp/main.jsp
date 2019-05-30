@@ -105,7 +105,7 @@
             </li>
             <li class="sidebar-nav-link">
                 <a href="${path}/record/list.action">
-                    <i class="am-icon-calendar sidebar-nav-link-logo"></i> 处理记录
+                    <i class="am-icon-calendar sidebar-nav-link-logo"></i> 处理日志
                 </a>
             </li>
 

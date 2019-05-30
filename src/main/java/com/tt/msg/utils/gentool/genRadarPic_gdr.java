@@ -57,7 +57,7 @@ public class genRadarPic_gdr {
 
         colors[5] = new Color(128, 0, 0);
         colors[4] = new Color(255, 0, 0);
-        colors[3] = Color.YELLOW;
+        colors[3] = new Color(255, 255, 0);
         colors[2] = new Color(0, 180, 170);
         colors[1] = new Color(0, 255, 90);
         colors[0] = new Color(255, 255, 255);
@@ -144,7 +144,6 @@ public class genRadarPic_gdr {
         } catch (Exception ex) {
             retmap.put("RETCODE", 0);
             retmap.put("RETMSG", ex.getMessage());
-            ex.printStackTrace();
         } finally {
             try {
                 if (br != null) {
@@ -158,9 +157,9 @@ public class genRadarPic_gdr {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return retmap;
         }
 
-        return retmap;
     }
 
     Color findcolor(double value) {
@@ -174,42 +173,37 @@ public class genRadarPic_gdr {
         return c;
     }
 
-    String drawImage(String filepath, String filename) {
-        try {
-            BufferedImage bi = new BufferedImage(_width, _height,
-                    BufferedImage.TYPE_INT_RGB);
+    String drawImage(String filepath, String filename) throws Exception{
+        BufferedImage bi = new BufferedImage(_width, _height,
+                BufferedImage.TYPE_INT_RGB);
 
-            Graphics2D g2d = bi.createGraphics();
+        Graphics2D g2d = bi.createGraphics();
 
-            bi = g2d.getDeviceConfiguration().createCompatibleImage(_width,
-                    _height, Transparency.TRANSLUCENT);
+        bi = g2d.getDeviceConfiguration().createCompatibleImage(_width,
+                _height, Transparency.TRANSLUCENT);
 
-            for (int row = 0; row < _width; row++) {
-                for (int col = 0; col < _height; col++) {
-                    double val = _gridData[row][col];
-                    Color c = findcolor(val);
-                    if (c != null) {
-                        if (c.getRGB() != (Color.WHITE).getRGB()) {
-                            bi.setRGB(row, col, c.getRGB());
-                        }
+        for (int row = 0; row < _width; row++) {
+            for (int col = 0; col < _height; col++) {
+                double val = _gridData[row][col];
+                Color c = findcolor(val);
+                if (c != null) {
+                    if (c.getRGB() != (Color.WHITE).getRGB()) {
+                        bi.setRGB(row, col, c.getRGB());
                     }
                 }
             }
-
-            g2d.dispose();
-
-            filename = filename.replace(".","_");
-            // 保存文件
-            OutputStream out = new FileOutputStream(new File(filepath
-                    + File.separator + filename + ".png"));
-            ImageIO.write(bi, "png", out);
-            out.close();
-            bi.flush();
-            return "s";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e.getMessage();
         }
+
+        g2d.dispose();
+
+        filename = filename.replace(".","_");
+        // 保存文件
+        OutputStream out = new FileOutputStream(new File(filepath
+                + File.separator + filename + ".png"));
+        ImageIO.write(bi, "png", out);
+        out.close();
+        bi.flush();
+        return "s";
     }
 
     public void setColor(Color[] colors) {

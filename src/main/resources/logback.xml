@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration scan="true" debug="false">
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <Target>System.out</Target>
         <encoder>
@@ -10,11 +10,11 @@
     </appender>
 
     <appender name="ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/MessageStorage.err.log</file>
+        <file>G:\logs\MessageStorage.err.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- drone rollover -->
             <fileNamePattern>
-                logs/MessageStorage.err.log.%d{yyyy-MM-dd}.gz
+                G:\logs\MessageStorage.err.log.%d{yyyy-MM-dd}.gz
             </fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -29,11 +29,11 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/MessageStorage.log</file>
+        <file>G:\logs\MessageStorage.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- drone rollover -->
             <fileNamePattern>
-                logs/MessageStorage.log.%d{yyyy-MM-dd}.gz
+                G:\logs\MessageStorage.log.%d{yyyy-MM-dd}.gz
             </fileNamePattern>
             <maxHistory>120</maxHistory>
         </rollingPolicy>
@@ -69,7 +69,7 @@
     </logger>
 
     <root>
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="ERR"/>
         <appender-ref ref="STDOUT"/>

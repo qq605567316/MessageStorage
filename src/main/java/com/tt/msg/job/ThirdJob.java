@@ -12,14 +12,12 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -117,7 +115,7 @@ public class ThirdJob implements Job {
      * @return
      */
     public boolean realFile(String fileName){
-        String fileRegex = "^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})(((0[13578]|1[02])(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)(0[1-9]|[12][0-9]|30))|(02(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))0229))\\.([0-1][0-9]|2[0-3])([0-5][0-9])([0-5][0-9])\\.\\d{2}\\.\\d{2}.\\d{3}$";
+        String fileRegex = "^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})(((0[13578]|1[02])(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)(0[1-9]|[12][0-9]|30))|(02(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))0229))\\.([0-1][0-9]|2[0-3])([0-5][0-9])([0-5][0-9])\\.\\d{2}\\.\\d{2}\\.\\d{3}$";
         return Pattern.matches(fileRegex,fileName);
     }
 }

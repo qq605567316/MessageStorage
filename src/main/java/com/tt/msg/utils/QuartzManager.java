@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Quartz调度管理器
- *
- * @author Administrator
  */
 public class QuartzManager {
 
@@ -182,9 +180,12 @@ public class QuartzManager {
         try {
             Scheduler sched = schedulerFactory.getScheduler();
             TriggerKey triggerKey = TriggerKey.triggerKey(TRIGGER_NAME, TRIGGER_GROUP_NAME);
-            sched.pauseTrigger(triggerKey);// 停止触发器
-            sched.unscheduleJob(triggerKey);// 移除触发器
-            sched.deleteJob(JobKey.jobKey(jobName, JOB_GROUP_NAME));// 删除任务
+            // 停止触发器
+            sched.pauseTrigger(triggerKey);
+            // 移除触发器
+            sched.unscheduleJob(triggerKey);
+            // 删除任务
+            sched.deleteJob(JobKey.jobKey(jobName, JOB_GROUP_NAME));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -202,9 +203,12 @@ public class QuartzManager {
         try {
             Scheduler sched = schedulerFactory.getScheduler();
             TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, triggerGroupName);
-            sched.pauseTrigger(triggerKey);// 停止触发器
-            sched.unscheduleJob(triggerKey);// 移除触发器
-            sched.deleteJob(JobKey.jobKey(jobName, jobGroupName));// 删除任务
+            // 停止触发器
+            sched.pauseTrigger(triggerKey);
+            // 移除触发器
+            sched.unscheduleJob(triggerKey);
+            // 删除任务
+            sched.deleteJob(JobKey.jobKey(jobName, jobGroupName));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

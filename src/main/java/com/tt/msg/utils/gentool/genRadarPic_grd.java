@@ -134,20 +134,12 @@ public class genRadarPic_grd {
                     _height = Integer.parseInt(ss[1].trim());
                     _gridData = new double[_width][_height];
                     gridData = new double[_height][_width];
-                } else if (linenum > 5 && f.getName().endsWith(".grd")) {
+                } else if (linenum > 5) {
                     // 开始初始化格点数据
                     String[] ss = inLine.split(" ");
                     for (int col = 0; col < ss.length; col++) {
                         double d = Double.parseDouble(ss[col].trim());
                         gridData[gridrow][col] = d / 2 - 32;
-                    }
-                    gridrow++;
-                } else if (linenum > 5 && f.getName().endsWith(".gdr")) {
-                    // 开始初始化格点数据
-                    String[] ss = inLine.split(" ");
-                    for (int col = 0; col < ss.length; col++) {
-                        double d = Double.parseDouble(ss[col].trim());
-                        gridData[gridrow][col] = d / 100;
                     }
                     gridrow++;
                 }
@@ -173,7 +165,6 @@ public class genRadarPic_grd {
         } catch (Exception ex) {
             retmap.put("RETCODE", 0);
             retmap.put("RETMSG", ex.getMessage());
-            ex.printStackTrace();
         } finally {
             try {
                 if (br != null) {
@@ -187,47 +178,43 @@ public class genRadarPic_grd {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return retmap;
         }
 
-        return retmap;
     }
 
-    String drawImage(String filepath, String filename) {
-        try {
-            BufferedImage bi = new BufferedImage(_width, _height,
-                    BufferedImage.TYPE_INT_RGB);
+    String drawImage(String filepath, String filename) throws Exception{
+        //设置长宽和灰度
+        BufferedImage bi = new BufferedImage(_width, _height,
+                BufferedImage.TYPE_INT_RGB);
 
-            Graphics2D g2d = bi.createGraphics();
+        Graphics2D g2d = bi.createGraphics();
 
-            bi = g2d.getDeviceConfiguration().createCompatibleImage(_width,
-                    _height, Transparency.TRANSLUCENT);
+        //设置设置长宽和透明度
+        bi = g2d.getDeviceConfiguration().createCompatibleImage(_width,
+                _height, Transparency.TRANSLUCENT);
 
-            for (int row = 0; row < _width; row++) {
-                for (int col = 0; col < _height; col++) {
-                    double val = _gridData[row][col];
-                    Color c = findcolor(val);
-                    if (c != null) {
-                        if (c.getRGB() != (Color.WHITE).getRGB()) {
-                            bi.setRGB(row, col, c.getRGB());
-                        }
+        for (int row = 0; row < _width; row++) {
+            for (int col = 0; col < _height; col++) {
+                double val = _gridData[row][col];
+                Color c = findcolor(val);
+                if (c != null) {
+                    if (c.getRGB() != (Color.WHITE).getRGB()) {
+                        bi.setRGB(row, col, c.getRGB());
                     }
-                    // }
                 }
             }
-
-            g2d.dispose();
-            filename = filename.replace(".","_");
-            // 保存文件
-            OutputStream out = new FileOutputStream(new File(filepath
-                    + File.separator + filename + ".png"));
-            ImageIO.write(bi, "png", out);
-            out.close();
-            bi.flush();
-            return "s";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e.getMessage();
         }
+
+        g2d.dispose();
+        filename = filename.replace(".","_");
+        // 保存文件
+        OutputStream out = new FileOutputStream(new File(filepath
+                + File.separator + filename + ".png"));
+        ImageIO.write(bi, "png", out);
+        out.close();
+        bi.flush();
+        return "s";
     }
 
     Color findcolor(double value) {
